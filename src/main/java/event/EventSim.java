@@ -27,16 +27,12 @@ public class EventSim {
 
 
     public EventSim(long timeLimit) {
-
-
-
         out = new OutFile();
-
         this.timeLimit = timeLimit;
         que = new PriorityQueue<>((e1, e2) -> {
            if(e1.timeStart < e2.timeStart) return -1;
            else if(e1.timeStart > e2.timeStart) return 1;
-           else return -1;
+           else return 0;
         });
     }
 

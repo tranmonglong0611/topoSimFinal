@@ -2,7 +2,7 @@ package network;
 
 import event.Event;
 import event.EventSim;
-import topo.RoutingAlgorithm;
+import routing.RoutingAlgorithm;
 
 import java.util.HashMap;
 import java.util.Map;

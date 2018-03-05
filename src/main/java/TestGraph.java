@@ -1,19 +1,21 @@
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import topo.FatTree.FatTreeExp;
-import topo.FatTree.FatTreeGraph;
-import topo.FatTree.FatTreeRouting;
-import topo.SpaceShuffle.SpaceShuffleGraph;
-import topo.SpaceShuffle.SpaceShuffleRouting;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class TestGraph {
+public class TestGraph extends Application{
 
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.show();
+    }
 
 
     public static void main(String[] args) {
-        Logger logger = LogManager.getLogger(FatTreeExp.class.getName());
-        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(10, 7,  2);
-        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        logger.info(ftGraph.toString());
+        launch(args);
     }
 }

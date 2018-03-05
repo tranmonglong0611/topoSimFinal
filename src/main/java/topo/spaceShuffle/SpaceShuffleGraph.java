@@ -1,4 +1,4 @@
-package topo.SpaceShuffle;
+package topo.spaceShuffle;
 
 import topo.Graph;
 
@@ -21,7 +21,6 @@ public class SpaceShuffleGraph extends Graph {
 
     private List<Integer> hosts;
     private List<Integer> switches;
-
 
     /**
      * standPoint[d][i] is the stand point value in [0, 1) of vertex i in dimension d
@@ -47,45 +46,36 @@ public class SpaceShuffleGraph extends Graph {
         this.nHost = nSwitch * (this.nPort - this.r);
         this.numV = nSwitch + nHost;
 
-
         adj = (List<Integer>[]) new List[numV];
         for (int v = 0; v < numV; v++) {
             adj[v] = new ArrayList<Integer>();
         }
 
-
         this.standPoint = new double[nDimension][nSwitch];
         this.verticesInOrder = new int[nDimension][nSwitch];
 
-
-
-        for(int i = 0; i < nDimension; i++) {
-            for(int j = 0; j < nSwitch; j++) {
-
+        for (int i = 0; i < nDimension; i++) {
+            for (int j = 0; j < nSwitch; j++) {
                 verticesInOrder[i][j] = j;
             }
         }
 
         Random random = new Random();
         //generate random standpoint for each vertex in each dimension
-        for(int i = 0; i < nDimension; i++) {
-            for(int j = 0; j < nSwitch; j++) {
+        for (int i = 0; i < nDimension; i++) {
+            for (int j = 0; j < nSwitch; j++) {
                 double r = random.nextDouble();
                 standPoint[i][j] = r;
             }
         }
 
         IntStream.range(0, nDimension).forEach(d -> {
-                verticesInOrder[d] = Arrays.stream(verticesInOrder[d]).boxed().sorted((v1, v2) -> {
-                    if (standPoint[d][v1] < standPoint[d][v2]) return -1;
-                    else return 1;
-                }).mapToInt(i -> i).toArray();
-            }
+                    verticesInOrder[d] = Arrays.stream(verticesInOrder[d]).boxed().sorted((v1, v2) -> {
+                        if (standPoint[d][v1] < standPoint[d][v2]) return -1;
+                        else return 1;
+                    }).mapToInt(i -> i).toArray();
+                }
         );
-
-
-
-
 
         // add neighbors to each vertex using its order on each dimension
         for (int d = 0; d < nDimension; d++) {
@@ -98,24 +88,25 @@ public class SpaceShuffleGraph extends Graph {
                         addEdge(u, n);
                         System.out.println("add edge: " + u + "====" + n);
                     }
-                    //add new to test
-
-                    else {
-                        int[] vAvail = IntStream.range(0, numV).
-                                filter(v -> !hasEdge(u, v) && u != v && degree(v) < r).toArray();
-
-                        if(vAvail.length > 0) {
-                            int v = vAvail[random.nextInt(vAvail.length)];
-                            addEdge(u, v);
-                        }
-                    }
                 }
             }
         }
+        //add new to test
+
+        for (int i = 0; i < nSwitch; i++) {
+            int u = i;
+            int[] vAvail = IntStream.range(0, nSwitch).
+                    filter(v -> !hasEdge(u, v) && u != v && degree(v) < r && degree(u) < r).toArray();
+
+            if (vAvail.length > 0) {
+                int v = vAvail[random.nextInt(vAvail.length)];
+                System.out.println("fuck edge: " + u + "====" + v);
+                addEdge(u, v);
+            }
+        }
+
+
         System.out.println(this.toString());
-
-
-
 
 
         // Add edges between host and switch
@@ -152,28 +143,25 @@ public class SpaceShuffleGraph extends Graph {
         return res;
     }
 
-
-
     @Override
     public List<Integer> hosts() {
-        if(hosts != null) return hosts;
+        if (hosts != null) return hosts;
 
         hosts = new ArrayList<>();
-        for(int i = nSwitch; i < numV; i++) {
+        for (int i = nSwitch; i < numV; i++) {
             hosts.add(i);
         }
         return hosts;
-
 
 
     }
 
     @Override
     public List<Integer> switches() {
-        if(switches != null) return switches;
+        if (switches != null) return switches;
 
         switches = new ArrayList<>();
-        for(int i = 0; i < nSwitch; i++) {
+        for (int i = 0; i < nSwitch; i++) {
             switches.add(i);
         }
 

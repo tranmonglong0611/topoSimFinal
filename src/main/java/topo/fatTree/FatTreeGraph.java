@@ -1,4 +1,4 @@
-package topo.FatTree;
+package topo.fatTree;
 
 import topo.Address;
 import topo.Graph;

@@ -1,1 +1,1 @@
-Average Packet Travel: 55
+Average Packet Travel: 25

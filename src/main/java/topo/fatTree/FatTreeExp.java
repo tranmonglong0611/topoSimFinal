@@ -1,4 +1,4 @@
-package topo.FatTree;
+package topo.fatTree;
 
 import event.Event;
 import event.EventSim;
@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import topo.Experiment;
+import topo.spaceShuffle.SpaceShuffleGraph;
+import topo.spaceShuffle.SpaceShuffleRouting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,25 +22,10 @@ public class FatTreeExp {
 
 
         Logger logger = LogManager.getLogger(FatTreeExp.class.getName());
-//        String parameter = "tamolo";
-//        if(logger.isDebugEnabled()){
-//            logger.debug("This is debug : " + parameter);
-//        }
-//
-//        if(logger.isInfoEnabled()){
-//            logger.info("This is info : " + parameter);
-//        }
-//
-//        logger.warn("This is warn : " + parameter);
-//        logger.error("This is error : " + parameter);
-//        logger.fatal("This is fatal : " + parameter);
-        FatTreeGraph ftGraph = new FatTreeGraph(16);
-        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph, true);
+
+        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
+        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
         logger.info(ftGraph.toString());
-
-//        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(30, 12 , 2);
-//        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-
 
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();

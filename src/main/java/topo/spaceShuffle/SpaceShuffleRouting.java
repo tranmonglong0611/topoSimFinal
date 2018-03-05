@@ -1,7 +1,7 @@
-package topo.SpaceShuffle;
+package topo.spaceShuffle;
 
-import topo.RoutingAlgorithm;
-import topo.RoutingPath;
+import routing.RoutingAlgorithm;
+import routing.RoutingPath;
 
 public class SpaceShuffleRouting extends RoutingAlgorithm {
     private SpaceShuffleGraph G;
