@@ -43,6 +43,7 @@ public class EventSim {
             while(ite.hasNext()) {
                 Event pk = (Event)ite.next();
                 out.append(pk.info() + "\tEventTime " +  pk.timeStart);
+                System.out.println(pk.info() + "\tEventTime " +  pk.timeStart);
             }
 
             if(timeLimit < systemTime ){
@@ -51,6 +52,7 @@ public class EventSim {
             Event e = que.poll();
             systemTime = e.timeStart;
             e.execute();
+
         }
     }
 

@@ -86,7 +86,6 @@ public class SpaceShuffleGraph extends Graph {
                 for (int n : ns) {
                     if (!hasEdge(u, n)) {
                         addEdge(u, n);
-                        System.out.println("add edge: " + u + "====" + n);
                     }
                 }
             }
@@ -100,7 +99,6 @@ public class SpaceShuffleGraph extends Graph {
 
             if (vAvail.length > 0) {
                 int v = vAvail[random.nextInt(vAvail.length)];
-                System.out.println("fuck edge: " + u + "====" + v);
                 addEdge(u, v);
             }
         }

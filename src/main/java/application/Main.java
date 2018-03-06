@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import topo.fatTree.FatTreeGraph;
+import topo.jellyFish.JellyFishGraph;
 import topo.smallWorld.SWRingGraph;
 
 
@@ -33,7 +34,7 @@ public class Main extends Application {
 
         addGraphComponents();
 
-        Layout layout = new SmallWorldLayout(graph);
+        Layout layout = new RandomLayout(graph);
         layout.execute();
     }
 
@@ -73,7 +74,7 @@ public class Main extends Application {
 //            }
 //        }
 
-        SWRingGraph temp = new SWRingGraph(15, 4, 0.2);
+        JellyFishGraph temp = new JellyFishGraph(5, 4, 2);
         for (int i = 0; i < temp.getNumV(); i++) {
             if (temp.isHostVertex(i)) model.addCell(Integer.toString(i), CellType.HOST);
             else {
@@ -82,12 +83,9 @@ public class Main extends Application {
 
         }
         for (int i = 0; i < temp.getNumV(); i++) {
-            System.out.print(i);
             for (int j = 0; j < temp.adj(i).size(); j++) {
-                System.out.print("====" + temp.adj(i).get(j));
                 model.addEdge(Integer.toString(i), Integer.toString(temp.adj(i).get(j)));
             }
-            System.out.println();
         }
 
 

@@ -70,7 +70,7 @@ public class FatTreeExp {
         Experiment e = new Experiment(sim);
 
 
-        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());
+//        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());
 
     }
 }
