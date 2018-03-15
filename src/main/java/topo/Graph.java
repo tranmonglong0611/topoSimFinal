@@ -1,19 +1,32 @@
 package topo;
 
+import javafx.util.Pair;
+
+import java.io.*;
 import java.util.*;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.
  */
-public abstract class Graph {
+public abstract class Graph implements Serializable, Cloneable {
 
+    private static final long serialVersionUID = 1L;
     protected int numV;
     protected int numE;
     protected List<Integer>[] adj;
 
     public void addEdge(int v, int w) {
 
-        if(hasEdge(v, w)) return;
+        if (adj[v] == null) {
+            adj[v] = new ArrayList<>();
+        }
+        if (adj[w] == null) {
+            adj[w] = new ArrayList<>();
+        }
+        if (hasEdge(v, w) ) {
+            return;
+        }
+
         numE++;
         adj[v].add(w);
         adj[w].add(v);
@@ -21,11 +34,16 @@ public abstract class Graph {
 
 
     public abstract List<Integer> hosts();
+
     public abstract List<Integer> switches();
-    public List<Integer> adj(int v) { return adj[v]; }
+
+    public List<Integer> adj(int v) {
+        return adj[v];
+    }
 
 
     public abstract boolean isHostVertex(int v);
+
     public abstract boolean isSwitchVertex(int v);
 
     public boolean hasEdge(int u, int v) {
@@ -39,21 +57,77 @@ public abstract class Graph {
     public int getNumE() {
         return numE;
     }
+
     public int degree(int u) {
         return adj[u].size();
     }
 
-    public void removeEdge(int u, int v) {
-        if(!hasEdge(u, v)) {
-            System.out.println("Edge do not exist to delete");
+    public List<Pair<Integer, Integer>> removeNode(int u) {
+
+        List<Pair<Integer, Integer>> result = new ArrayList<>();
+
+        for(int i = 0; i < adj(u).size(); i++) {
+            result.add(new Pair(u, adj(u).get(i)));
         }
-        else {
+        while(adj(u).size() > 0) {
+            removeEdge(u, adj(u).get(0));
+        }
+        return result;
+
+    }
+
+    public void removeEdge(int u, int v) {
+        if (!hasEdge(u, v)) {
+//            System.out.println("Edge" + u + "--" + v + "do not exist to delete");
+        } else {
 
             adj[u].remove(adj[u].indexOf(v));
             adj[v].remove(adj[v].indexOf(u));
             numE--;
         }
     }
+
+    //    public List<List<Integer>> allShortestPath(int from, int to) {
+//        //key is node and value is previous node. One key node can have many previous node
+//        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+//        List<List<Integer>> paths = new ArrayList<>();
+//
+//        Map<Pair<Integer, Integer>, Boolean> visited = new HashMap();
+////        boolean[][] visited = new boolean[his.numEV][this.numV];
+//
+//        Map<Integer, List<Pair<Integer, Integer>>> trace = new HashMap<>();
+////        Map<Pair<Integer, Integer>>
+//
+//        Pair<Integer, Integer> start = new Pair(0, 0);
+//        queue.add(start);
+//        visited.put(start, true);
+//        trace.put(from, null);
+//
+//        while(!queue.isEmpty()) {
+//            Pair<Integer, Integer> popNode = queue.remove();
+//            if(popNode.getKey() == to) {
+//                // todo get paths
+//                List<Integer> path = new ArrayList<>();
+////                List<Pair<Integer, Integer>> previousNode =
+//                while(trace.get(to)) {
+//
+//                }
+//                break;
+//            }
+//
+//            for(int neighbor:adj(popNode.getKey())) {
+//                if(trace.containsKey(neighbor)) {
+//
+//                }else {
+//                    trace.put(neighbor, new ArrayList<>());
+//                }
+//                trace.get(neighbor).add(popNode);
+//                queue.add(new Pair(neighbor, popNode.getKey()));
+//
+//            }
+//        }
+//    }
+    //using BFS
     public List<Integer> shortestPath(int u, int v) {
         Queue<Integer> queue = new LinkedList<Integer>();
         List<Integer> path = new ArrayList<>();
@@ -62,11 +136,14 @@ public abstract class Graph {
         queue.add(u);
         visited[u] = true;
         trace[u] = -1;
-        while(!queue.isEmpty()) {
+
+//        System.out.println(this.toString());
+//        System.out.println("===============");
+        while (!queue.isEmpty()) {
             int uNode = queue.remove();
             if (uNode == v) {
                 path.add(v);
-                while(trace[v] != -1) {
+                while (trace[v] != -1) {
                     v = trace[v];
                     path.add(v);
                 }
@@ -74,7 +151,12 @@ public abstract class Graph {
                 break;
             }
 
-            for (int vNode:this.adj(uNode)) {
+//            for(int i = 0; i < this.adj(uNode).size(); i++) {
+//                System.out.print(this.adj(uNode).get(i) + "----");
+//            }
+//            System.out.println();
+
+            for (int vNode : this.adj(uNode)) {
                 if (!visited[vNode]) {
                     visited[vNode] = true;
                     trace[vNode] = uNode;
@@ -82,14 +164,37 @@ public abstract class Graph {
                 }
             }
         }
+
         return path;
+    }
+
+
+    public void writeToFile(String path) {
+
+        try {
+            FileOutputStream f = new FileOutputStream(new File(path));
+            ObjectOutputStream o = new ObjectOutputStream(f);
+
+
+            // Write objects to file
+            o.writeObject(this);
+
+            o.close();
+            f.close();
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        }
     }
 
 
     public String toString() {
         String result = "";
 
-        for(int i = 0; i < numV; i++) {
+        for (int i = 0; i < numV; i++) {
             String temp = i + "-";
 
             for (int j = 0; j < adj[i].size(); j++) {
@@ -99,5 +204,10 @@ public abstract class Graph {
             result += temp;
         }
         return result;
+    }
+
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

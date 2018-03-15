@@ -1,4 +1,4 @@
-package topo;
+package topo.fatTree;
 
 /**
  * Created by tranmonglong0611 on 29/11/2017.

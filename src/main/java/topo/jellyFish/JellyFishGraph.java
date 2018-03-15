@@ -61,7 +61,6 @@ public class JellyFishGraph extends Graph {
                         if (hasEdge(v1, v2)) {
                             isReplaced = true;
                             removeEdge(v1, v2);
-                            System.out.println("11addedge" + vertexAvail[0] + "===" + v1 + "====" + v2);
                             addEdge(vertexAvail[0], v1);
                             addEdge(vertexAvail[0], v2);
                             break;
@@ -82,16 +81,14 @@ public class JellyFishGraph extends Graph {
                         if (hasEdge(v1, v2)) {
                             isReplaced = true;
                             removeEdge(v1, v2);
-                            System.out.println("22addedge" + vertexAvail[0] + "===" + v1);
-                            System.out.println("22addedge" + vertexAvail[1] + "===" + v2);
 
                             addEdge(v1, vertexAvail[0]);
                             addEdge(v2, vertexAvail[1]);
+                            break;
                         }
                     }
                     if(isReplaced) break;
                 }
-                if (!isReplaced) System.out.println("SOMETHING WRONG2");
 
             } else {
                 int v1;
@@ -107,59 +104,10 @@ public class JellyFishGraph extends Graph {
                         break;
                     }
                 }
-                System.out.println("33addedge" + v1 + "===" + v2);
 
                 addEdge(v1, v2);
             }
         }
-//        while(true) {
-//            int[] vAvailPort = IntStream.range(0, nSwitch).filter(v -> degree(v) < r).toArray();
-//            if(vAvailPort.length <= 0) break;
-//            else if(vAvailPort.length == 1) {
-//                int v = vAvailPort[0];
-//
-//                //if just only 1 switch with 1 port avail so it is ok. Break loop now
-//                if(degree(v) == 1) break;
-//
-//                //random an edge randomV1, randomV2 and v1, v2 dont have connect to
-//                int[] listV = IntStream.range(0, nSwitch).filter(u -> !hasEdge(u, v)).toArray();
-//                boolean found = false;
-//                while(!found) {
-//                    int randomV1 = v;
-//                    while (randomV1 == v) {
-//                        randomV1 = listV[random.nextInt(listV.length)];
-//                    }
-//
-//                    //for loop to look for right vertex in adj of v1 to
-//                    for (int i = 0; i < listV.length; i++) {
-//                        if (hasEdge(randomV1, listV[i])) {
-//
-//                            removeEdge(randomV1, listV[i]);
-//                            addEdge(v, randomV1);
-//                            addEdge(v, listV[i]);
-//                            found = true;
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//            else {
-//                while (true) {
-//                    System.out.println("Fuck la");
-//                    int v1 = vAvailPort[random.nextInt(vAvailPort.length)];
-//
-//                    //list vertex that do not connect with v1 in vAvailport
-//                    int[] vNotConnect = Arrays.stream(vAvailPort).filter(v -> !hasEdge(v, v1) && v != v1).toArray();
-//                    if (vNotConnect.length == 0) {
-//                        continue;
-//                    } else {
-//                        int v2 = vNotConnect[random.nextInt(vNotConnect.length)];
-////                        addEdge(v1, v2);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
 
         //add host to switches
         for (int i = nSwitch; i < numV; i++) {

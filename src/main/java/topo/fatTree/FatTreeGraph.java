@@ -1,6 +1,5 @@
 package topo.fatTree;
 
-import topo.Address;
 import topo.Graph;
 
 import java.util.ArrayList;
