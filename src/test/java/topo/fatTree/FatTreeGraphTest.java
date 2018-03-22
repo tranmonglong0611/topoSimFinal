@@ -1,11 +1,17 @@
 package topo.fatTree;
 
 import org.junit.jupiter.api.Test;
+import topo.jellyFish.JellyFishGraph;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FatTreeGraphTest {
 
+    @Test
+    void temp() {
+        JellyFishGraph a = new JellyFishGraph(6, 4, 2);
+        System.out.println(a.toString());
+    }
     @Test
     void graphContruct() {
         FatTreeGraph fatGraph = new FatTreeGraph(4);

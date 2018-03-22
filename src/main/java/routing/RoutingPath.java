@@ -29,7 +29,7 @@ public class RoutingPath implements Cloneable, Comparable<RoutingPath>{
         return path.get(i);
     }
 
-    //get the new path until i th (exclusive i element)
+    //get the new path until i th (exclusive ith element)
     public RoutingPath cloneTo(int i) {
 
         List<Integer> list = new ArrayList<>();
@@ -66,10 +66,11 @@ public class RoutingPath implements Cloneable, Comparable<RoutingPath>{
 
     public String toString() {
         String result = "";
-        for(int a : path) {
-            result += "--" + a;
-        }
 
+        for(int i = 0; i < path.size() - 1; i++) {
+            result += path.get(i) + " -> ";
+        }
+        result += path.get(path.size() - 1);
         return result;
     }
 

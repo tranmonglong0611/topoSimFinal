@@ -9,8 +9,9 @@ class SpaceShuffleGraphTest {
 
     @Test
     void nDimension() {
-            SpaceShuffleGraph tester = new SpaceShuffleGraph(9,  6, 2);
-            assertEquals(2, tester.nDimension(), "dimension is 2");
+        SpaceShuffleGraph tester = new SpaceShuffleGraph(9, 6, 2);
+        System.out.printf(tester.toString());
+        assertEquals(2, tester.nDimension(), "dimension is 2");
     }
 
     @Test

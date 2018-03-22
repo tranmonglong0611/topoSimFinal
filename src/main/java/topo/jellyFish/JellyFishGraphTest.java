@@ -22,7 +22,7 @@ public class JellyFishGraphTest {
 //        System.out.println("Total degree: " + sum);
 
         try {
-            FileInputStream fi = new FileInputStream(new File("jellyFishGraphTest.txt"));
+            FileInputStream fi = new FileInputStream(new File("graphSaving/jellyFishGraphTest.txt"));
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             // Read objects

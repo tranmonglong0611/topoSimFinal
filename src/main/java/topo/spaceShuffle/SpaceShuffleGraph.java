@@ -104,9 +104,6 @@ public class SpaceShuffleGraph extends Graph {
         }
 
 
-        System.out.println(this.toString());
-
-
         // Add edges between host and switch
         int hostId = nSwitch;
         for (int i = 0; i < nSwitch; i++) {
@@ -115,7 +112,6 @@ public class SpaceShuffleGraph extends Graph {
                 hostId++;
             }
         }
-
     }
 
     public int nDimension() {

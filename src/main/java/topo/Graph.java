@@ -87,46 +87,6 @@ public abstract class Graph implements Serializable, Cloneable {
         }
     }
 
-    //    public List<List<Integer>> allShortestPath(int from, int to) {
-//        //key is node and value is previous node. One key node can have many previous node
-//        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-//        List<List<Integer>> paths = new ArrayList<>();
-//
-//        Map<Pair<Integer, Integer>, Boolean> visited = new HashMap();
-////        boolean[][] visited = new boolean[his.numEV][this.numV];
-//
-//        Map<Integer, List<Pair<Integer, Integer>>> trace = new HashMap<>();
-////        Map<Pair<Integer, Integer>>
-//
-//        Pair<Integer, Integer> start = new Pair(0, 0);
-//        queue.add(start);
-//        visited.put(start, true);
-//        trace.put(from, null);
-//
-//        while(!queue.isEmpty()) {
-//            Pair<Integer, Integer> popNode = queue.remove();
-//            if(popNode.getKey() == to) {
-//                // todo get paths
-//                List<Integer> path = new ArrayList<>();
-////                List<Pair<Integer, Integer>> previousNode =
-//                while(trace.get(to)) {
-//
-//                }
-//                break;
-//            }
-//
-//            for(int neighbor:adj(popNode.getKey())) {
-//                if(trace.containsKey(neighbor)) {
-//
-//                }else {
-//                    trace.put(neighbor, new ArrayList<>());
-//                }
-//                trace.get(neighbor).add(popNode);
-//                queue.add(new Pair(neighbor, popNode.getKey()));
-//
-//            }
-//        }
-//    }
     //using BFS
     public List<Integer> shortestPath(int u, int v) {
         Queue<Integer> queue = new LinkedList<Integer>();
@@ -137,8 +97,6 @@ public abstract class Graph implements Serializable, Cloneable {
         visited[u] = true;
         trace[u] = -1;
 
-//        System.out.println(this.toString());
-//        System.out.println("===============");
         while (!queue.isEmpty()) {
             int uNode = queue.remove();
             if (uNode == v) {
@@ -195,11 +153,12 @@ public abstract class Graph implements Serializable, Cloneable {
         String result = "";
 
         for (int i = 0; i < numV; i++) {
-            String temp = i + "-";
+            String temp = i + " -> [";
 
-            for (int j = 0; j < adj[i].size(); j++) {
-                temp += adj[i].get(j) + "-";
+            for (int j = 0; j < adj[i].size() - 1; j++) {
+                temp += adj[i].get(j) + " - ";
             }
+            temp += adj[i].get(adj[i].size() - 1) + "]";
             temp += "\n";
             result += temp;
         }

@@ -22,30 +22,26 @@ public class FatTreeRouting extends RoutingAlgorithm {
     private Map<Integer,
             Map<Pair<Integer, Integer>, Integer>> corePrefixTables = new HashMap<>();
 
-    public FatTreeRouting(FatTreeGraph G, boolean precomputed) {
+    public FatTreeRouting(FatTreeGraph G) {
         this.G = G;
         buildTables();
 
-        if (precomputed) {
-            List<Integer> hosts = G.hosts();
+        List<Integer> hosts = G.hosts();
 
-            for (int i = 0; i < hosts.size() - 1; i++) {
-                for (int j = i + 1; j < hosts.size(); j++) {
-                    int source = hosts.get(i);
-                    int destination = hosts.get(j);
-                    path(source, destination);
-                }
+        for (int i = 0; i < hosts.size() - 1; i++) {
+            for (int j = i + 1; j < hosts.size(); j++) {
+                int source = hosts.get(i);
+                int destination = hosts.get(j);
+                path(source, destination);
             }
-            for(Map.Entry<Pair<Integer, Integer>, RoutingPath> entry : precomputedPaths.entrySet()) {
-                Pair<Integer, Integer> key  = entry.getKey();
-                RoutingPath value = entry.getValue();
-
-            }
+        }
+        for(Map.Entry<Pair<Integer, Integer>, RoutingPath> entry : precomputedPaths.entrySet()) {
+            Pair<Integer, Integer> key  = entry.getKey();
+            RoutingPath value = entry.getValue();
         }
     }
 
     private void buildTables() {
-        // TODO - build prefix - suffix routing table
         int k = G.getK();
         int numEachPod = k * k / 4 + k;
 
@@ -186,13 +182,12 @@ public class FatTreeRouting extends RoutingAlgorithm {
             RoutingPath rp = new RoutingPath();
             int current = source;
             while (current != destination) {
-
                 if (current != source) {
                     rp.path.add(current);
                 }
                 current = next(source, current, destination);
-
             }
+//            rp.path.add(destination);
             precomputedPaths.put(new Pair<>(source, destination), rp);
             return rp;
         }

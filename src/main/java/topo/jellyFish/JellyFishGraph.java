@@ -1,5 +1,6 @@
 package topo.jellyFish;
 
+import common.Knuth;
 import topo.Graph;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.stream.IntStream;
 
 public class JellyFishGraph extends Graph {
 
+
     public final int nPort;
     public final int r;                 // r port to connect to another switch
 
@@ -19,7 +21,6 @@ public class JellyFishGraph extends Graph {
 
     private List<Integer> hosts;
     private List<Integer> switches;
-
 
     public JellyFishGraph(int nSwitch, int nPort, int r) {
         this.nSwitch = nSwitch;
@@ -38,8 +39,24 @@ public class JellyFishGraph extends Graph {
         //todo make random jelly fish graph
         Random random = new Random();
 
-        //list vertex still have avail port
+        //todo make graph connected
+        int[] intArray = IntStream.rangeClosed(0, nSwitch - 1).toArray();
+        Integer[] listSwitchSuffle = Arrays.stream(intArray).boxed().toArray(Integer[]::new);
+        Knuth.shuffle(listSwitchSuffle);
+        addEdge(listSwitchSuffle[0], listSwitchSuffle[1]);
+        for (int i = 2; i < listSwitchSuffle.length; i++) {
+            int[] switchAvail = IntStream.range(0, i - 1).filter(v -> degree(v) < r).toArray();
+            if (switchAvail.length < 1) {
+                System.out.println("SOMETHING WROND");
+                break;
+            } else {
+                int randomSwitch = switchAvail[random.nextInt(switchAvail.length)];
+                addEdge(i, randomSwitch);
+            }
+        }
 
+
+        //list vertex still have avail port
         while (true) {
             int[] vertexAvail = IntStream.range(0, nSwitch).filter(v -> degree(v) < r).toArray();
             if (vertexAvail.length == 0) break;
@@ -66,7 +83,7 @@ public class JellyFishGraph extends Graph {
                             break;
                         }
                     }
-                    if(isReplaced) break;
+                    if (isReplaced) break;
                 }
                 if (!isReplaced) System.out.println("SOMETHING WRONG");
             } else if (vertexAvail.length == 2 && hasEdge(vertexAvail[0], vertexAvail[1])) {
@@ -87,7 +104,7 @@ public class JellyFishGraph extends Graph {
                             break;
                         }
                     }
-                    if(isReplaced) break;
+                    if (isReplaced) break;
                 }
 
             } else {
@@ -98,7 +115,7 @@ public class JellyFishGraph extends Graph {
                     int[] vNotConnect = Arrays.stream(vertexAvail).filter(v -> !hasEdge(v, rv1) && v != rv1).toArray();
                     if (vNotConnect.length == 0) {
                         continue;
-                    }else {
+                    } else {
                         v1 = rv1;
                         v2 = vNotConnect[random.nextInt(vNotConnect.length)];
                         break;

@@ -39,7 +39,10 @@ public class Host extends Node{
 
             @Override
             public String info() {
-                return packet.toString() + " CurrentLinkBetween: " + link.u.id + "---" + link.v.id;
+                int input = Host.this.id;
+                int output = link.u.id + link.v.id - input;
+                return packet.toString() + "TransferringAtLink: " + input + " --- " + output;
+
             }
         });
     }

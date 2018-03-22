@@ -12,7 +12,7 @@ class FatTreeRoutingTest {
     @Test
     public void next() throws Exception {
         FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
-        FatTreeRouting ra = new FatTreeRouting(fatTreeGraph, false);
+        FatTreeRouting ra = new FatTreeRouting(fatTreeGraph);
 
         assertEquals(ra.next(2, 2, 17), 5);
         assertEquals(ra.next(2, 5, 17), 6);
@@ -25,7 +25,7 @@ class FatTreeRoutingTest {
     @Test
     public void path() throws Exception {
         FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
-        RoutingAlgorithm ra = new FatTreeRouting(fatTreeGraph, false);
+        RoutingAlgorithm ra = new FatTreeRouting(fatTreeGraph);
 
         List<Integer> trace = ra.path(2, 17).path;
         Integer[] traceResult = trace.toArray(new Integer[0]);

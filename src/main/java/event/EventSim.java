@@ -46,6 +46,7 @@ public class EventSim {
                 System.out.println(pk.info() + "\tEventTime " +  pk.timeStart);
             }
 
+            System.out.printf("=================");
             if(timeLimit < systemTime ){
                 break;
             }

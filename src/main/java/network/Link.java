@@ -16,6 +16,7 @@ public class Link {
         this.u = u;
         this.v = v;
         this.bandwidth = Config.BANDWIDTH;
+        this.availTime = 0;
     }
 
     public long serialLatency(Packet packet) {
@@ -39,7 +40,7 @@ public class Link {
 
                 @Override
                 public String info() {
-                    return p.toString() + "\tCurrentLinkBetween: " + u.id + "---" +v.id;
+                    return p.toString() + "\tTransferringAtLink: " + u.id + " --- " +v.id;
                 }
             });
         }else {
@@ -54,8 +55,7 @@ public class Link {
 
                 @Override
                 public String info() {
-                    return p.toString() + " CurrentNode: " + output.id;
-
+                    return p.toString() + "\tCurrentNode " + output.id;
                 }
             });
 

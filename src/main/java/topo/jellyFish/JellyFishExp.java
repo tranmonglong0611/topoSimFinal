@@ -1,14 +1,14 @@
-package topo.fatTree;
+package topo.jellyFish;
 
 import event.Event;
 import event.EventSim;
 import network.Config;
 import network.Network;
 import network.Packet;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
+import org.apache.logging.log4j.Logger;
 import topo.Experiment;
+import topo.fatTree.FatTreeExp;
 import topo.spaceShuffle.SpaceShuffleGraph;
 import topo.spaceShuffle.SpaceShuffleRouting;
 
@@ -16,38 +16,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FatTreeExp {
+public class JellyFishExp {
 
     public static void main(String[] args) {
 
 
-        Logger logger = LogManager.getLogger(FatTreeExp.class.getName());
-//
-//        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
-//        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        FatTreeGraph ftGraph = new FatTreeGraph(4);
-        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
-        logger.info(ftGraph.toString());
+        Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
+
+        JellyFishGraph jlGraph = new JellyFishGraph(7, 4, 2);
+        K_SortestPathRouting jlRouting = new K_SortestPathRouting(jlGraph, 2);
+        logger.info(jlGraph.toString());
 
 
-        ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
+        ArrayList<Integer> listHost = (ArrayList<Integer>) jlGraph.hosts();
 
 
-        Network net = new Network(ftGraph, ftRouting);
+        Network net = new Network(jlGraph, jlRouting);
         EventSim sim = new EventSim(1000);
 
 
         Map<Integer, Integer> traffic = new HashMap<>();
-        traffic.put(0, 3);
-        traffic.put(1, 3);
-//        for (int i = 0; i < Config.NUM_PACKET_SEND; i++) {
-//            ArrayList<Integer> hosts = (ArrayList<Integer>) ftGraph.hosts();
-//            int temp1 = (int) (Math.random() * hosts.size());
-//            int temp2 = (int) (Math.random() * hosts.size());
-//
-//            if (temp1 == temp2) continue;
-//            traffic.put(hosts.get(temp1), hosts.get(temp2));
-//        }
+        for (int i = 0; i < Config.NUM_PACKET_SEND; i++) {
+            ArrayList<Integer> hosts = (ArrayList<Integer>) jlGraph.hosts();
+            int temp1 = (int) (Math.random() * hosts.size());
+            int temp2 = (int) (Math.random() * hosts.size());
+
+            if (temp1 == temp2) continue;
+            traffic.put(hosts.get(temp1), hosts.get(temp2));
+        }
 
 
         for (Integer source : traffic.keySet()) {

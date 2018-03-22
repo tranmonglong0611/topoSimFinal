@@ -4,19 +4,37 @@ import javafx.util.Pair;
 import routing.RoutingAlgorithm;
 import topo.Graph;
 import routing.RoutingPath;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
+import topo.fatTree.FatTreeGraph;
+
+import java.util.*;
 
 public class K_SortestPathRouting extends RoutingAlgorithm {
 
     Graph graph;
-    public K_SortestPathRouting(final Graph graph) {
+    public List<Map<Integer, List<RoutingPath>>> routingTable;
+
+
+    public K_SortestPathRouting(final Graph graph, final int K) {
         this.graph = graph;
+
+        routingTable = new ArrayList<>();
+        for(int i = 0; i < graph.getNumV(); i++) {
+            Map<Integer, List<RoutingPath>> tablePath = new HashMap<>();
+            for(int j = 0; j < graph.getNumV(); j++) {
+                if(i == j) continue;
+                else {
+                    List<RoutingPath> listPath = ksp(i, j, K);
+
+                    tablePath.put(j, listPath);
+                }
+            }
+            routingTable.add(tablePath);
+        }
+
     }
 
-    public List<routing.RoutingPath> ksp(int source, int target, int K) {
-        ArrayList<routing.RoutingPath> result = new ArrayList<>();
+    public List<RoutingPath> ksp(int source, int target, int K) {
+        ArrayList<RoutingPath> result = new ArrayList<>();
         PriorityQueue<RoutingPath> candidates = new PriorityQueue<>();
         try {
             Graph cloneGraph = (Graph) graph.clone();
@@ -132,12 +150,26 @@ public class K_SortestPathRouting extends RoutingAlgorithm {
 
     @Override
     public int next(int source, int current, int destination) {
-        return 0;
+        //dont care the source
+        //todo MPTCP phan bo dong du lieu cho deu len cac node :( so fucking hard. I used random now
+
+        if(graph.isHostVertex(current)) {
+            return graph.adj(current).get(0);
+        }
+
+        List<RoutingPath> listPath = routingTable.get(current).get(destination);
+
+        Random random = new Random(89);
+        int randomInt = random.nextInt(listPath.size());
+
+        return listPath.get(randomInt).get(1);
     }
 
     @Override
-    public routing.RoutingPath path(int source, int destination) {
-        return null;
+    public RoutingPath path(int source, int destination) {
+
+        //return the shortest path
+        return routingTable.get(source).get(destination).get(0);
     }
 
     public static void main(String[] args) {

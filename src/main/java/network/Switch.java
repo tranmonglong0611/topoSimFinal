@@ -42,7 +42,11 @@ public class Switch extends Node {
 
             @Override
             public String info() {
-                return packet.toString() + " CurrentNode: " + Switch.this.id;
+                Link link = links.get(nextId);
+                int input = Switch.this.id;
+                int output = link.u.id + link.v.id - input;
+
+                return packet.toString() + "TransferringAtLink: " + input + " --- " + output;
 
             }
         });
