@@ -1,2 +1,1 @@
-
-StartNode:08		EndNode: 20			CurrentNode 5	EventTime 1003
+Total Packet Sent: 9

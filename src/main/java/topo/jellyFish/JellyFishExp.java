@@ -24,7 +24,7 @@ public class JellyFishExp {
         Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
         JellyFishGraph jlGraph = new JellyFishGraph(7, 4, 2);
-        K_SortestPathRouting jlRouting = new K_SortestPathRouting(jlGraph, 2);
+        K_ShortestPathRouting jlRouting = new K_ShortestPathRouting(jlGraph, 2);
         logger.info(jlGraph.toString());
 
 

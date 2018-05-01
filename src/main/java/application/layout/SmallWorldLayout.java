@@ -1,7 +1,7 @@
 package application.layout;
 
 import application.cell.Cell;
-import application.Graph;
+import application.GraphVisualize;
 
 import java.util.List;
 import java.util.Random;
@@ -10,11 +10,11 @@ import java.util.Random;
 
 public class SmallWorldLayout extends Layout {
 
-    Graph graph;
+    GraphVisualize graph;
 
     Random rnd = new Random();
 
-    public SmallWorldLayout(Graph graph) {
+    public SmallWorldLayout(GraphVisualize graph) {
 
         this.graph = graph;
 

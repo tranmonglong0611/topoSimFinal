@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import topo.fatTree.FatTreeGraph;
 import topo.fatTree.FatTreeRouting;
 import topo.jellyFish.JellyFishGraph;
-import topo.jellyFish.K_SortestPathRouting;
+import topo.jellyFish.K_ShortestPathRouting;
+import topo.smallWorld.SmallWorldGraph;
 import topo.spaceShuffle.SpaceShuffleGraph;
 import topo.spaceShuffle.SpaceShuffleRouting;
 
@@ -25,7 +26,7 @@ class TheoryParamTest {
     @Test
     void diameterTest2() {
         JellyFishGraph graph = new JellyFishGraph(100, 12, 8);
-        K_SortestPathRouting routing = new K_SortestPathRouting(graph, 2);
+        K_ShortestPathRouting routing = new K_ShortestPathRouting(graph, 2);
 
         TheoryParam test = new TheoryParam(graph, routing);
         System.out.println(test.diameter());
@@ -40,6 +41,13 @@ class TheoryParamTest {
     }
 
     @Test
+    void diameterTest4() {
+        SmallWorldGraph graph = new SmallWorldGraph(20, 20, "torus", new double[]{1.6, 1.6});
+//        SmallWorld
+    }
+
+
+    @Test
     void averageLengthPathTest() {
         FatTreeGraph graph = new FatTreeGraph(4);
         FatTreeRouting routing = new FatTreeRouting(graph);
@@ -52,7 +60,7 @@ class TheoryParamTest {
     @Test
     void averageLengthPathTest2() {
         JellyFishGraph graph = new JellyFishGraph(100, 16, 12);
-        K_SortestPathRouting routing = new K_SortestPathRouting(graph, 2);
+        K_ShortestPathRouting routing = new K_ShortestPathRouting(graph, 2);
 
         TheoryParam test = new TheoryParam(graph, routing);
 

@@ -10,11 +10,8 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 public class JellyFishGraph extends Graph {
-
-
     public final int nPort;
     public final int r;                 // r port to connect to another switch
-
     public final int nHostPerSwitch;
     public final int nHost;
     public final int nSwitch;
@@ -30,7 +27,6 @@ public class JellyFishGraph extends Graph {
         this.nHost = nSwitch * nHostPerSwitch;
         this.numV = nSwitch + nHost;
 
-
         adj = (List<Integer>[]) new List[numV];
         for (int i = 0; i < numV; i++) {
             adj[i] = new ArrayList<>();
@@ -39,7 +35,7 @@ public class JellyFishGraph extends Graph {
         //todo make random jelly fish graph
         Random random = new Random();
 
-        //todo make graph connected
+        // make graph connected
         int[] intArray = IntStream.rangeClosed(0, nSwitch - 1).toArray();
         Integer[] listSwitchSuffle = Arrays.stream(intArray).boxed().toArray(Integer[]::new);
         Knuth.shuffle(listSwitchSuffle);
@@ -47,7 +43,7 @@ public class JellyFishGraph extends Graph {
         for (int i = 2; i < listSwitchSuffle.length; i++) {
             int[] switchAvail = IntStream.range(0, i - 1).filter(v -> degree(v) < r).toArray();
             if (switchAvail.length < 1) {
-                System.out.println("SOMETHING WROND");
+                System.out.println("SOMETHING WRONG");
                 break;
             } else {
                 int randomSwitch = switchAvail[random.nextInt(switchAvail.length)];
@@ -121,7 +117,6 @@ public class JellyFishGraph extends Graph {
                         break;
                     }
                 }
-
                 addEdge(v1, v2);
             }
         }

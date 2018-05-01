@@ -8,6 +8,10 @@ class TripletTest {
 
     @Test
     void getFirst() {
-        System.out.println("haha");
+        try {
+            System.out.println(Integer.parseInt("sdf"));
+        }catch(NumberFormatException e) {
+            System.out.println("NUmber format exception");
+        }
     }
 }

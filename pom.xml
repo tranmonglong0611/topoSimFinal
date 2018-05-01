@@ -16,14 +16,15 @@
             <version>2.10.0</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</gro  upId>
+            <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
+            <version>5.1.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

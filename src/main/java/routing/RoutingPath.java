@@ -17,7 +17,7 @@ public class RoutingPath implements Cloneable, Comparable<RoutingPath>{
     }
 
 
-    public RoutingPath(List<Integer> list) {
+    public  RoutingPath(List<Integer> list) {
         this.path = list;
     }
 
@@ -31,12 +31,13 @@ public class RoutingPath implements Cloneable, Comparable<RoutingPath>{
 
     //get the new path until i th (exclusive ith element)
     public RoutingPath cloneTo(int i) {
-
         List<Integer> list = new ArrayList<>();
+        if(i >= path.size()) {
+            return new RoutingPath(path);
+        }
         for(int j = 0; j < i; j++) {
             list.add(path.get(j));
         }
-
 
         return new RoutingPath(list);
     }
@@ -91,7 +92,6 @@ public class RoutingPath implements Cloneable, Comparable<RoutingPath>{
                 if(this.path.get(i) != path2.path.get(i))
                     return false;
             }
-
             return true;
         }
     }

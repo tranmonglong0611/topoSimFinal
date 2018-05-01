@@ -2,7 +2,9 @@ package application.cell;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
@@ -13,11 +15,12 @@ public class HostCell extends Cell {
 
         StackPane view = new StackPane();
 
-        Rectangle rec = new Rectangle( 5,5);
+        Circle rec = new Circle( 5);
         Text text = new Text(this.cellId);
+        text.setFont(new Font(5));
 
-        rec.setStroke(Color.DODGERBLUE);
-        rec.setFill(Color.DODGERBLUE);
+        rec.setStroke(Color.RED);
+        rec.setFill(Color.RED);
 
         view.getChildren().addAll(rec, text);
         setView( view);

@@ -1,7 +1,4 @@
 package topo.smallWorld;
-
-
-
 import common.Knuth;
 import common.RandomSet;
 import javafx.util.Pair;
@@ -9,9 +6,6 @@ import topo.Graph;
 
 import java.util.*;
 
-/**
- * Created by Dandoh on 6/27/17.
- */
 public class SmallWorldGraph extends GridGraph{
     private static Random random = new Random();
     private double[] alphas;

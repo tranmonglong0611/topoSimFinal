@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<!--
+  ~ Open Source Software published under the Apache Licence, Version 2.0.
+  -->
+
+<BorderPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.visualizeController.MainSceneController">
+
+
+    <center>
+        <StackPane>
+            <children>
+                <BorderPane fx:id="mainBorderPane">
+                    <top>
+                        <TabPane prefHeight="75.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                            <tabs>
+                                <Tab text="Graph Making">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <ToolBar prefHeight="39.0" prefWidth="1920">
+                                                    <items>
+                                                        <Button fx:id="btnFt" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnFt" text="FatTreeGraph">
+                                                            <tooltip>
+                                                                <Tooltip text="Make a new FatTree Graph" />
+                                                            </tooltip>
+                                                        </Button>
+                                                        <Button fx:id="btnJf" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnJf" text="JellyFishGraph">
+                                                            <tooltip>
+                                                                <Tooltip text="Make a new JellyFish Graph" />
+                                                            </tooltip>
+                                                        </Button>
+                                                        <Button fx:id="btnS2" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnS2" text="SpaceShuffleGraph">
+                                                            <tooltip>
+                                                                <Tooltip text="Make a new SpaceShuffle Graph" />
+                                                            </tooltip>
+                                                        </Button>
+                                                        <Button fx:id="btnSw" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnSw" text="SmallWorldGraph">
+                                                            <tooltip>
+                                                                <Tooltip text="Make a new SmallWorld Graph" />
+                                                            </tooltip>
+                                                        </Button>
+
+                                                        <Separator orientation="VERTICAL" />
+                                                        <Separator orientation="VERTICAL" />
+
+                                                        <Button fx:id="btnImport" mnemonicParsing="false" text="Import Graph From File" />
+                                                        <Button fx:id="btnExport" disable="true" mnemonicParsing="false" text="Export Graph To File" />
+                                                    </items>
+                                                </ToolBar>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                                <Tab text="Simulation Running">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <ToolBar prefHeight="39.0" prefWidth="1920">
+                                                   <items>
+                                                      <!--<Label text="Number of Pakage"/>-->
+                                                      <TextField promptText="Enter number of pakage"/>
+                                                       <Button text ="Start"/>
+                                                   </items>
+                                                </ToolBar>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </top>
+               <right>
+                  <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </right>
+                    <!--<center>-->
+                        <!--&lt;!&ndash;<VBox fx:id="graphShowing" alignment="CENTER" styleClass="noSession">&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;</VBox>&ndash;&gt;-->
+                    <!--</center>-->
+                </BorderPane>
+            </children>
+        </StackPane>
+    </center>
+    <bottom>
+    </bottom>
+</BorderPane>
