@@ -17,11 +17,9 @@ public class SmallWorldGraph extends GridGraph{
      */
     public SmallWorldGraph(int nRow, int nCol, String baseType, double[] alphas) {
         super(nRow, nCol, baseType);
-
         this.alphas = alphas;
         randomLinks = new HashMap<Pair<Integer, Integer>, Integer>();
         this.totalRandomLink = new int[alphas.length];
-
         generateFixedDegree(alphas);
     }
 
@@ -33,7 +31,6 @@ public class SmallWorldGraph extends GridGraph{
         this.alphas = alphas;
         randomLinks = new HashMap<Pair<Integer, Integer>, Integer>();
         this.totalRandomLink = new int[alphas.length];
-
         generateVariedDegree(alphas, isBounded);
     }
 

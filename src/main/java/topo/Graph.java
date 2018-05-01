@@ -150,7 +150,7 @@ public abstract class Graph implements Serializable, Cloneable {
 
 
     public String toString() {
-        String result = "";
+        String result = "\n***Graph Info***\n";
 
         for (int i = 0; i < numV; i++) {
             String temp = i + " -> [";

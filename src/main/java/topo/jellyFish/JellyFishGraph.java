@@ -1,6 +1,8 @@
 package topo.jellyFish;
 
 import common.Knuth;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import topo.Graph;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class JellyFishGraph extends Graph {
 
     private List<Integer> hosts;
     private List<Integer> switches;
+    Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
     public JellyFishGraph(int nSwitch, int nPort, int r) {
         this.nSwitch = nSwitch;
@@ -43,7 +46,8 @@ public class JellyFishGraph extends Graph {
         for (int i = 2; i < listSwitchSuffle.length; i++) {
             int[] switchAvail = IntStream.range(0, i - 1).filter(v -> degree(v) < r).toArray();
             if (switchAvail.length < 1) {
-                System.out.println("SOMETHING WRONG");
+
+                logger.error("No switch avail to connect");
                 break;
             } else {
                 int randomSwitch = switchAvail[random.nextInt(switchAvail.length)];

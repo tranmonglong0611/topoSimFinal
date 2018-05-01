@@ -29,11 +29,11 @@ public class GridGraph extends Graph {
         for (int v = 0; v < numV; v++) {
             adj[v] = new ArrayList<Integer>();
             // reverse so that adjacency list is in same order as original
-            Stack<Integer> reverse = new Stack<Integer>();
+//            Stack<Integer> reverse = new Stack<Integer>();
+//            for (int w : graph.adj[v]) {
+//                reverse.push(w);
+//            }
             for (int w : graph.adj[v]) {
-                reverse.push(w);
-            }
-            for (int w : reverse) {
                 adj[v].add(w);
             }
         }
@@ -44,8 +44,8 @@ public class GridGraph extends Graph {
         this.baseType = baseType;
         this.nSwitch = nRow * nCol;
         this.nHost = nSwitch * HOST_PER_SWITCH;
-
         this.numV = nHost + nSwitch;
+
         adj = (List<Integer>[]) new List[numV];
         for (int v = 0; v < numV; v++) {
             adj[v] = new ArrayList<Integer>();
@@ -220,8 +220,4 @@ public class GridGraph extends Graph {
 
         return totalLength;
     }
-
-
-
-
 }

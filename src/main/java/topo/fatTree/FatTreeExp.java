@@ -8,10 +8,12 @@ import network.Packet;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import output.OutFile;
 import topo.Experiment;
 import topo.spaceShuffle.SpaceShuffleGraph;
 import topo.spaceShuffle.SpaceShuffleRouting;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,15 +21,15 @@ import java.util.Map;
 public class FatTreeExp {
 
     public static void main(String[] args) {
-
-
         Logger logger = LogManager.getLogger(FatTreeExp.class.getName());
 //
 //        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
         FatTreeGraph ftGraph = new FatTreeGraph(4);
         FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
-        logger.info(ftGraph.toString());
+
+        logger.info("Done make FatTreeGraph");
+        OutFile.getFile().append(ftGraph.toString());
 
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
@@ -73,7 +75,7 @@ public class FatTreeExp {
         sim.process();
         Experiment e = new Experiment(sim);
 
-
+        OutFile.getFile().close();
 //        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());
 
     }

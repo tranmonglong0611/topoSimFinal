@@ -1,40 +1,40 @@
 package output;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class OutFile {
 
-    public Path path;
-
-
-    public OutFile() {
-        path = Paths.get("report.txt");
-    }
-
-    public OutFile(String fileName) {
-        path = Paths.get(fileName);
-//        byte[] strToBytes = "haha".getBytes();
-
-//        Files.write(path, strToBytes);
-    }
-
-    public void append(String text) {
-        try {
-            byte[] textToBytes = text.getBytes();
-            Files.write(path, textToBytes);
-        }catch(Exception e) {
-            e.printStackTrace();
+    public static PrintWriter out;
+    public static PrintWriter getFile() {
+        if(out != null) {
+            return out;
+        }else {
+            try {
+                FileWriter fw = new FileWriter("myfile.txt", false);
+                BufferedWriter bw = new BufferedWriter(fw);
+                out = new PrintWriter(bw);
+                return out;
+            }catch (Exception e) {
+                LogManager.getLogger(OutFile.class.getName());
+            }
         }
+        LogManager.getLogger(OutFile.class.getName()).error("Cannot get result file");
+        return null;
     }
+
 
     public static void main(String[] args) {
-        try {
-            OutFile a = new OutFile("src/output/FUckla.txt");
-        }catch (Exception e){
-            e.getStackTrace();
-        }
+        OutFile.getFile().append("thu nghiem ti");
+        OutFile.getFile().append("lam gi ma cang voi tao");
+        OutFile.getFile().close();
     }
 }

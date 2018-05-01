@@ -2,6 +2,7 @@ package network;
 
 import event.Event;
 import event.EventSim;
+import output.OutFile;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.
@@ -22,8 +23,8 @@ public class Host extends Node{
             packet.endTime = sTime;
             s.numReceived++;
             s.totalTimePacketTravel += packet.getTravelTime();
-            s.out.append("Done Send From " + packet.startNode + " to " + packet.endNode);
-            s.out.append("TOtal Time Travel " + s.totalTimePacketTravel);
+            OutFile.getFile().append("Done Send From " + packet.startNode + " to " + packet.endNode);
+            OutFile.getFile().append("TOtal Time Travel " + s.totalTimePacketTravel);
             return;
         }
 

@@ -1,9 +1,11 @@
 package event;
 
 import network.Packet;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import output.OutFile;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
@@ -19,7 +21,6 @@ public class EventSim {
     public int numEvent;
     public int totalTimePacketTravel;
 
-    public OutFile out;
 
 
     //single even queue
@@ -27,7 +28,6 @@ public class EventSim {
 
 
     public EventSim(long timeLimit) {
-        out = new OutFile();
         this.timeLimit = timeLimit;
         que = new PriorityQueue<>((e1, e2) -> {
            if(e1.timeStart < e2.timeStart) return -1;
@@ -42,18 +42,18 @@ public class EventSim {
             Iterator ite = que.iterator();
             while(ite.hasNext()) {
                 Event pk = (Event)ite.next();
-                out.append(pk.info() + "\tEventTime " +  pk.timeStart);
-                System.out.println(pk.info() + "\tEventTime " +  pk.timeStart);
+                OutFile.getFile().append(pk.info() + "\tEventTime " +  pk.timeStart);
+//                System.out.println(pk.info() + "\tEventTime " +  pk.timeStart);
             }
 
-            System.out.printf("=================");
+            OutFile.getFile().append("\n===============");
+//            System.out.printf("=================");
             if(timeLimit < systemTime ){
                 break;
             }
             Event e = que.poll();
             systemTime = e.timeStart;
             e.execute();
-
         }
     }
 
