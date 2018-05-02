@@ -1,5 +1,6 @@
 package topo.fatTree;
 
+import common.Format;
 import event.Event;
 import event.EventSim;
 import network.Config;
@@ -34,10 +35,8 @@ public class FatTreeExp {
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
 
-
         Network net = new Network(ftGraph, ftRouting);
         EventSim sim = new EventSim(1000);
-
 
         Map<Integer, Integer> traffic = new HashMap<>();
         traffic.put(0, 3);
@@ -65,7 +64,8 @@ public class FatTreeExp {
 
                 @Override
                 public String info() {
-                    return packet.toString() + " CurrentNode: " + source;
+                    return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Delay At Node " + source, this.timeStart);
+
                 }
             });
 

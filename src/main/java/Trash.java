@@ -12,8 +12,15 @@ public class Trash {
 
     public static void main(String[] args) {
 
-        Trash obj = new Trash();
-        obj.runMe("mkyong");
+        String leftAlignFormat = "| %-15s | %-15s | %-45s | %-15s|%n";
+
+        System.out.format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+        System.out.format("| Start Node      | End Node        | Info                                          | EventTime      |%n");
+        System.out.format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+        for (int i = 0; i < 5; i++) {
+            System.out.format(leftAlignFormat, "00", "03", "Transferring At Link 4--7", "14");
+        }
+        System.out.format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
 
     }
 

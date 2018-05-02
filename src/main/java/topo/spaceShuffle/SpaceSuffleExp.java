@@ -1,6 +1,7 @@
 package topo.SpaceSuffle;
 
 
+import common.Format;
 import common.Knuth;
 
 import event.Event;
@@ -49,7 +50,8 @@ public class SpaceSuffleExp {
 
                 @Override
                 public String info() {
-                    return packet.toString() + " CurrentNode: " + source;
+                    return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Delay At Node " + source, packet.startTime);
+
                 }
             });
 

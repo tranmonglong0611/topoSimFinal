@@ -1,5 +1,6 @@
 package network;
 
+import common.Format;
 import event.Event;
 import event.EventSim;
 import routing.RoutingAlgorithm;
@@ -45,8 +46,9 @@ public class Switch extends Node {
                 Link link = links.get(nextId);
                 int input = Switch.this.id;
                 int output = link.u.id + link.v.id - input;
+                return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Transferring At Link: " + input + " --- " + output, this.timeStart);
 
-                return packet.toString() + "TransferringAtLink: " + input + " --- " + output;
+//                return packet.toString() + "TransferringAtLink: " + input + " --- " + output;
 
             }
         });

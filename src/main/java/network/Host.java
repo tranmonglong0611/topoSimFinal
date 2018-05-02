@@ -1,5 +1,6 @@
 package network;
 
+import common.Format;
 import event.Event;
 import event.EventSim;
 import output.OutFile;
@@ -8,9 +9,7 @@ import output.OutFile;
  * Created by tranmonglong0611 on 20/11/2017.
  */
 public class Host extends Node{
-
     public Link link;
-
     public Host(int id) {
         super(id);
     }
@@ -23,8 +22,8 @@ public class Host extends Node{
             packet.endTime = sTime;
             s.numReceived++;
             s.totalTimePacketTravel += packet.getTravelTime();
-            OutFile.getFile().append("Done Send From " + packet.startNode + " to " + packet.endNode);
-            OutFile.getFile().append("TOtal Time Travel " + s.totalTimePacketTravel);
+            OutFile.getFile().append("\nDone Send From " + packet.startNode + " to " + packet.endNode);
+            OutFile.getFile().append("\nTotal Time Travel " + s.totalTimePacketTravel);
             return;
         }
 
@@ -37,13 +36,12 @@ public class Host extends Node{
                 link.handle(packet, s, Host.this);
             }
 
-
             @Override
             public String info() {
                 int input = Host.this.id;
                 int output = link.u.id + link.v.id - input;
-                return packet.toString() + "TransferringAtLink: " + input + " --- " + output;
-
+                return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Transferring At Link: " + input + " --- " + output, this.timeStart);
+//                return packet.toString() + "Transferring At Link: " + input + " --- " + output;
             }
         });
     }

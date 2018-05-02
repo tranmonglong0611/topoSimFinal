@@ -1,5 +1,6 @@
 package network;
 
+import common.Format;
 import event.Event;
 import event.EventSim;
 
@@ -40,7 +41,9 @@ public class Link {
 
                 @Override
                 public String info() {
-                    return p.toString() + "\tTransferringAtLink: " + u.id + " --- " +v.id;
+//                    return p.toString() + "\tDelay at link: " + u.id + " --- " +v.id;
+                    return String.format(Format.LeftAlignFormat, p.startNode, p.endNode, "Delay at link: " + u.id + " --- " +v.id, this.timeStart);
+
                 }
             });
         }else {
@@ -55,7 +58,8 @@ public class Link {
 
                 @Override
                 public String info() {
-                    return p.toString() + "\tCurrentNode " + output.id;
+                    return String.format(Format.LeftAlignFormat, p.startNode, p.endNode, "Delay At Node " + output.id, this.timeStart);
+//                    return p.toString() + "\tDelay At Node " + output.id;
                 }
             });
 

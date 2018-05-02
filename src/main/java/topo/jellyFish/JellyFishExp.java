@@ -1,5 +1,6 @@
 package topo.jellyFish;
 
+import common.Format;
 import event.Event;
 import event.EventSim;
 import network.Config;
@@ -59,7 +60,9 @@ public class JellyFishExp {
 
                 @Override
                 public String info() {
-                    return packet.toString() + " CurrentNode: " + source;
+                    return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Delay At Node " + source, packet.startTime);
+
+//                    return packet.toString() + " CurrentNode: " + source;
                 }
             });
 

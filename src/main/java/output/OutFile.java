@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class OutFile {
 
@@ -19,7 +21,9 @@ public class OutFile {
             return out;
         }else {
             try {
-                FileWriter fw = new FileWriter("myfile.txt", false);
+                Date date = new Date() ;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd_HH-mm-ss") ;
+                FileWriter fw = new FileWriter(dateFormat.format(date) + ".txt", false);
                 BufferedWriter bw = new BufferedWriter(fw);
                 out = new PrintWriter(bw);
                 return out;

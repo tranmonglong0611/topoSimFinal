@@ -40,14 +40,25 @@ public class EventSim {
 
         while(que.size() > 0) {
             Iterator ite = que.iterator();
+
+            OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+            OutFile.getFile().format("| Start Node      | End Node        | Info                                          | EventTime      |%n");
+            OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+
+
             while(ite.hasNext()) {
-                Event pk = (Event)ite.next();
-                OutFile.getFile().append(pk.info() + "\tEventTime " +  pk.timeStart);
+                Event event = (Event)ite.next();
+//                OutFile.getFile().append(event.info() + "\tEventTime " +  pk.timeStart);
+//                OutFile.getFile().format(leftAlignFormat, Integer.toString(event.startNode), Integer.toString(event.endNode),
+//                        event.infoEvent, Long.toString(event.timeStart));
+                OutFile.getFile().append(event.info());
 //                System.out.println(pk.info() + "\tEventTime " +  pk.timeStart);
             }
 
-            OutFile.getFile().append("\n===============");
-//            System.out.printf("=================");
+
+            OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+            OutFile.getFile().append("\n\n\n");
+            // /            System.out.printf("=================");
             if(timeLimit < systemTime ){
                 break;
             }
