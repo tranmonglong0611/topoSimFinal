@@ -23,7 +23,7 @@ public class Host extends Node{
             s.numReceived++;
             s.totalTimePacketTravel += packet.getTravelTime();
             OutFile.getFile().append("\nDone Send From " + packet.startNode + " to " + packet.endNode);
-            OutFile.getFile().append("\nTotal Time Travel " + s.totalTimePacketTravel);
+            OutFile.getFile().append("\nTotal Time Travel " + s.totalTimePacketTravel + "\n");
             return;
         }
 

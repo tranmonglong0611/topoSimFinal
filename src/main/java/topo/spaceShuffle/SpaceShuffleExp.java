@@ -1,34 +1,39 @@
-package topo.SpaceSuffle;
+package topo.spaceShuffle;
 
 
 import common.Format;
-import common.Knuth;
 
 import event.Event;
 import event.EventSim;
+import network.Config;
 import network.Network;
 import network.Packet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import output.OutFile;
 import topo.Experiment;
-import topo.spaceShuffle.SpaceShuffleGraph;
-import topo.spaceShuffle.SpaceShuffleRouting;
 
 import java.util.*;
 
-public class SpaceSuffleExp {
+public class SpaceShuffleExp {
     public static void main(String[] args) {
-        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6 , 2);
-        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
+        Logger logger = LogManager.getLogger(SpaceShuffleExp.class.getName());
+        SpaceShuffleGraph ssGraph = new SpaceShuffleGraph(800, 6, 2);
+        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ssGraph);
 
-        ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
+        ArrayList<Integer> listHost = (ArrayList<Integer>) ssGraph.hosts();
 
+        logger.info("Done making graph");
+        OutFile.getFile().append(ssGraph.toString());
+        logger.info("Done write class to file");
 
-        Network net = new Network(ftGraph, ftRouting);
+        Network net = new Network(ssGraph, ftRouting);
         EventSim sim = new EventSim(1000);
 
 
         Map<Integer, Integer> traffic = new HashMap<>();
-        for (int i = 0; i < 10; i++) {
-            ArrayList<Integer> hosts = (ArrayList<Integer>) ftGraph.hosts();
+        for (int i = 0; i < Config.NUM_PACKET_SEND; i++) {
+            ArrayList<Integer> hosts = (ArrayList<Integer>) ssGraph.hosts();
             int temp1 = (int) (Math.random() * hosts.size());
             int temp2 = (int) (Math.random() * hosts.size());
 

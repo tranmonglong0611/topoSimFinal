@@ -58,6 +58,7 @@ public class JellyFishGraph extends Graph {
 
         //list vertex still have avail port
         while (true) {
+//            System.out.println("hehe");
             int[] vertexAvail = IntStream.range(0, nSwitch).filter(v -> degree(v) < r).toArray();
             if (vertexAvail.length == 0) break;
             else if (vertexAvail.length == 1) {
@@ -125,6 +126,7 @@ public class JellyFishGraph extends Graph {
             }
         }
 
+        System.out.println("done here");
         //add host to switches
         for (int i = nSwitch; i < numV; i++) {
             addEdge(i, (i - nSwitch) / nHostPerSwitch);

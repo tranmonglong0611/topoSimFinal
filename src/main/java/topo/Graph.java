@@ -1,5 +1,6 @@
 package topo;
 
+import common.Format;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -150,17 +151,25 @@ public abstract class Graph implements Serializable, Cloneable {
 
 
     public String toString() {
-        String result = "\n***Graph Info***\n";
+        String result = "";
+        result += String.format("+--------------------------------------------------------------------------+%n");
+        result += String.format("|                          Graph Info                                      |%n");
+        result += String.format("+--------------------------------------------------------------------------+%n");
+        result += String.format("| Vertex               | Adjacency Vertex                                  |%n");
+        result += String.format("+--------------------------------------------------------------------------+%n");
+
 
         for (int i = 0; i < numV; i++) {
-            String temp = i + " -> [";
+            String vertex = Integer.toString(i);
 
+            String adjacency = "";
             for (int j = 0; j < adj[i].size() - 1; j++) {
-                temp += adj[i].get(j) + " - ";
+                adjacency += adj[i].get(j) + " - ";
             }
-            temp += adj[i].get(adj[i].size() - 1) + "]";
-            temp += "\n";
-            result += temp;
+            adjacency += adj[i].get(adj[i].size() - 1);
+
+            result += String.format(Format.GraphFormat, vertex, adjacency);
+            result += String.format("+--------------------------------------------------------------------------+%n");
         }
         return result;
     }

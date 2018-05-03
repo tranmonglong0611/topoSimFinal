@@ -8,6 +8,7 @@ import network.Network;
 import network.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import output.OutFile;
 import topo.Experiment;
 import topo.fatTree.FatTreeExp;
 import topo.spaceShuffle.SpaceShuffleGraph;
@@ -24,14 +25,14 @@ public class JellyFishExp {
 
         Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
-        JellyFishGraph jlGraph = new JellyFishGraph(7, 4, 2);
+        JellyFishGraph jlGraph = new JellyFishGraph(300, 5, 3);
         K_ShortestPathRouting jlRouting = new K_ShortestPathRouting(jlGraph, 2);
-        logger.info(jlGraph.toString());
 
+        logger.info("Done making graph");
+        OutFile.getFile().append(jlGraph.toString());
+        logger.info("Done write class to file");
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) jlGraph.hosts();
-
-
         Network net = new Network(jlGraph, jlRouting);
         EventSim sim = new EventSim(1000);
 
@@ -68,7 +69,7 @@ public class JellyFishExp {
 
         }
 
-
+        logger.info("Start doing simulation");
         sim.process();
         Experiment e = new Experiment(sim);
 

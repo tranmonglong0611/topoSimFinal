@@ -12,9 +12,13 @@ import java.util.Map;
     author tamolo
     date 3/22/18
 */
+
+/**
+ * greedy routing
+ */
 public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
     private SmallWorldGraph G;
-    private Map<Integer, RoutingTable> tables;
+    public Map<Integer, RoutingTable> tables;
 
      public SmallWorldRoutingAlgorithm(SmallWorldGraph G) {
         this.G = G;
@@ -28,7 +32,7 @@ public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
         for (int sid : G.switches()) {
             RoutingTable table = new RoutingTable();
 
-            List<List<Integer>> neighbors = G.kHopNeighbor(sid, 3);
+            List<List<Integer>> neighbors = G.kHopNeighbor(sid, 2);
 
             for (int j : G.switches()) {
                 if (sid != j) {

@@ -70,6 +70,7 @@ public class GridGraph extends Graph {
         int hostId = nSwitch;
         for (int i = 0; i < nSwitch; i++) {
             for (int j = 0; j < HOST_PER_SWITCH; j++) {
+                System.out.println("done add edge");
                 addEdge(i, hostId);
                 hostId++;
             }
@@ -191,24 +192,24 @@ public class GridGraph extends Graph {
      * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
      *         followed by the <em>V</em> adjacency lists
      */
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append(numV + " vertices, " + numE + " edges \n");
-        int sumDegree = 0;
-
-        for (int v = 0; v < numV; v++) {
-            s.append(String.format("%2d:", v));
-            s.append(String.format(" degree = %2d -- ", degree(v)));
-            sumDegree += degree(v);
-            for (int w : adj[v]) {
-                s.append(String.format(" %2d", w));
-            }
-            s.append("\n");
-        }
-        s.append("\n");
-        s.append(String.format("Average degree = %f", 1.0 * sumDegree / numV));
-        return s.toString();
-    }
+//    public String toString() {
+//        StringBuilder s = new StringBuilder();
+//        s.append(numV + " vertices, " + numE + " edges \n");
+//        int sumDegree = 0;
+//
+//        for (int v = 0; v < numV; v++) {
+//            s.append(String.format("%2d:", v));
+//            s.append(String.format(" degree = %2d -- ", degree(v)));
+//            sumDegree += degree(v);
+//            for (int w : adj[v]) {
+//                s.append(String.format(" %2d", w));
+//            }
+//            s.append("\n");
+//        }
+//        s.append("\n");
+//        s.append(String.format("Average degree = %f", 1.0 * sumDegree / numV));
+//        return s.toString();
+//    }
 
     public double totalCableLength() {
         double totalLength = 0;

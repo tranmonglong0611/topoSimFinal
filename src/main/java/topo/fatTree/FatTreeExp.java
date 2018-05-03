@@ -26,12 +26,12 @@ public class FatTreeExp {
 //
 //        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        FatTreeGraph ftGraph = new FatTreeGraph(4);
+        FatTreeGraph ftGraph = new FatTreeGraph(20);
         FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
 
         logger.info("Done make FatTreeGraph");
         OutFile.getFile().append(ftGraph.toString());
-
+        logger.info("Done write graph to file");
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
 
@@ -39,16 +39,16 @@ public class FatTreeExp {
         EventSim sim = new EventSim(1000);
 
         Map<Integer, Integer> traffic = new HashMap<>();
-        traffic.put(0, 3);
-        traffic.put(1, 3);
-//        for (int i = 0; i < Config.NUM_PACKET_SEND; i++) {
-//            ArrayList<Integer> hosts = (ArrayList<Integer>) ftGraph.hosts();
-//            int temp1 = (int) (Math.random() * hosts.size());
-//            int temp2 = (int) (Math.random() * hosts.size());
-//
-//            if (temp1 == temp2) continue;
-//            traffic.put(hosts.get(temp1), hosts.get(temp2));
-//        }
+//        traffic.put(0, 3);
+//        traffic.put(1, 3);
+        for (int i = 0; i < Config.NUM_PACKET_SEND; i++) {
+            ArrayList<Integer> hosts = (ArrayList<Integer>) ftGraph.hosts();
+            int temp1 = (int) (Math.random() * hosts.size());
+            int temp2 = (int) (Math.random() * hosts.size());
+
+            if (temp1 == temp2) continue;
+            traffic.put(hosts.get(temp1), hosts.get(temp2));
+        }
 
 
         for (Integer source : traffic.keySet()) {

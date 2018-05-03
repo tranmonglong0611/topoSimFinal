@@ -6,4 +6,5 @@ package common;
 */
 public class Format {
     public static String LeftAlignFormat = "| %-15s | %-15s | %-45s | %-15s|%n";
+    public static String GraphFormat = "| %-20s | %-49s | %n";
 }

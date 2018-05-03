@@ -1,6 +1,7 @@
 package routing;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /*
     author tamolo
@@ -27,5 +28,13 @@ public class  RoutingTable {
 
     public int size() {
         return table.size();
+    }
+
+    public String toString() {
+        String result = "";
+        for(Map.Entry<Integer, Integer> map : table.entrySet()) {
+            result += "(" +  map.getKey() + "-" + map.getValue() + ")";
+        }
+        return result;
     }
 }
