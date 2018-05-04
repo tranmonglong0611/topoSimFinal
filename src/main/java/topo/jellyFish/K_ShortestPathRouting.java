@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import routing.RoutingAlgorithm;
 import topo.Graph;
 import routing.RoutingPath;
+import org.apache.logging.log4j.LogManager;
 import topo.fatTree.FatTreeGraph;
 
 import java.util.*;
@@ -11,23 +12,24 @@ import java.util.*;
 public class K_ShortestPathRouting extends RoutingAlgorithm {
 
     Graph graph;
-    public List<Map<Integer, List<RoutingPath>>> routingTable;
+    public Map<Integer, Map<Integer, List<RoutingPath>>> routingTable;
 
 
     public K_ShortestPathRouting(final Graph graph, final int K) {
         this.graph = graph;
 
-        routingTable = new ArrayList<>();
-        for(int i = 0; i < graph.getNumV(); i++) {
+        routingTable = new HashMap<>();
+
+        for(int source : graph.hosts()) {
             Map<Integer, List<RoutingPath>> tablePath = new HashMap<>();
-            for(int j = 0; j < graph.getNumV(); j++) {
-                if(i == j) continue;
+            for(int des : graph.hosts()) {
+                if(source == des) continue;
                 else {
-                    List<RoutingPath> listPath = ksp(i, j, K);
-                    tablePath.put(j, listPath);
+                    List<RoutingPath> listPath = ksp(source, des, K);
+                    tablePath.put(des, listPath);
                 }
             }
-            routingTable.add(tablePath);
+            routingTable.put(source, tablePath);
         }
     }
 
@@ -137,17 +139,32 @@ public class K_ShortestPathRouting extends RoutingAlgorithm {
             return graph.adj(current).get(0);
         }
 
-        List<RoutingPath> listPath = routingTable.get(current).get(destination);
+        List<RoutingPath> listPath = routingTable.get(source).get(destination);
 
         Random random = new Random(89);
         int randomInt = random.nextInt(listPath.size());
 
-        return listPath.get(randomInt).get(1);
+        int nextHop = listPath.get(randomInt).path.indexOf(current) + 1;
+        return nextHop;
     }
+
+    public RoutingPath getRandomPath(int source, int des) {
+        if(graph.isSwitchVertex(source) || graph.isSwitchVertex(des)) {
+            LogManager.getLogger(K_ShortestPathRouting.class.getName()).error("Can not get path from switch vertex");
+            return null;
+        }
+        List<RoutingPath> listPath = routingTable.get(source).get(des);
+
+        Random random = new Random(89);
+        int randomIndex = random.nextInt(listPath.size());
+        return listPath.get(randomIndex);
+    }
+
+
+
 
     @Override
     public RoutingPath path(int source, int destination) {
-
         //return the shortest path
         return routingTable.get(source).get(destination).get(0);
     }

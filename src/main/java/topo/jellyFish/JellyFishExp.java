@@ -9,6 +9,7 @@ import network.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import output.OutFile;
+import routing.RoutingPath;
 import topo.Experiment;
 import topo.fatTree.FatTreeExp;
 import topo.spaceShuffle.SpaceShuffleGraph;
@@ -25,14 +26,13 @@ public class JellyFishExp {
 
         Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
-        JellyFishGraph jlGraph = new JellyFishGraph(300, 5, 3);
-        K_ShortestPathRouting jlRouting = new K_ShortestPathRouting(jlGraph, 2);
+        JellyFishGraph jlGraph = new JellyFishGraph(400, 6, 3);
+        AllShortestPathRouting jlRouting = new AllShortestPathRouting(jlGraph);
 
         logger.info("Done making graph");
         OutFile.getFile().append(jlGraph.toString());
         logger.info("Done write class to file");
 
-        ArrayList<Integer> listHost = (ArrayList<Integer>) jlGraph.hosts();
         Network net = new Network(jlGraph, jlRouting);
         EventSim sim = new EventSim(1000);
 
@@ -50,8 +50,16 @@ public class JellyFishExp {
 
         for (Integer source : traffic.keySet()) {
             Integer destination = traffic.get(source);
+            RoutingPath routingPath = jlRouting.getRandomPath(source, destination);
+//            logger.info("Choosing: " + routingPath.toString());
+//
+//            for(RoutingPath path : jlRouting.routingTable.get(source).get(destination)) {
+//                logger.info(path.toString());
+//            }
+//            System.out.println("=================");
 
-            final Packet packet = new Packet(source, destination, sim.getTime());
+
+            final Packet packet = new Packet(source, destination, sim.getTime(), routingPath);
 
             sim.addEvent(new Event(++sim.numEvent, sim.getTime()) {
                 @Override

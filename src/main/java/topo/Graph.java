@@ -4,6 +4,7 @@ import common.Format;
 import javafx.util.Pair;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -87,7 +88,69 @@ public abstract class Graph implements Serializable, Cloneable {
             numE--;
         }
     }
+    private void getAllPathFromParent(int source, int des, List<List<Integer>> result, Map<Integer, List<Integer>> parents, ArrayList<Integer> path) {
 
+        path.add(0, des);
+
+        if(des == source) {
+            result.add(new ArrayList<>(path));
+        }
+        for(int xxx : parents.get(des)) {
+            getAllPathFromParent(source, xxx, result, parents, path);
+        }
+        path.remove(0);
+    }
+
+    //https://www.quora.com/Can-I-get-all-the-shortest-paths-from-source-node-to-destination-in-graph-using-bfs
+    public List<List<Integer>> allShortestPath(int u, int v) {
+        Queue<Integer> queue = new LinkedList<>();
+        Map<Integer, List<Integer>> parents = new HashMap<>();
+
+        int[] distance = new int[this.numV];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+
+        queue.add(u);
+        distance[u] = 0;
+        parents.put(u, new ArrayList<Integer>());
+
+        while(!queue.isEmpty()) {
+            int uNode = queue.remove();
+            if(uNode == v) {
+                break;
+            }
+            for(int neighbor : this.adj[uNode]) {
+                if(distance[uNode] + 1 < distance[neighbor]) {
+                    queue.add(neighbor);
+                    if(parents.get(neighbor) == null) {
+                        parents.put(neighbor, new ArrayList<Integer>(){{add(uNode);}});
+                    }else {
+                        parents.get(neighbor).add(uNode);
+                    }
+                    distance[neighbor] = distance[uNode] + 1;
+                }else if(distance[uNode] + 1 == distance[neighbor]) {
+                    if(parents.get(neighbor) == null) {
+                        parents.put(neighbor, new ArrayList<Integer>(){{add(uNode);}});
+                    }else {
+                        parents.get(neighbor).add(uNode);
+                    }
+                }else {
+                }
+            }
+        }
+
+//        for(Map.Entry<Integer, List<Integer>> entry : parents.entrySet()) {
+//            System.out.println("NOde: " + entry.getKey());
+//            List<Integer> a = entry.getValue();
+//            System.out.println();
+//            for(int i : a) {
+//                System.out.pri + "-");
+//            }
+//            System.out.println();
+//        }
+        List<List<Integer>> result = new ArrayList<>();
+        getAllPathFromParent(u, v, result, parents, new ArrayList<Integer>());
+        return result;
+    }
     //using BFS
     public List<Integer> shortestPath(int u, int v) {
         Queue<Integer> queue = new LinkedList<Integer>();
@@ -109,11 +172,6 @@ public abstract class Graph implements Serializable, Cloneable {
                 Collections.reverse(path);
                 break;
             }
-
-//            for(int i = 0; i < this.adj(uNode).size(); i++) {
-//                System.out.print(this.adj(uNode).get(i) + "----");
-//            }
-//            System.out.println();
 
             for (int vNode : this.adj(uNode)) {
                 if (!visited[vNode]) {

@@ -4,6 +4,7 @@ import common.Format;
 import event.Event;
 import event.EventSim;
 import routing.RoutingAlgorithm;
+import routing.RoutingPath;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +33,17 @@ public class Switch extends Node {
     public void process(Packet packet, EventSim sim) {
 
         long currentTime = sim.getTime();
-        int nextId = ra.next(packet.startNode, id, packet.endNode);
-//        StdOut.printf("%d %d\n", id, nextId);
+        int nextId;
+
+
+        if(packet.routingPath == null) {
+            nextId = ra.next(packet.startNode, id, packet.endNode);
+        }
+        //for just jellyfish experiment
+        else {
+            nextId = packet.routingPath.path.get(packet.routingPath.path.indexOf(this.id) + 1);
+        }
+
         sim.addEvent(new Event(++sim.numEvent, currentTime + Config.DELAY_AT_SWITCH) {
             @Override
             public void execute() {
