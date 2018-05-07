@@ -1,5 +1,6 @@
 package application.visualizeController;
 
+import application.CustomOutputStream;
 import application.GraphVisualize;
 import application.layout.FatTreeLayout;
 import application.layout.Layout;
@@ -24,10 +25,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.Logger;
 import topo.fatTree.FatTreeGraph;
 import topo.jellyFish.JellyFishGraph;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import org.apache.logging.log4j.*;
 
 /*
     author tamolo
@@ -49,6 +53,37 @@ public class MainSceneController {
     private Button btnImport;
     @FXML
     private Button btnExport;
+    @FXML
+    private TextArea consoleTextArea;
+    @FXML
+    private Button btnConsoleUp;
+    @FXML
+    private Button btnConsoleDown;
+    @FXML
+    private Button btnConsoleHide;
+    @FXML
+    private Button btnConsoleClean;
+    @FXML
+    private BorderPane consoleBorderPane;
+
+    @FXML
+    public void initialize() {
+        PrintStream con=new PrintStream(new CustomOutputStream(consoleTextArea));
+        System.setOut(con);
+        System.setErr(con);
+    }
+
+    @FXML
+    public void consoleHandle(ActionEvent event) throws  IOException {
+        if(event.getSource() == btnConsoleClean) {
+            consoleTextArea.setText("");
+        }else if(event.getSource() == btnConsoleDown) {
+            consoleTextArea.setScrollTop(Double.MAX_VALUE); //this will scroll to the bottom
+        }else if(event.getSource() == btnConsoleUp) {
+            consoleTextArea.setScrollTop(Double.MIN_VALUE); //this will scroll to the bottom
+        }
+    }
+
 
     @FXML
     public void graphMaking(ActionEvent event) throws IOException{
@@ -92,24 +127,23 @@ public class MainSceneController {
                             alert.setContentText("You need to enter the even integer k from 4 to 20");
                             alert.showAndWait();
                         }else {
-                            System.out.println("huhu");
                             FatTreeGraph graph = new FatTreeGraph(k);
                             GraphVisualize graphVisualize = new GraphVisualize(graph);
                             mainBorderPane.setCenter(graphVisualize.getShowingGraphField());
-
                             FatTreeLayout layout = new FatTreeLayout(graphVisualize);
+                            LogManager.getLogger(MainSceneController.class.getName()).info("Done make new FatTree Graph with k = " + k);
                             layout.execute();
-
-                            System.out.printf("done");
                         }
                         stage.close();
 
                     }catch (NumberFormatException e) {
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when making FatTree Graph");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
                         alert.setHeaderText("Wrong Input Format");
                         alert.setContentText("You need to enter a number!");
                         alert.showAndWait();
+
                     }
                 }
             });
@@ -165,10 +199,12 @@ public class MainSceneController {
 
                         Layout layout = new RandomLayout(graphVisualize);
                         layout.execute();
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Done make JellyFish Graph");
 
                         stage.close();
 
                     }catch (NumberFormatException e) {
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when making JellyFish Graph");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
                         alert.setHeaderText("Wrong Input Format");
@@ -226,13 +262,13 @@ public class MainSceneController {
                         JellyFishGraph graph = new JellyFishGraph(nSwitch, nPort, nDimension);
                         GraphVisualize graphVisualize = new GraphVisualize(graph);
                         mainBorderPane.setCenter(graphVisualize.getShowingGraphField());
-
                         Layout layout = new RandomLayout(graphVisualize);
                         layout.execute();
-
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SpaceShuffle Graph");
                         stage.close();
 
                     }catch (NumberFormatException e) {
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when new SpaceShuffle Graph");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
                         alert.setHeaderText("Wrong Input Format");
@@ -293,10 +329,10 @@ public class MainSceneController {
 
                             Layout layout = new RandomLayout(graphVisualize);
                             layout.execute();
-
+                            LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SmallWorld Graph");
                             stage.close();
-
                         }catch (NumberFormatException e) {
+                            LogManager.getLogger(MainSceneController.class.getName()).info("Error when make SmallWorld Graph");
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error Dialog");
                             alert.setHeaderText("Wrong Input Format");
@@ -309,7 +345,6 @@ public class MainSceneController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.initOwner(btnJf.getScene().getWindow());
                 stage.showAndWait();
-
         }
     }
 }

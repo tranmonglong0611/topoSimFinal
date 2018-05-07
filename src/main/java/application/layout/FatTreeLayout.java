@@ -22,7 +22,6 @@ public class FatTreeLayout extends Layout{
     public void execute() {
         List<Cell> cells = graphVisualize.getModel().getAllCells();
         final FatTreeGraph graph = (FatTreeGraph)graphVisualize.getGraph();
-        System.out.println(graph.toString());
         final int k = graph.getK();
         final int numHostPerPod = k + k * k / 4;
         final int widthPerPod = ConfigResolution.WIDTH / k;
