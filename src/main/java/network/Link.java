@@ -12,16 +12,21 @@ public class Link {
     Node v;
     public int bandwidth;
     public long availTime;
+    public long cableLength;
 
     public Link(Node u, Node v) {
         this.u = u;
         this.v = v;
-        this.bandwidth = Config.BANDWIDTH;
+        this.bandwidth = Config.LINK_BANDWIDTH;
         this.availTime = 0;
+        this.cableLength = Config.LINK_CABLE_LENGTH;
     }
 
     public long serialLatency(Packet packet) {
-        return packet.size / this.bandwidth;
+        return (long)(1e9 * packet.size / this.bandwidth);
+    }
+    public long propagationLatency() {
+        return (long)(cableLength / Config.PROPAGATION_VELOCITY);
     }
 
     public void handle(Packet p, EventSim s, Node input) {
@@ -48,7 +53,7 @@ public class Link {
             });
         }else {
             //link is avail now
-            availTime = currentTime + serialLatency(p);
+            availTime = currentTime + serialLatency(p) + propagationLatency();
             s.numEvent++;
             s.addEvent(new Event(s.numEvent, availTime) {
                 @Override

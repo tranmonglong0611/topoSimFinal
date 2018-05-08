@@ -35,9 +35,12 @@ import topo.jellyFish.JellyFishGraph;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.apache.logging.log4j.*;
+import topo.smallWorld.SmallWorldGraph;
+import topo.spaceShuffle.SpaceShuffleGraph;
 
 /*
     author tamolo
@@ -272,7 +275,7 @@ public class MainSceneController {
                         int nSwitch = Integer.parseInt(nSwitchInput.getText());
                         int nPort = Integer.parseInt(nPortInput.getText());
                         int nDimension = Integer.parseInt(nDimensionInput.getText());
-                        graph = new JellyFishGraph(nSwitch, nPort, nDimension);
+                        graph = new SpaceShuffleGraph(nSwitch, nPort, nDimension);
                         GraphVisualize graphVisualize = new GraphVisualize(graph);
                         mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                         areaGraphInfo.setText(graph.graphInfo());
@@ -308,20 +311,20 @@ public class MainSceneController {
                 scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 grid.add(scenetitle, 0, 0, 2, 1);
 
-                Label nSwitchLabel = new Label("Number of switches: ");
-                grid.add(nSwitchLabel, 0, 1);
-                TextField nSwitchInput= new TextField();
-                grid.add(nSwitchInput, 1, 1);
+                Label nRowLabel = new Label("Number of rows: ");
+                grid.add(nRowLabel, 0, 1);
+                TextField nRowInput= new TextField();
+                grid.add(nRowInput, 1, 1);
 
-                Label nPortLabel = new Label("Number of ports: ");
-                grid.add(nPortLabel, 0, 2);
-                TextField nPortInput = new TextField();
-                grid.add(nPortInput, 1, 2);
+                Label nColLabel = new Label("Number of columns: ");
+                grid.add(nColLabel, 0, 2);
+                TextField nColInput = new TextField();
+                grid.add(nColInput, 1, 2);
 
-                Label nHostPerSwitchLabel = new Label("Number of hosts per switch: ");
-                grid.add(nHostPerSwitchLabel, 0, 3);
-                TextField nHostPerSwitchInput = new TextField();
-                grid.add(nHostPerSwitchInput, 1, 3);
+                Label nRandomLinkPerSwitchLabel = new Label("Number of random link per Switch: ");
+                grid.add(nRandomLinkPerSwitchLabel, 0, 3);
+                TextField nRandomLinkPerSwitchInput = new TextField();
+                grid.add(nRandomLinkPerSwitchInput, 1, 3);
 
                 Scene scene = new Scene(grid, 450, 300);
 
@@ -335,15 +338,16 @@ public class MainSceneController {
                     @Override
                     public void handle(ActionEvent event) {
                         try {
-                            int nSwitch = Integer.parseInt(nSwitchInput.getText());
-                            int nPort = Integer.parseInt(nPortInput.getText());
-                            int nHostPSwitch = Integer.parseInt(nHostPerSwitchInput.getText());
-                            graph = new JellyFishGraph(nSwitch, nPort, nPort - nHostPSwitch);
+                            int nCol = Integer.parseInt(nColInput.getText());
+                            int nRow = Integer.parseInt(nRowInput.getText());
+                            int randomLinkPerSwitch = Integer.parseInt(nRandomLinkPerSwitchInput.getText());
+                            double[] alphas = new double[randomLinkPerSwitch];
+                            Arrays.fill(alphas, 1.6);
+                            graph = new SmallWorldGraph(nRow, nCol, "torus", alphas);
                             GraphVisualize graphVisualize = new GraphVisualize(graph);
                             mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                             areaGraphInfo.setText(graph.graphInfo());
-
-                            Layout layout = new RandomLayout(graphVisualize);
+                            Layout layout = new SmallWorldLayout(graphVisualize);
                             layout.execute();
                             LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SmallWorld Graph");
                             stage.close();

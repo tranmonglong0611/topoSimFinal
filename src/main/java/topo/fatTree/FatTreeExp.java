@@ -27,7 +27,7 @@ public class FatTreeExp {
 //
 //        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        FatTreeGraph ftGraph = new FatTreeGraph(16);
+        FatTreeGraph ftGraph = new FatTreeGraph(8);
         FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
 
         TheoryParam theoryParam = new TheoryParam(ftGraph, ftRouting);

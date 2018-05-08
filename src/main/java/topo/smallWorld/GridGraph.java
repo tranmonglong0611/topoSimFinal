@@ -10,9 +10,9 @@ public class GridGraph extends Graph {
     private List<Integer> switches;
     private List<Integer> hosts;
 
-    protected final int nRow;
-    protected final int nCol;
-    private final String baseType;
+    public final int nRow;
+    public final int nCol;
+    public final String baseType;
     private final int nHost;
     private final int nSwitch;
 
@@ -70,7 +70,6 @@ public class GridGraph extends Graph {
         int hostId = nSwitch;
         for (int i = 0; i < nSwitch; i++) {
             for (int j = 0; j < HOST_PER_SWITCH; j++) {
-                System.out.println("done add edge");
                 addEdge(i, hostId);
                 hostId++;
             }
@@ -182,9 +181,6 @@ public class GridGraph extends Graph {
         return Math.sqrt(Math.pow(ux - vx, 2) + Math.pow(uy - vy, 2));
     }
 
-    public int getnCol() {
-        return nCol;
-    }
 
     /**
      * Returns a string representation of this graph.
