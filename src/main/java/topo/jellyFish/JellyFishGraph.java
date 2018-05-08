@@ -23,6 +23,7 @@ public class JellyFishGraph extends Graph {
     Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
     public JellyFishGraph(int nSwitch, int nPort, int r) {
+        this.type = "JellyFish";
         this.nSwitch = nSwitch;
         this.nPort = nPort;
         this.r = r;

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import output.OutFile;
 import routing.RoutingPath;
 import topo.Experiment;
+import topo.TheoryParam;
 import topo.fatTree.FatTreeExp;
 import topo.spaceShuffle.SpaceShuffleGraph;
 import topo.spaceShuffle.SpaceShuffleRouting;
@@ -26,12 +27,14 @@ public class JellyFishExp {
 
         Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
-        JellyFishGraph jlGraph = new JellyFishGraph(400, 6, 3);
+        JellyFishGraph jlGraph = new JellyFishGraph(100, 6, 3);
         AllShortestPathRouting jlRouting = new AllShortestPathRouting(jlGraph);
 
         logger.info("Done making graph");
         OutFile.getFile().append(jlGraph.toString());
         logger.info("Done write class to file");
+
+        TheoryParam theoryParam = new TheoryParam(jlGraph, jlRouting);
 
         Network net = new Network(jlGraph, jlRouting);
         EventSim sim = new EventSim(1000);

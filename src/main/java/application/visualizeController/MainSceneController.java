@@ -2,9 +2,11 @@ package application.visualizeController;
 
 import application.CustomOutputStream;
 import application.GraphVisualize;
+import application.Main;
 import application.layout.FatTreeLayout;
 import application.layout.Layout;
 import application.layout.RandomLayout;
+import application.layout.SmallWorldLayout;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,11 +28,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.logging.log4j.Logger;
+import topo.Graph;
 import topo.fatTree.FatTreeGraph;
 import topo.jellyFish.JellyFishGraph;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.logging.log4j.*;
 
 /*
@@ -38,6 +44,7 @@ import org.apache.logging.log4j.*;
     date 3/24/18
 */
 public class MainSceneController {
+    private Graph graph = null;
 
     @FXML
     private Button btnFt;
@@ -65,6 +72,11 @@ public class MainSceneController {
     private Button btnConsoleClean;
     @FXML
     private BorderPane consoleBorderPane;
+    @FXML
+    private Button btnGraphInfo;
+    @FXML
+    private TextArea areaGraphInfo;
+
 
     @FXML
     public void initialize() {
@@ -127,10 +139,11 @@ public class MainSceneController {
                             alert.setContentText("You need to enter the even integer k from 4 to 20");
                             alert.showAndWait();
                         }else {
-                            FatTreeGraph graph = new FatTreeGraph(k);
+                            graph = new FatTreeGraph(k);
                             GraphVisualize graphVisualize = new GraphVisualize(graph);
-                            mainBorderPane.setCenter(graphVisualize.getShowingGraphField());
+                            mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                             FatTreeLayout layout = new FatTreeLayout(graphVisualize);
+                            areaGraphInfo.setText(graph.graphInfo());
                             LogManager.getLogger(MainSceneController.class.getName()).info("Done make new FatTree Graph with k = " + k);
                             layout.execute();
                         }
@@ -193,10 +206,10 @@ public class MainSceneController {
                         int nSwitch = Integer.parseInt(nSwitchInput.getText());
                         int nPort = Integer.parseInt(nPortInput.getText());
                         int nHostPSwitch = Integer.parseInt(nHostPerSwitchInput.getText());
-                        JellyFishGraph graph = new JellyFishGraph(nSwitch, nPort, nPort - nHostPSwitch);
+                        graph = new JellyFishGraph(nSwitch, nPort, nPort - nHostPSwitch);
                         GraphVisualize graphVisualize = new GraphVisualize(graph);
-                        mainBorderPane.setCenter(graphVisualize.getShowingGraphField());
-
+                        mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
+                        areaGraphInfo.setText(graph.graphInfo());
                         Layout layout = new RandomLayout(graphVisualize);
                         layout.execute();
                         LogManager.getLogger(MainSceneController.class.getName()).info("Done make JellyFish Graph");
@@ -259,9 +272,11 @@ public class MainSceneController {
                         int nSwitch = Integer.parseInt(nSwitchInput.getText());
                         int nPort = Integer.parseInt(nPortInput.getText());
                         int nDimension = Integer.parseInt(nDimensionInput.getText());
-                        JellyFishGraph graph = new JellyFishGraph(nSwitch, nPort, nDimension);
+                        graph = new JellyFishGraph(nSwitch, nPort, nDimension);
                         GraphVisualize graphVisualize = new GraphVisualize(graph);
-                        mainBorderPane.setCenter(graphVisualize.getShowingGraphField());
+                        mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
+                        areaGraphInfo.setText(graph.graphInfo());
+
                         Layout layout = new RandomLayout(graphVisualize);
                         layout.execute();
                         LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SpaceShuffle Graph");
@@ -323,9 +338,10 @@ public class MainSceneController {
                             int nSwitch = Integer.parseInt(nSwitchInput.getText());
                             int nPort = Integer.parseInt(nPortInput.getText());
                             int nHostPSwitch = Integer.parseInt(nHostPerSwitchInput.getText());
-                            JellyFishGraph graph = new JellyFishGraph(nSwitch, nPort, nPort - nHostPSwitch);
+                            graph = new JellyFishGraph(nSwitch, nPort, nPort - nHostPSwitch);
                             GraphVisualize graphVisualize = new GraphVisualize(graph);
-                            mainBorderPane.setCenter(graphVisualize.getShowingGraphField());
+                            mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
+                            areaGraphInfo.setText(graph.graphInfo());
 
                             Layout layout = new RandomLayout(graphVisualize);
                             layout.execute();
@@ -346,5 +362,89 @@ public class MainSceneController {
                 stage.initOwner(btnJf.getScene().getWindow());
                 stage.showAndWait();
         }
+    }
+
+
+    @FXML
+    public void toggleGraphInfo() {
+        if(btnGraphInfo.getText().equals("Show Graph Info")){
+            btnGraphInfo.setText("Hide Graph Info");
+            areaGraphInfo.setVisible(true);
+        }else {
+            btnGraphInfo.setText("Show Graph Info");
+            areaGraphInfo.setVisible(false);
+        }
+    }
+
+    @FXML
+    public void exportGraph() {
+        if(graph == null) {
+            LogManager.getLogger(MainSceneController.class.getName()).info("There is no graph to import");
+        }else {
+            Date date = new Date() ;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd_HH-mm-ss") ;
+            String path = graph.type + "_" + dateFormat.format(date) + ".bat";
+            graph.writeToFile(path);
+            LogManager.getLogger(MainSceneController.class.getName()).info("Done export graph to file: " + path);
+        }
+    }
+
+    @FXML
+    public void importGraph(ActionEvent e) {
+//        graph = Graph.readFromFile(path);
+        Stage stage = new Stage();
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+//        Text scenetitle = new Text("FatTree Graph Config");
+//        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+//        grid.add(scenetitle, 0, 0, 2, 1);
+
+        Label kLabel = new Label("Enter file name:");
+        grid.add(kLabel, 0, 1);
+
+        TextField kInput= new TextField();
+        grid.add(kInput, 1, 1);
+
+        Scene scene = new Scene(grid, 350, 150);
+
+        Button btn = new Button("OK");
+        btn.setDefaultButton(true);
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn.getChildren().add(btn);
+        grid.add(hbBtn, 1, 4);
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    String path = kInput.getText();
+                    graph = Graph.readFromFile(path);
+                    GraphVisualize graphVisualize = new GraphVisualize(graph);
+                    mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
+                    Layout layout;
+                    if(graph.type == "FatTree") {
+                        layout = new FatTreeLayout(graphVisualize);
+                    }else if(graph.type == "SmallWorld") {
+                        layout = new SmallWorldLayout(graphVisualize);
+                    }else {
+                        layout = new RandomLayout(graphVisualize);
+                    }
+                    areaGraphInfo.setText(graph.graphInfo());
+                    layout.execute();
+                    LogManager.getLogger(MainSceneController.class.getName()).info("Done import graph from file: " + path);
+                    stage.close();
+
+                }catch (Exception e) {
+                }
+            }
+        });
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(btnJf.getScene().getWindow());
+        stage.showAndWait();
+
     }
 }

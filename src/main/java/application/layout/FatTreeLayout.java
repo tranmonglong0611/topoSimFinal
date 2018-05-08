@@ -33,10 +33,10 @@ public class FatTreeLayout extends Layout{
 
 
         int x = 10;
-        int yHost = 550;
-        int yEdgeSwitch = 400;
-        int yAggSwitch = 250;
-        int yCore = 100;
+        int yCore = ConfigResolution.HEIGHT / 8;
+        int yAggSwitch = yCore + ConfigResolution.HEIGHT / 4;
+        int yEdgeSwitch = yAggSwitch + ConfigResolution.HEIGHT / 4;
+        int yHost = yEdgeSwitch + ConfigResolution.HEIGHT / 4;
         for(int i = 0; i < k; i++) {
             int startX = startPos[i];
             for(int j = i * numHostPerPod; j < i * numHostPerPod + k * k / 4; j++)  {

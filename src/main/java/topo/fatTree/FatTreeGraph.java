@@ -24,6 +24,7 @@ public class FatTreeGraph extends Graph {
     private Address[] address;
 
     public FatTreeGraph(int k){
+        this.type = "FatTree";
         this.k = k;
         numServer = k * k * k / 4;
         numCoreSwitch = k * k / 4;

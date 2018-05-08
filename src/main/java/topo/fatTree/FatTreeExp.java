@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 
 import output.OutFile;
 import topo.Experiment;
+import topo.TheoryParam;
 import topo.spaceShuffle.SpaceShuffleGraph;
 import topo.spaceShuffle.SpaceShuffleRouting;
 
@@ -26,12 +27,10 @@ public class FatTreeExp {
 //
 //        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        FatTreeGraph ftGraph = new FatTreeGraph(20);
+        FatTreeGraph ftGraph = new FatTreeGraph(16);
         FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
 
-        logger.info("Done make FatTreeGraph");
-        OutFile.getFile().append(ftGraph.toString());
-        logger.info("Done write graph to file");
+        TheoryParam theoryParam = new TheoryParam(ftGraph, ftRouting);
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
 

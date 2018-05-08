@@ -1,9 +1,11 @@
 package topo.fatTree;
 
+import java.io.Serializable;
+
 /**
  * Created by tranmonglong0611 on 29/11/2017.
  */
-public class Address {
+public class Address implements Serializable{
     public final int _1, _2, _3, _4;
 
     public Address(int _1, int _2, int _3, int _4) {

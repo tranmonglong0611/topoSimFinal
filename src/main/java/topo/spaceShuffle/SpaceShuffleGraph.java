@@ -37,6 +37,7 @@ public class SpaceShuffleGraph extends Graph {
         /**
          * init info
          */
+        this.type = "SpaceShuffle";
         this.nSwitch = nSwitch;
         this.nPort = nPort;
         this.nDimension = nDimension;

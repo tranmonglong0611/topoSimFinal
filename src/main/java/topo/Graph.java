@@ -16,6 +16,7 @@ public abstract class Graph implements Serializable, Cloneable {
     protected int numV;
     protected int numE;
     protected List<Integer>[] adj;
+    public String type;
 
     public void addEdge(int v, int w) {
 
@@ -187,24 +188,33 @@ public abstract class Graph implements Serializable, Cloneable {
 
 
     public void writeToFile(String path) {
-
         try {
             FileOutputStream f = new FileOutputStream(new File(path));
             ObjectOutputStream o = new ObjectOutputStream(f);
-
-
             // Write objects to file
             o.writeObject(this);
-
+            o.close();
+            f.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static Graph readFromFile(String path) {
+        Graph a = null;
+        try {
+            FileInputStream f = new FileInputStream(new File(path));
+            ObjectInputStream o = new ObjectInputStream(f);
+            // Write objects to file
+            a = (Graph) o.readObject();
             o.close();
             f.close();
 
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("Error initializing stream");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return a;
     }
 
 
@@ -229,6 +239,16 @@ public abstract class Graph implements Serializable, Cloneable {
             result += String.format(Format.GraphFormat, vertex, adjacency);
             result += String.format("+--------------------------------------------------------------------------+%n");
         }
+        return result;
+    }
+
+    public String graphInfo() {
+        String result = "";
+        String format = "%-50s%-20s%n";
+        result += String.format(format, "Type                         :        ", this.type);
+        result += String.format(format, "Number of vertexs  :        ", Integer.toString(this.numV));
+        result += String.format(format, "Number of edges    :        ", Integer.toString(this.numE));
+
         return result;
     }
 

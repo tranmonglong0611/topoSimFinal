@@ -65,6 +65,7 @@ public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
         if (G.adj(current).contains(destination)) {
             return destination;
         } else {
+            //get the destination switch
             int desSwitch = G.isHostVertex(destination) ? G.adj(destination).get(0) : destination;
             return tables.get(current).getNextNode(desSwitch);
         }
@@ -72,6 +73,8 @@ public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
 
     @Override
     public RoutingPath path(int source, int destination) {
+         //same as fatTree
+        
         return null;
     }
 }

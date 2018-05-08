@@ -21,7 +21,8 @@ public class TestJavaFx extends Application{
 //        System.setOut(con);
 //        System.setErr(con);
         primaryStage.setTitle("Simulation");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setScene(new Scene(root,   1280, 720));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

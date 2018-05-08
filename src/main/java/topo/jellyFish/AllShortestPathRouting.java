@@ -56,6 +56,6 @@ public class AllShortestPathRouting extends RoutingAlgorithm {
 
     @Override
     public RoutingPath path(int source, int destination) {
-        return null;
+        return routingTable.get(source).get(destination).get(0);
     }
 }

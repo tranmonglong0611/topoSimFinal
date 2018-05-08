@@ -23,6 +23,7 @@ public class SmallWorldGraph extends GridGraph{
      */
     public SmallWorldGraph(int nRow, int nCol, String baseType, double[] alphas) {
         super(nRow, nCol, baseType);
+        this.type = "SmallWorld";
         this.alphas = alphas;
         randomLinks = new HashMap<Pair<Integer, Integer>, Integer>();
         this.totalRandomLink = new int[alphas.length];
@@ -34,6 +35,7 @@ public class SmallWorldGraph extends GridGraph{
      */
     public SmallWorldGraph(int nRow, int nCol, String baseType, double[] alphas, boolean isBounded) {
         super(nRow, nCol, baseType);
+        this.type = "SmallWorld";
         this.alphas = alphas;
         randomLinks = new HashMap<Pair<Integer, Integer>, Integer>();
         this.totalRandomLink = new int[alphas.length];
@@ -45,6 +47,7 @@ public class SmallWorldGraph extends GridGraph{
      */
     public SmallWorldGraph(String baseType, int nRow, int nCol) {
         super(nRow, nCol, baseType);
+        this.type = "SmallWorld";
     }
 
     public void addEdge(int u, int v, int alphaIndex) {

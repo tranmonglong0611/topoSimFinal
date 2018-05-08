@@ -12,22 +12,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import output.OutFile;
 import topo.Experiment;
+import topo.TheoryParam;
 
 import java.util.*;
 
 public class SpaceShuffleExp {
     public static void main(String[] args) {
         Logger logger = LogManager.getLogger(SpaceShuffleExp.class.getName());
-        SpaceShuffleGraph ssGraph = new SpaceShuffleGraph(800, 6, 2);
-        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ssGraph);
+        SpaceShuffleGraph ssGraph = new SpaceShuffleGraph(200, 6, 2);
+        SpaceShuffleRouting ssRouting = new SpaceShuffleRouting(ssGraph);
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ssGraph.hosts();
 
         logger.info("Done making graph");
         OutFile.getFile().append(ssGraph.toString());
         logger.info("Done write class to file");
+        TheoryParam theoryParam = new TheoryParam(ssGraph, ssRouting);
 
-        Network net = new Network(ssGraph, ftRouting);
+
+        Network net = new Network(ssGraph, ssRouting);
         EventSim sim = new EventSim(1000);
 
 
