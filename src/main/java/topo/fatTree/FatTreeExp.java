@@ -29,7 +29,6 @@ public class FatTreeExp {
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
         FatTreeGraph ftGraph = new FatTreeGraph(8);
         FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
-
         TheoryParam theoryParam = new TheoryParam(ftGraph, ftRouting);
 
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();

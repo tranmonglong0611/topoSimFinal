@@ -47,7 +47,11 @@ public class Switch extends Node {
         sim.addEvent(new Event(++sim.numEvent, currentTime + Config.DELAY_AT_SWITCH) {
             @Override
             public void execute() {
-                links.get(nextId).handle(packet, sim, Switch.this);
+                if(nextId != -1) {
+                    links.get(nextId).handle(packet, sim, Switch.this);
+                } else {
+
+                }
             }
 
 
@@ -70,5 +74,10 @@ public class Switch extends Node {
         for(Map.Entry<Integer, Link> link : links.entrySet()) {
             link.getValue().reset();
         }
+    }
+
+    //set the switch to be error
+    public void setError() {
+
     }
 }

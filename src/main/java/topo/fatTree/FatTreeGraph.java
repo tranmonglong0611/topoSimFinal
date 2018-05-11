@@ -13,11 +13,14 @@ public class FatTreeGraph extends Graph {
     public static final int AGG  = 2;
     public static final int EDGE = 3;
 
+
     private int k;
     private int numServer;
     private int numCoreSwitch;
     private int numEdgeSwitch;
     private int numAgreeSwitch;
+
+    public int numSwitchEachPod;
 
     private List<Integer> switches;
     private List<Integer> hosts;
@@ -42,6 +45,7 @@ public class FatTreeGraph extends Graph {
 
         // each pod has k^2/4 servers and k switches
         int numEachPod = k * k / 4 + k;
+        numSwitchEachPod = numEachPod;
         for (int p = 0; p < k; p++) {
             int offset = numEachPod * p;
 
@@ -171,4 +175,11 @@ public class FatTreeGraph extends Graph {
             else return EDGE;
         }
     }
+
+    //ust for all vertex type except core switch. Core switch does not belong to pod
+    public int podBelongTo(int vertex) {
+        return vertex / numSwitchEachPod;
+    }
+
+
 }

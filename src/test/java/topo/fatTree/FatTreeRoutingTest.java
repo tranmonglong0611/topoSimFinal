@@ -2,12 +2,16 @@ package topo.fatTree;
 
 import org.junit.jupiter.api.Test;
 import routing.RoutingAlgorithm;
+import routing.RoutingPath;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FatTreeRoutingTest {
+
+
 
     @Test
     public void next() throws Exception {
@@ -31,5 +35,15 @@ class FatTreeRoutingTest {
         Integer[] traceResult = trace.toArray(new Integer[0]);
 
         assertArrayEquals(traceResult, new Integer[]{5, 6, 33, 22, 20});
+    }
+
+    @Test
+    public void routingTolerance() throws Exception {
+        FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
+        ArrayList<Integer> errorSwitch = new ArrayList<>();
+//        errorSwitch.add(
+        FatTreeRoutingFaultTolerance ra = new FatTreeRoutingFaultTolerance(fatTreeGraph, errorSwitch);
+        RoutingPath trace = ra.path(2, 17);
+        System.out.println(trace);
     }
 }

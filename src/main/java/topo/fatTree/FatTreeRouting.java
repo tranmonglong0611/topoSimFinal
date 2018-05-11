@@ -15,30 +15,34 @@ import java.util.Map;
 
 public class FatTreeRouting extends RoutingAlgorithm {
     private FatTreeGraph G;
-    private Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
-    private Map<Integer, Map<Integer, Integer>> suffixTables = new HashMap<>();
-    private Map<Integer,
+    protected Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
+    protected Map<Integer, Map<Integer, Integer>> suffixTables = new HashMap<>();
+    protected Map<Integer,
             Map<Triplet<Integer, Integer, Integer>, Integer>> prefixTables = new HashMap<>();
-    private Map<Integer,
+    protected Map<Integer,
             Map<Pair<Integer, Integer>, Integer>> corePrefixTables = new HashMap<>();
 
     public FatTreeRouting(FatTreeGraph G) {
         this.G = G;
         buildTables();
 
-        List<Integer> hosts = G.hosts();
+//        List<Integer> hosts = G.hosts();
 
-        for (int i = 0; i < hosts.size() - 1; i++) {
-            for (int j = i + 1; j < hosts.size(); j++) {
-                int source = hosts.get(i);
-                int destination = hosts.get(j);
-                path(source, destination);
-            }
-        }
-        for(Map.Entry<Pair<Integer, Integer>, RoutingPath> entry : precomputedPaths.entrySet()) {
-            Pair<Integer, Integer> key  = entry.getKey();
-            RoutingPath value = entry.getValue();
-        }
+//        for (int i = 0; i < hosts.size() - 1; i++) {
+//            for (int j = i + 1; j < hosts.size(); j++) {
+//                int source = hosts.get(i);
+//                int destination = hosts.get(j);
+//                path(source, destination);
+//            }
+//        }
+//        for(Map.Entry<Pair<Integer, Integer>, RoutingPath> entry : precomputedPaths.entrySet()) {
+//            Pair<Integer, Integer> key  = entry.getKey();
+//            RoutingPath value = entry.getValue();
+//        }
+    }
+
+    private void buildTablesWithTolerance(List<Integer> listErrorSwitch) {
+
     }
 
     private void buildTables() {
@@ -59,9 +63,6 @@ public class FatTreeRouting extends RoutingAlgorithm {
                 suffixTables.put(edgeSwitch, suffixTable);
             }
         }
-
-
-
         // agg switches
         for (int p = 0; p < k; p++) {
             int offset = numEachPod * p;
@@ -88,8 +89,6 @@ public class FatTreeRouting extends RoutingAlgorithm {
 
             }
         }
-
-
         // core switches
         for (int c = 0; c < k * k / 4; c++) {
             int core = k * k * k / 4 + k * k + c;
@@ -104,29 +103,6 @@ public class FatTreeRouting extends RoutingAlgorithm {
             }
             corePrefixTables.put(core, corePrefixTable);
         }
-
-
-        for (Map.Entry<Integer, Map<Integer, Integer>> entry : suffixTables.entrySet()) {
-            int key = entry.getKey();
-            Map<Integer, Integer> value = entry.getValue();
-            for(Map.Entry<Integer, Integer> hehe : value.entrySet()) {
-                int n = hehe.getKey();
-                int m = hehe.getValue();
-            }
-            // ...
-        }
-
-        for (Map.Entry<Integer,
-                Map<Triplet<Integer, Integer, Integer>, Integer>> entry : prefixTables.entrySet()) {
-            int key = entry.getKey();
-            Map<Triplet<Integer, Integer, Integer>, Integer> value = entry.getValue();
-            for(Map.Entry<Triplet<Integer, Integer, Integer>, Integer> hehe : value.entrySet()) {
-                Triplet<Integer, Integer, Integer> n = hehe.getKey();
-                int m = hehe.getValue();
-            }
-            // ...
-        }
-
     }
 
     /**
@@ -170,7 +146,6 @@ public class FatTreeRouting extends RoutingAlgorithm {
                 Map<Integer, Integer> suffixTable = suffixTables.get(current);
                 return suffixTable.get(suffix);
             }
-
         }
     }
 
