@@ -2,8 +2,7 @@ package application.layout;
 
 import application.GraphVisualize;
 import application.cell.Cell;
-import topo.Graph;
-import topo.fatTree.FatTreeGraph;
+import topo.fatTree.FatTreeTopology;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class FatTreeLayout extends Layout{
     @Override
     public void execute() {
         List<Cell> cells = graphVisualize.getModel().getAllCells();
-        final FatTreeGraph graph = (FatTreeGraph)graphVisualize.getGraph();
+        final FatTreeTopology graph = (FatTreeTopology)graphVisualize.getGraph();
         final int k = graph.getK();
         final int numHostPerPod = k + k * k / 4;
         final int widthPerPod = ConfigResolution.WIDTH / k;

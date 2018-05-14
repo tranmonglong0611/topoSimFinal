@@ -12,13 +12,13 @@ import java.util.Map;
  * Created by tranmonglong0611 on 29/11/2017.
  */
 public class Network {
-    private Graph graph;
+    private Topology graph;
     private List<Host> hosts;
     private List<Switch> switches;
     private Map<Integer, Host> hostById;
     private Map<Integer, Switch> switchById;
 
-    public Network(Graph graph, RoutingAlgorithm routingAlgorithm) {
+    public Network(Topology graph, RoutingAlgorithm routingAlgorithm) {
         this.graph = graph;
         // construct hosts, switches and links and routing algorithm
         hosts = new ArrayList<>();

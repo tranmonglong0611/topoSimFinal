@@ -2,11 +2,9 @@ package application.layout;
 
 import application.cell.Cell;
 import application.GraphVisualize;
-import topo.smallWorld.SmallWorldGraph;
+import topo.smallWorld.SmallWorldTopology;
 
 import java.util.List;
-import java.util.Random;
-
 
 
 public class SmallWorldLayout extends Layout {
@@ -22,7 +20,7 @@ public class SmallWorldLayout extends Layout {
 
     public void execute() {
         List<Cell> cells = graphVisualize.getModel().getAllCells();
-        final SmallWorldGraph graph = (SmallWorldGraph)graphVisualize.getGraph();
+        final SmallWorldTopology graph = (SmallWorldTopology)graphVisualize.getGraph();
         double x;
         double y = 10;
 

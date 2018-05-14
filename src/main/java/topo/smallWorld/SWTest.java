@@ -1,6 +1,5 @@
 package topo.smallWorld;
 
-import application.layout.SmallWorldLayout;
 import common.Format;
 import event.Event;
 import event.EventSim;
@@ -10,8 +9,6 @@ import network.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import output.OutFile;
-import routing.RoutingTable;
-import routing.ShortestRoutingAlgorithm;
 import topo.Experiment;
 
 import java.util.*;
@@ -39,7 +36,7 @@ public class SWTest {
 ////        for(int i = 0; i < l.size(); i++) {
 ////            System.out.println(l.get(i));
 ////        }
-        SmallWorldGraph swGraph = new SmallWorldGraph(5, 5, "torus", new double[]{1.6, 1.6});
+        SmallWorldTopology swGraph = new SmallWorldTopology(5, 5, "torus", new double[]{1.6, 1.6});
         SmallWorldRoutingAlgorithm swRouting = new SmallWorldRoutingAlgorithm(swGraph);
         Logger logger = LogManager.getLogger(SWTest.class.getName());
 

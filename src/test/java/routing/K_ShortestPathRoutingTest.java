@@ -1,13 +1,12 @@
 package routing;
 
 import org.junit.jupiter.api.Test;
-import topo.fatTree.FatTreeGraph;
+import topo.fatTree.FatTreeTopology;
 import topo.jellyFish.K_ShortestPathRouting;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class K_ShortestPathRoutingTest {
@@ -15,7 +14,7 @@ class K_ShortestPathRoutingTest {
     @Test
     void kspTest() {
 
-        FatTreeGraph a = new FatTreeGraph(4);
+        FatTreeTopology a = new FatTreeTopology(4);
         K_ShortestPathRouting al = new K_ShortestPathRouting(a, 4);
 
         List<RoutingPath> result = al.ksp(0, 8, 4);
@@ -38,7 +37,7 @@ class K_ShortestPathRoutingTest {
 
     @Test
     void routingTableTest() {
-        FatTreeGraph ftGraph = new FatTreeGraph(4);
+        FatTreeTopology ftGraph = new FatTreeTopology(4);
         K_ShortestPathRouting routing = new K_ShortestPathRouting(ftGraph, 2);
 
         for(int host : ftGraph.hosts()) {

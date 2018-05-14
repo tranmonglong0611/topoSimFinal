@@ -4,13 +4,12 @@ import common.Format;
 import javafx.util.Pair;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.
  */
-public abstract class Graph implements Serializable, Cloneable {
+public abstract class Topology implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     protected int numV;
@@ -43,7 +42,6 @@ public abstract class Graph implements Serializable, Cloneable {
     public List<Integer> adj(int v) {
         return adj[v];
     }
-
 
     public abstract boolean isHostVertex(int v);
 
@@ -81,7 +79,6 @@ public abstract class Graph implements Serializable, Cloneable {
 
     public void removeEdge(int u, int v) {
         if (!hasEdge(u, v)) {
-//            System.out.println("Edge" + u + "--" + v + "do not exist to delete");
         } else {
 
             adj[u].remove(adj[u].indexOf(v));
@@ -186,7 +183,6 @@ public abstract class Graph implements Serializable, Cloneable {
         return path;
     }
 
-
     public void writeToFile(String path) {
         try {
             FileOutputStream f = new FileOutputStream(new File(path));
@@ -201,13 +197,13 @@ public abstract class Graph implements Serializable, Cloneable {
             e.printStackTrace();
         }
     }
-    public static Graph readFromFile(String path) {
-        Graph a = null;
+    public static Topology readFromFile(String path) {
+        Topology a = null;
         try {
             FileInputStream f = new FileInputStream(new File(path));
             ObjectInputStream o = new ObjectInputStream(f);
             // Write objects to file
-            a = (Graph) o.readObject();
+            a = (Topology) o.readObject();
             o.close();
             f.close();
 

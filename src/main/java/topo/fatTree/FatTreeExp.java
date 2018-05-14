@@ -4,7 +4,6 @@ import common.Format;
 import event.Event;
 import event.EventSim;
 import javafx.util.Pair;
-import network.Config;
 import network.Network;
 import network.Packet;
 import org.apache.logging.log4j.Logger;
@@ -12,15 +11,9 @@ import org.apache.logging.log4j.LogManager;
 
 import output.OutFile;
 import topo.Experiment;
-import topo.TheoryParam;
-import topo.spaceShuffle.SpaceShuffleGraph;
-import topo.spaceShuffle.SpaceShuffleRouting;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FatTreeExp {
 
@@ -29,7 +22,7 @@ public class FatTreeExp {
 //
 //        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        FatTreeGraph ftGraph = new FatTreeGraph(4);
+        FatTreeTopology ftGraph = new FatTreeTopology(4);
         ArrayList<Integer> errorSwitch = new ArrayList<>();
         errorSwitch.add(4);
         errorSwitch.add(5);

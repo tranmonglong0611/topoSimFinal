@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 public class SpaceShuffleRouting extends RoutingAlgorithm {
-    private SpaceShuffleGraph graph;
+    private SpaceShuffleTopology graph;
     private Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
     private List<Integer> listErrorSwitch;
 
-    public SpaceShuffleRouting(SpaceShuffleGraph graph) {
+    public SpaceShuffleRouting(SpaceShuffleTopology graph) {
         this.graph = graph;
     }
 
-    public SpaceShuffleRouting(SpaceShuffleGraph graph, List<Integer> listErrorSwitch) {
+    public SpaceShuffleRouting(SpaceShuffleTopology graph, List<Integer> listErrorSwitch) {
         this.graph = graph;
         this.listErrorSwitch = listErrorSwitch;
     }

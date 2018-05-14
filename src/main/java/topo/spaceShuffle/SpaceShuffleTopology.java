@@ -1,6 +1,6 @@
 package topo.spaceShuffle;
 
-import topo.Graph;
+import topo.Topology;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class SpaceShuffleGraph extends Graph {
+public class SpaceShuffleTopology extends Topology {
 
     public final int nDimension;         //dimension
     public final int nPort;         //number of port each switch
@@ -32,7 +32,7 @@ public class SpaceShuffleGraph extends Graph {
     private int[][] verticesInOrder;
 
 
-    public SpaceShuffleGraph(int nSwitch, int nPort, int nDimension) {
+    public SpaceShuffleTopology(int nSwitch, int nPort, int nDimension) {
 
         /**
          * init info

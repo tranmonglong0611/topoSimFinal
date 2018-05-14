@@ -3,7 +3,6 @@ package topo.jellyFish;
 import common.Format;
 import event.Event;
 import event.EventSim;
-import network.Config;
 import network.Network;
 import network.Packet;
 import org.apache.logging.log4j.LogManager;
@@ -12,9 +11,6 @@ import output.OutFile;
 import routing.RoutingPath;
 import topo.Experiment;
 import topo.TheoryParam;
-import topo.fatTree.FatTreeExp;
-import topo.spaceShuffle.SpaceShuffleGraph;
-import topo.spaceShuffle.SpaceShuffleRouting;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +21,9 @@ public class JellyFishExp {
     public static void main(String[] args) {
 
 
-        Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
+        Logger logger = LogManager.getLogger(JellyFishTopology.class.getName());
 
-        JellyFishGraph jlGraph = new JellyFishGraph(20, 6, 3);
+        JellyFishTopology jlGraph = new JellyFishTopology(20, 6, 3);
         AllShortestPathRouting jlRouting = new AllShortestPathRouting(jlGraph);
 
         logger.info("Done making graph");

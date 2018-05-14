@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class JellyFishTest {
     @Test
     void jellyFishGraphConstruct() {
-        JellyFishGraph graph = new JellyFishGraph(12, 3, 3);
+        JellyFishTopology graph = new JellyFishTopology(12, 3, 3);
         System.out.println(graph.toString());
     }
 }

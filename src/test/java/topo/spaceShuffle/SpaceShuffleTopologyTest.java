@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SpaceShuffleGraphTest {
+class SpaceShuffleTopologyTest {
 
     @Test
     void nDimension() {
-        SpaceShuffleGraph tester = new SpaceShuffleGraph(9, 6, 2);
+        SpaceShuffleTopology tester = new SpaceShuffleTopology(9, 6, 2);
         System.out.printf(tester.toString());
         assertEquals(2, tester.nDimension(), "dimension is 2");
     }

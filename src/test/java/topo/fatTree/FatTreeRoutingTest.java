@@ -15,8 +15,8 @@ class FatTreeRoutingTest {
 
     @Test
     public void next() throws Exception {
-        FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
-        FatTreeRouting ra = new FatTreeRouting(fatTreeGraph);
+        FatTreeTopology fatTreeTopology = new FatTreeTopology(4);
+        FatTreeRouting ra = new FatTreeRouting(fatTreeTopology);
 
         assertEquals(ra.next(2, 2, 17), 5);
         assertEquals(ra.next(2, 5, 17), 6);
@@ -28,8 +28,8 @@ class FatTreeRoutingTest {
 
     @Test
     public void path() throws Exception {
-        FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
-        RoutingAlgorithm ra = new FatTreeRouting(fatTreeGraph);
+        FatTreeTopology fatTreeTopology = new FatTreeTopology(4);
+        RoutingAlgorithm ra = new FatTreeRouting(fatTreeTopology);
 
         List<Integer> trace = ra.path(2, 17).path;
         Integer[] traceResult = trace.toArray(new Integer[0]);
@@ -39,10 +39,10 @@ class FatTreeRoutingTest {
 
     @Test
     public void routingTolerance() throws Exception {
-        FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
+        FatTreeTopology fatTreeTopology = new FatTreeTopology(4);
         ArrayList<Integer> errorSwitch = new ArrayList<>();
 //        errorSwitch.add(
-        FatTreeRoutingFaultTolerance ra = new FatTreeRoutingFaultTolerance(fatTreeGraph, errorSwitch);
+        FatTreeRoutingFaultTolerance ra = new FatTreeRoutingFaultTolerance(fatTreeTopology, errorSwitch);
         RoutingPath trace = ra.path(2, 17);
         System.out.println(trace);
     }

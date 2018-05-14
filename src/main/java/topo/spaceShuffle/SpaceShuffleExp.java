@@ -6,21 +6,19 @@ import common.Format;
 import event.Event;
 import event.EventSim;
 import javafx.util.Pair;
-import network.Config;
 import network.Network;
 import network.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import output.OutFile;
 import topo.Experiment;
-import topo.TheoryParam;
 
 import java.util.*;
 
 public class SpaceShuffleExp {
     public static void main(String[] args) {
         Logger logger = LogManager.getLogger(SpaceShuffleExp.class.getName());
-        SpaceShuffleGraph ssGraph = new SpaceShuffleGraph(10, 6, 2);
+        SpaceShuffleTopology ssGraph = new SpaceShuffleTopology(10, 6, 2);
         ArrayList<Integer> listErrorSwitch = new ArrayList<>();
         listErrorSwitch.add(5);
         listErrorSwitch.add(7);

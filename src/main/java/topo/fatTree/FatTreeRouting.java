@@ -14,7 +14,7 @@ import java.util.Map;
  */
 
 public class FatTreeRouting extends RoutingAlgorithm {
-    private FatTreeGraph G;
+    private FatTreeTopology G;
     protected Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
     protected Map<Integer, Map<Integer, Integer>> suffixTables = new HashMap<>();
     protected Map<Integer,
@@ -22,7 +22,7 @@ public class FatTreeRouting extends RoutingAlgorithm {
     protected Map<Integer,
             Map<Pair<Integer, Integer>, Integer>> corePrefixTables = new HashMap<>();
 
-    public FatTreeRouting(FatTreeGraph G) {
+    public FatTreeRouting(FatTreeTopology G) {
         this.G = G;
         buildTables();
 
@@ -116,7 +116,7 @@ public class FatTreeRouting extends RoutingAlgorithm {
             return destination;
         } else {
             int type = G.switchType(current);
-            if (type == FatTreeGraph.CORE) {
+            if (type == FatTreeTopology.CORE) {
                 Address address = G.getAddress(destination);
                 Pair<Integer, Integer> prefix
                         = new Pair<>(address._1, address._2);
@@ -124,7 +124,7 @@ public class FatTreeRouting extends RoutingAlgorithm {
                         corePrefixTables.get(current);
 
                 return corePrefixTable.get(prefix);
-            } else if (type == FatTreeGraph.AGG) {
+            } else if (type == FatTreeTopology.AGG) {
                 Address address = G.getAddress(destination);
 
                 Triplet<Integer, Integer, Integer> prefix

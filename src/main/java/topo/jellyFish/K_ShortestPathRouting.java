@@ -2,20 +2,19 @@ package topo.jellyFish;
 
 import javafx.util.Pair;
 import routing.RoutingAlgorithm;
-import topo.Graph;
+import topo.Topology;
 import routing.RoutingPath;
 import org.apache.logging.log4j.LogManager;
-import topo.fatTree.FatTreeGraph;
 
 import java.util.*;
 
 public class K_ShortestPathRouting extends RoutingAlgorithm {
 
-    Graph graph;
+    Topology graph;
     public Map<Integer, Map<Integer, List<RoutingPath>>> routingTable;
 
 
-    public K_ShortestPathRouting(final Graph graph, final int K) {
+    public K_ShortestPathRouting(final Topology graph, final int K) {
         this.graph = graph;
 
         routingTable = new HashMap<>();
@@ -37,7 +36,7 @@ public class K_ShortestPathRouting extends RoutingAlgorithm {
         ArrayList<RoutingPath> result = new ArrayList<>();
         PriorityQueue<RoutingPath> candidates = new PriorityQueue<>();
         try {
-            Graph cloneGraph = (Graph) graph.clone();
+            Topology cloneGraph = (Topology) graph.clone();
             RoutingPath kthPath = new RoutingPath(cloneGraph.shortestPath(source, target));
             result.add(kthPath);
             /* Iteratively compute each of the k shortest paths */

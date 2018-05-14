@@ -2,13 +2,12 @@ package topo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /*
     author tamolo
     date 5/3/18
 */
-public class RandomGraph extends Graph {
+public class RandomGraph extends Topology {
     public RandomGraph(int numV) {
         this.numV = numV;
         adj = (List<Integer>[]) new List[numV];

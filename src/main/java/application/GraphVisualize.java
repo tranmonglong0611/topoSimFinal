@@ -1,22 +1,18 @@
 package application;
 
-import application.cell.Cell;
 import application.cell.CellLayer;
 import application.cell.CellType;
 import javafx.scene.Group;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import topo.Graph;
-import topo.jellyFish.JellyFishGraph;
+import topo.Topology;
 
 public class GraphVisualize {
 
     private Model model;
 
     private Group canvas;
-    private Graph graph;
+    private Topology graph;
     private BorderPane showingGraphField;
 
 //    MouseGestures mouseGestures;
@@ -44,10 +40,10 @@ public class GraphVisualize {
 //        scrollPane.setFitToWidth(true);
 //        scrollPane.setFitToHeight(true);
     }
-    public Graph getGraph() {
+    public Topology getGraph() {
         return this.graph;
     }
-    public GraphVisualize(Graph a) {
+    public GraphVisualize(Topology a) {
         this.graph = a;
         this.model = new Model();
 
@@ -111,7 +107,7 @@ public class GraphVisualize {
 //        return this.scrollPane.getScaleValue();
 //    }
 
-    private void addGraphComponents(Graph graph) {
+    private void addGraphComponents(Topology graph) {
 
         Model model = this.getModel();
 

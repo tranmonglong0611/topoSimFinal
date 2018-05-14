@@ -1,6 +1,6 @@
 package topo.fatTree;
 
-import topo.Graph;
+import topo.Topology;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by tranmonglong0611 on 20/11/2017.
  */
-public class FatTreeGraph extends Graph {
+public class FatTreeTopology extends Topology {
     public static final int CORE = 1;
     public static final int AGG  = 2;
     public static final int EDGE = 3;
@@ -26,7 +26,7 @@ public class FatTreeGraph extends Graph {
     private List<Integer> hosts;
     private Address[] address;
 
-    public FatTreeGraph(int k){
+    public FatTreeTopology(int k){
         this.type = "FatTree";
         this.k = k;
         numServer = k * k * k / 4;
@@ -180,6 +180,4 @@ public class FatTreeGraph extends Graph {
     public int podBelongTo(int vertex) {
         return vertex / numSwitchEachPod;
     }
-
-
 }

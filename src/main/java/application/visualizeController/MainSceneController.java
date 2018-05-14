@@ -2,16 +2,13 @@ package application.visualizeController;
 
 import application.CustomOutputStream;
 import application.GraphVisualize;
-import application.Main;
 import application.layout.FatTreeLayout;
 import application.layout.Layout;
 import application.layout.RandomLayout;
 import application.layout.SmallWorldLayout;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -20,17 +17,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.apache.logging.log4j.Logger;
-import topo.Graph;
-import topo.fatTree.FatTreeGraph;
-import topo.jellyFish.JellyFishGraph;
+import topo.Topology;
+import topo.fatTree.FatTreeTopology;
+import topo.jellyFish.JellyFishTopology;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -39,15 +33,15 @@ import java.util.Arrays;
 import java.util.Date;
 
 import org.apache.logging.log4j.*;
-import topo.smallWorld.SmallWorldGraph;
-import topo.spaceShuffle.SpaceShuffleGraph;
+import topo.smallWorld.SmallWorldTopology;
+import topo.spaceShuffle.SpaceShuffleTopology;
 
 /*
     author tamolo
     date 3/24/18
 */
 public class MainSceneController {
-    private Graph graph = null;
+    private Topology graph = null;
 
     @FXML
     private Button btnFt;
@@ -142,7 +136,7 @@ public class MainSceneController {
                             alert.setContentText("You need to enter the even integer k from 4 to 20");
                             alert.showAndWait();
                         }else {
-                            graph = new FatTreeGraph(k);
+                            graph = new FatTreeTopology(k);
                             GraphVisualize graphVisualize = new GraphVisualize(graph);
                             mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                             FatTreeLayout layout = new FatTreeLayout(graphVisualize);
@@ -209,7 +203,7 @@ public class MainSceneController {
                         int nSwitch = Integer.parseInt(nSwitchInput.getText());
                         int nPort = Integer.parseInt(nPortInput.getText());
                         int nHostPSwitch = Integer.parseInt(nHostPerSwitchInput.getText());
-                        graph = new JellyFishGraph(nSwitch, nPort, nPort - nHostPSwitch);
+                        graph = new JellyFishTopology(nSwitch, nPort, nPort - nHostPSwitch);
                         GraphVisualize graphVisualize = new GraphVisualize(graph);
                         mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                         areaGraphInfo.setText(graph.graphInfo());
@@ -275,7 +269,7 @@ public class MainSceneController {
                         int nSwitch = Integer.parseInt(nSwitchInput.getText());
                         int nPort = Integer.parseInt(nPortInput.getText());
                         int nDimension = Integer.parseInt(nDimensionInput.getText());
-                        graph = new SpaceShuffleGraph(nSwitch, nPort, nDimension);
+                        graph = new SpaceShuffleTopology(nSwitch, nPort, nDimension);
                         GraphVisualize graphVisualize = new GraphVisualize(graph);
                         mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                         areaGraphInfo.setText(graph.graphInfo());
@@ -343,7 +337,7 @@ public class MainSceneController {
                             int randomLinkPerSwitch = Integer.parseInt(nRandomLinkPerSwitchInput.getText());
                             double[] alphas = new double[randomLinkPerSwitch];
                             Arrays.fill(alphas, 1.6);
-                            graph = new SmallWorldGraph(nRow, nCol, "torus", alphas);
+                            graph = new SmallWorldTopology(nRow, nCol, "torus", alphas);
                             GraphVisualize graphVisualize = new GraphVisualize(graph);
                             mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                             areaGraphInfo.setText(graph.graphInfo());
@@ -425,7 +419,7 @@ public class MainSceneController {
             public void handle(ActionEvent event) {
                 try {
                     String path = kInput.getText();
-                    graph = Graph.readFromFile(path);
+                    graph = Topology.readFromFile(path);
                     GraphVisualize graphVisualize = new GraphVisualize(graph);
                     mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                     Layout layout;

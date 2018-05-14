@@ -17,10 +17,10 @@ import java.util.Map;
  * greedy routing
  */
 public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
-    private SmallWorldGraph G;
+    private SmallWorldTopology G;
     public Map<Integer, RoutingTable> tables;
 
-     public SmallWorldRoutingAlgorithm(SmallWorldGraph G) {
+     public SmallWorldRoutingAlgorithm(SmallWorldTopology G) {
         this.G = G;
 
         buildTables();

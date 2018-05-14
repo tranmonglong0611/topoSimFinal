@@ -1,11 +1,10 @@
 package topo.smallWorld;
-import topo.Graph;
+import topo.Topology;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-public class GridGraph extends Graph {
+public class GridTopology extends Topology {
     public static final int HOST_PER_SWITCH = 1;
     private List<Integer> switches;
     private List<Integer> hosts;
@@ -16,7 +15,7 @@ public class GridGraph extends Graph {
     private final int nHost;
     private final int nSwitch;
 
-    public GridGraph(GridGraph graph) {
+    public GridTopology(GridTopology graph) {
         this.numV = graph.getNumV();
         this.nRow = graph.nRow;
         this.nCol = graph.nCol;
@@ -38,7 +37,7 @@ public class GridGraph extends Graph {
             }
         }
     }
-    public GridGraph(int nRow, int nCol, String baseType) {
+    public GridTopology(int nRow, int nCol, String baseType) {
         this.nRow = nRow;
         this.nCol = nCol;
         this.baseType = baseType;

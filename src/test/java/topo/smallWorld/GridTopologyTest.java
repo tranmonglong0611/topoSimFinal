@@ -2,13 +2,11 @@ package topo.smallWorld;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class GridGraphTest {
+class GridTopologyTest {
 
     @Test
     public void gridGraphContruct() {
-        GridGraph gg = new GridGraph(4, 4, "torus");
+        GridTopology gg = new GridTopology(4, 4, "torus");
         System.out.println(gg.toString());
     }
 }

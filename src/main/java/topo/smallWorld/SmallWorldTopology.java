@@ -2,11 +2,11 @@ package topo.smallWorld;
 import common.Knuth;
 import common.RandomSet;
 import javafx.util.Pair;
-import topo.Graph;
+import topo.Topology;
 
 import java.util.*;
 
-public class SmallWorldGraph extends GridGraph{
+public class SmallWorldTopology extends GridTopology {
     private static Random random = new Random();
     private double[] alphas;
     private Map<Pair<Integer, Integer>, Integer> randomLinks;
@@ -21,7 +21,7 @@ public class SmallWorldGraph extends GridGraph{
      * @param alphas dimension: the number of random edges for each vertex
      *               value: just random value for choosing random vertex to connect
      */
-    public SmallWorldGraph(int nRow, int nCol, String baseType, double[] alphas) {
+    public SmallWorldTopology(int nRow, int nCol, String baseType, double[] alphas) {
         super(nRow, nCol, baseType);
         this.type = "SmallWorld";
         this.alphas = alphas;
@@ -33,7 +33,7 @@ public class SmallWorldGraph extends GridGraph{
     /**
      * Constuctor of SmallWorldGraph for varied degree
      */
-    public SmallWorldGraph(int nRow, int nCol, String baseType, double[] alphas, boolean isBounded) {
+    public SmallWorldTopology(int nRow, int nCol, String baseType, double[] alphas, boolean isBounded) {
         super(nRow, nCol, baseType);
         this.type = "SmallWorld";
         this.alphas = alphas;
@@ -45,7 +45,7 @@ public class SmallWorldGraph extends GridGraph{
     /**
      * Constructor for non-random links
      */
-    public SmallWorldGraph(String baseType, int nRow, int nCol) {
+    public SmallWorldTopology(String baseType, int nRow, int nCol) {
         super(nRow, nCol, baseType);
         this.type = "SmallWorld";
     }
@@ -104,7 +104,7 @@ public class SmallWorldGraph extends GridGraph{
      * @return
      */
     private void generateVariedDegree(double[] alphas, boolean isBounded) {
-        Graph baseGraph = new GridGraph(this);
+        Topology baseGraph = new GridTopology(this);
         for (int i = 0; i < alphas.length; i++) {
             double alpha = alphas[i];
             // get a permutation of vertices
@@ -251,13 +251,13 @@ public class SmallWorldGraph extends GridGraph{
         if (randomLinkType.equals("varied"))
             isBounded = false; //Boolean.parseBoolean(args[nAlpha + 5]);
 
-        SmallWorldGraph graph;
+        SmallWorldTopology graph;
         if (randomLinkType.equals("fixed")) {
             // fixed degree
-            graph = new SmallWorldGraph(nRow, nCol, baseType, alphas);
+            graph = new SmallWorldTopology(nRow, nCol, baseType, alphas);
         } else {
             // varied degree
-            graph = new SmallWorldGraph(nRow, nCol, baseType, alphas, isBounded);
+            graph = new SmallWorldTopology(nRow, nCol, baseType, alphas, isBounded);
         }
 
 

@@ -12,11 +12,11 @@ import java.util.List;
     tinh toan cac tham so ly thuyet cua mot datacenter
 */
 public class TheoryParam {
-    Graph graph;
+    Topology graph;
     RoutingAlgorithm routing;
     Logger logger = LogManager.getLogger(TheoryParam.class.getName());
 
-    public TheoryParam(Graph graph, RoutingAlgorithm routing) {
+    public TheoryParam(Topology graph, RoutingAlgorithm routing) {
         this.graph = graph;
         this.routing = routing;
 

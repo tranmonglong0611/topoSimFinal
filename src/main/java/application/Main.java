@@ -4,14 +4,11 @@ package application;
 import application.cell.CellType;
 import application.layout.Layout;
 import application.layout.RandomLayout;
-import application.layout.SmallWorldLayout;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import topo.fatTree.FatTreeGraph;
-import topo.jellyFish.JellyFishGraph;
-import topo.smallWorld.SWRingGraph;
+import topo.jellyFish.JellyFishTopology;
 
 
 public class Main extends Application {
@@ -43,7 +40,7 @@ public class Main extends Application {
         Model model = graph.getModel();
 
         graph.beginUpdate();
-        JellyFishGraph temp = new JellyFishGraph(5, 4, 2);
+        JellyFishTopology temp = new JellyFishTopology(5, 4, 2);
         for (int i = 0; i < temp.getNumV(); i++) {
             if (temp.isHostVertex(i)) model.addCell(Integer.toString(i), CellType.HOST);
             else {

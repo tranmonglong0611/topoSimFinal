@@ -1,6 +1,6 @@
 package routing;
 
-import topo.Graph;
+import topo.Topology;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class ShortestRoutingAlgorithm extends RoutingAlgorithm {
 
-    private Graph graph;
+    private Topology graph;
 
     //example <1, <5, 3>> de di tu 1 ->5 thi tiep theo phai di den 3
     private Map<Integer, Map<Integer, Integer>> paths;
 
-    public ShortestRoutingAlgorithm(Graph graph) {
+    public ShortestRoutingAlgorithm(Topology graph) {
         paths = new HashMap<>();
         for (int sw : graph.switches()) {
             paths.put(sw, new HashMap<>());

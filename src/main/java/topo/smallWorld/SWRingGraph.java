@@ -1,12 +1,11 @@
 package topo.smallWorld;
 
-import topo.Graph;
+import topo.Topology;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
-public class SWRingGraph extends Graph {
+public class SWRingGraph extends Topology {
 
     private List<Integer> switches;
 

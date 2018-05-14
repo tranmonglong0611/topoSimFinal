@@ -1,8 +1,5 @@
 package topo.jellyFish;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import topo.Graph;
-
 import java.io.*;
 
 public class JellyFishGraphTest {
@@ -26,7 +23,7 @@ public class JellyFishGraphTest {
             ObjectInputStream oi = new ObjectInputStream(fi);
 
             // Read objects
-           JellyFishGraph graph = (JellyFishGraph) oi.readObject();
+           JellyFishTopology graph = (JellyFishTopology) oi.readObject();
 
             System.out.println(graph.toString());
             oi.close();

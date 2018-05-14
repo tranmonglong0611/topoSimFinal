@@ -1,12 +1,9 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import routing.RoutingPath;
-import topo.Graph;
-import topo.fatTree.FatTreeGraph;
+import topo.fatTree.FatTreeTopology;
 import topo.fatTree.FatTreeRoutingFaultTolerance;
-import topo.smallWorld.SmallWorldGraph;
 
-import javax.swing.text.StyleContext;
 import java.util.*;
 
 /*
@@ -17,7 +14,7 @@ public class Trash {
     final static Logger logger = LogManager.getLogger(Trash.class);
 
     public static void main(String[] args) {
-        FatTreeGraph fatTreeGraph = new FatTreeGraph(4);
+        FatTreeTopology fatTreeTopology = new FatTreeTopology(4);
         ArrayList<Integer> errorSwitch = new ArrayList<>();
 //        errorSwitch.add(32);
         errorSwitch.add(33);
@@ -27,7 +24,7 @@ public class Trash {
 
 //        errorSwitch.add(35);
 
-        FatTreeRoutingFaultTolerance ra = new FatTreeRoutingFaultTolerance(fatTreeGraph, errorSwitch);
+        FatTreeRoutingFaultTolerance ra = new FatTreeRoutingFaultTolerance(fatTreeTopology, errorSwitch);
         RoutingPath trace = ra.path(2, 17);
         System.out.println(trace);
 //

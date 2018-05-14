@@ -3,7 +3,7 @@ package topo.jellyFish;
 import org.apache.logging.log4j.LogManager;
 import routing.RoutingAlgorithm;
 import routing.RoutingPath;
-import topo.Graph;
+import topo.Topology;
 
 import java.util.*;
 
@@ -13,10 +13,10 @@ import java.util.*;
 */
 public class AllShortestPathRouting extends RoutingAlgorithm {
 
-    Graph graph;
+    Topology graph;
     public Map<Integer, Map<Integer, List<RoutingPath>>> routingTable;
 
-    public AllShortestPathRouting(Graph graph) {
+    public AllShortestPathRouting(Topology graph) {
         this.graph = graph;
         routingTable = new HashMap<>();
 

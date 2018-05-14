@@ -4,7 +4,6 @@ import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import routing.RoutingAlgorithm;
 import routing.RoutingPath;
-import topo.Triplet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ import java.util.Map;
 public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
     protected Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
 
-    FatTreeGraph graph;
+    FatTreeTopology graph;
     List<Integer> listErrorSwitch;
     //Map<Integer, List<Integer>> edgeRouting;
     //key la aggre vertex. Map co key la edge index, value la edge vertex
@@ -75,12 +74,12 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
 
         for(int errorSwitch : listErrorSwitch) {
             int type = graph.switchType(errorSwitch);
-            if(type == FatTreeGraph.CORE)
+            if(type == FatTreeTopology.CORE)
                 for(int i = 0; i < graph.getK(); i++)
                     coreAvailEachPod.get(i).remove(coreAvailEachPod.get(i).indexOf(errorSwitch));
-            else if(type == FatTreeGraph.EDGE ) {
+            else if(type == FatTreeTopology.EDGE ) {
 
-            }else if(type == FatTreeGraph.AGG) {
+            }else if(type == FatTreeTopology.AGG) {
                 int pod = graph.podBelongTo(errorSwitch);
                 int indexAgg = getIndexAggSwitch(errorSwitch);
                 coreAvailEachPod.get(pod).removeAll(getAllCoreSwitch(indexAgg));
@@ -95,7 +94,7 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
         return vertex - (pod * graph.numSwitchEachPod + k * k  / 4 + k / 2);
     }
 
-    public FatTreeRoutingFaultTolerance(FatTreeGraph graph, List<Integer> listErrorSwitch) {
+    public FatTreeRoutingFaultTolerance(FatTreeTopology graph, List<Integer> listErrorSwitch) {
         this.graph = graph;
         this.listErrorSwitch = listErrorSwitch;
         int k = graph.getK();
@@ -171,7 +170,7 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
             return destination;
         }else {
             int type = graph.switchType(current);
-            if(type == FatTreeGraph.CORE) {
+            if(type == FatTreeTopology.CORE) {
                 int podDes = graph.podBelongTo(destination);
                 if(coreRouting.get(current).containsKey(podDes)) {
                     return coreRouting.get(current).get(podDes);
@@ -179,7 +178,7 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
                 else {
                     return -1;
                 }
-            }else if(type == FatTreeGraph.AGG) {
+            }else if(type == FatTreeTopology.AGG) {
                 int podDes = graph.podBelongTo(destination);
                 int podCur = graph.podBelongTo(current);
                 if(podDes == podCur) {
@@ -204,7 +203,7 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
                     LogManager.getLogger(FatTreeRoutingFaultTolerance.class.getName()).error("NO core Switch avail");
                     return -1;
                 }
-            }else if(type == FatTreeGraph.EDGE) {
+            }else if(type == FatTreeTopology.EDGE) {
                 //xu li di len.di xuong da xu ly o tren cung function
                 //chi can gui random cho 1 thang agg la xong
                 int podCur = graph.podBelongTo(current);

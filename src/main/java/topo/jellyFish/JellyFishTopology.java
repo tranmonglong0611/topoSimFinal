@@ -3,7 +3,7 @@ package topo.jellyFish;
 import common.Knuth;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import topo.Graph;
+import topo.Topology;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class JellyFishGraph extends Graph {
+public class JellyFishTopology extends Topology {
     public final int nPort;
     public final int r;                 // r port to connect to another switch
     public final int nHostPerSwitch;
@@ -20,9 +20,9 @@ public class JellyFishGraph extends Graph {
 
     private List<Integer> hosts;
     private List<Integer> switches;
-    Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
+    Logger logger = LogManager.getLogger(JellyFishTopology.class.getName());
 
-    public JellyFishGraph(int nSwitch, int nPort, int r) {
+    public JellyFishTopology(int nSwitch, int nPort, int r) {
         this.type = "JellyFish";
         this.nSwitch = nSwitch;
         this.nPort = nPort;
