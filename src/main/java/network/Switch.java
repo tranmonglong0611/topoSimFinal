@@ -3,6 +3,7 @@ package network;
 import common.Format;
 import event.Event;
 import event.EventSim;
+import output.OutFile;
 import routing.RoutingAlgorithm;
 import routing.RoutingPath;
 
@@ -50,19 +51,21 @@ public class Switch extends Node {
                 if(nextId != -1) {
                     links.get(nextId).handle(packet, sim, Switch.this);
                 } else {
-
+                    OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode + "\n");
                 }
             }
 
 
             @Override
             public String info() {
-                Link link = links.get(nextId);
-                int input = Switch.this.id;
-                int output = link.u.id + link.v.id - input;
-                return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Transferring At Link: " + input + " --- " + output, this.timeStart);
-
-//                return packet.toString() + "TransferringAtLink: " + input + " --- " + output;
+                if(nextId != -1) {
+                    Link link = links.get(nextId);
+                    int input = Switch.this.id;
+                    int output = link.u.id + link.v.id - input;
+                    return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Transferring At Link: " + input + " --- " + output, this.timeStart);
+                } else {
+                    return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Error" , this.timeStart);
+                }
 
             }
         });

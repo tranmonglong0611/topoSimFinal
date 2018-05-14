@@ -156,13 +156,15 @@ public class FatTreeRouting extends RoutingAlgorithm {
         } else {
             RoutingPath rp = new RoutingPath();
             int current = source;
+            rp.path.add(current);
             while (current != destination) {
                 if (current != source) {
                     rp.path.add(current);
                 }
                 current = next(source, current, destination);
             }
-//            rp.path.add(destination);
+
+            rp.path.add(destination);
             precomputedPaths.put(new Pair<>(source, destination), rp);
             return rp;
         }

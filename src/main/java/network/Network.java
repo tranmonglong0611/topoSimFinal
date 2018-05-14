@@ -27,7 +27,7 @@ public class Network {
         switchById = new HashMap<>();
 
         for (int hid : graph.hosts()) {
-            Host host = new Host(hid);
+            Host host = new Host(hid, routingAlgorithm);
             hosts.add(host);
             hostById.put(hid, host);
         }
@@ -47,7 +47,7 @@ public class Network {
 
             // add to both
             host.link = new Link(host, csw);
-            ;
+
             if (!csw.links.containsKey(host.id)) {
                 csw.links.put(host.id, new Link(host, csw));
             }

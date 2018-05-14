@@ -32,7 +32,7 @@ public class TheoryParam {
         for(int i = 0; i < listHost.size(); i++) {
             for(int j = i + 1; j < listHost.size(); j++) {
                 //plus 1 cause path do not consist source and destination
-                int diameter = routing.path(listHost.get(i), listHost.get(j)).size() + 1;
+                int diameter = routing.path(listHost.get(i), listHost.get(j)).size() - 1;
                 if(max < diameter) max = diameter;
             }
         }
@@ -46,7 +46,7 @@ public class TheoryParam {
         for(int i = 0; i < listHost.size(); i++) {
             for(int j = i + 1; j < listHost.size(); j++) {
                 numOfPath++;
-                sum += routing.path(listHost.get(i), listHost.get(j)).size() + 1;
+                sum += routing.path(listHost.get(i), listHost.get(j)).size() - 1;
             }
         }
         return sum / numOfPath;

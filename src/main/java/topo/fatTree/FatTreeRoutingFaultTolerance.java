@@ -157,9 +157,8 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
     //return -1 if the switch need to be sent is error
     @Override
     public int next(int source, int current, int destination) {
-
-        System.out.println(source + "--" + current + "--" + destination);
         int k = graph.getK();
+
         if(graph.isHostVertex(current)) {
             if(listErrorSwitch.contains(graph.adj(current).get(0))) {
                 return -1;
@@ -178,7 +177,6 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
                     return coreRouting.get(current).get(podDes);
                 }
                 else {
-                    System.out.println("shit hrere");
                     return -1;
                 }
             }else if(type == FatTreeGraph.AGG) {
@@ -226,12 +224,18 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
         } else {
             RoutingPath rp = new RoutingPath();
             int current = source;
+            rp.path.add(current);
             while (current != destination) {
                 if (current != source) {
                     rp.path.add(current);
                 }
                 current = next(source, current, destination);
+                if(current == -1) {
+                    LogManager.getLogger(FatTreeRoutingFaultTolerance.class.getName()).error("Can not get the way from " + source +  "to " + destination);
+                    return null;
+                }
             }
+            rp.path.add(destination);
 //            rp.path.add(destination);
             precomputedPaths.put(new Pair<>(source, destination), rp);
             return rp;

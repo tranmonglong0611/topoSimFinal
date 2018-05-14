@@ -27,21 +27,21 @@ public class JellyFishExp {
 
         Logger logger = LogManager.getLogger(JellyFishGraph.class.getName());
 
-        JellyFishGraph jlGraph = new JellyFishGraph(100, 6, 3);
+        JellyFishGraph jlGraph = new JellyFishGraph(20, 6, 3);
         AllShortestPathRouting jlRouting = new AllShortestPathRouting(jlGraph);
 
         logger.info("Done making graph");
-        OutFile.getFile().append(jlGraph.toString());
+//        OutFile.getFile().append(jlGraph.toString());
         logger.info("Done write class to file");
 
         TheoryParam theoryParam = new TheoryParam(jlGraph, jlRouting);
 
         Network net = new Network(jlGraph, jlRouting);
-        EventSim sim = new EventSim(1000);
+        EventSim sim = new EventSim(9999999);
 
 
         Map<Integer, Integer> traffic = new HashMap<>();
-        for (int i = 0; i < Config.NUM_PACKET_SEND; i++) {
+        for (int i = 0; i < 100; i++) {
             ArrayList<Integer> hosts = (ArrayList<Integer>) jlGraph.hosts();
             int temp1 = (int) (Math.random() * hosts.size());
             int temp2 = (int) (Math.random() * hosts.size());
@@ -84,6 +84,7 @@ public class JellyFishExp {
         sim.process();
         Experiment e = new Experiment(sim);
 
+        OutFile.getFile().close();
 
 //        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());
 

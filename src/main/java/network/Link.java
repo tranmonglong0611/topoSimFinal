@@ -8,8 +8,8 @@ import event.EventSim;
  * Created by tranmonglong0611 on 20/11/2017.
  */
 public class Link {
-    Node u;
-    Node v;
+    public Node u;
+    public Node v;
     public int bandwidth;
     public long availTime;
     public long cableLength;

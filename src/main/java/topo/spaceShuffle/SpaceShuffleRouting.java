@@ -5,14 +5,21 @@ import routing.RoutingAlgorithm;
 import routing.RoutingPath;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SpaceShuffleRouting extends RoutingAlgorithm {
     private SpaceShuffleGraph graph;
     private Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
+    private List<Integer> listErrorSwitch;
 
     public SpaceShuffleRouting(SpaceShuffleGraph graph) {
         this.graph = graph;
+    }
+
+    public SpaceShuffleRouting(SpaceShuffleGraph graph, List<Integer> listErrorSwitch) {
+        this.graph = graph;
+        this.listErrorSwitch = listErrorSwitch;
     }
 
     @Override
@@ -31,6 +38,9 @@ public class SpaceShuffleRouting extends RoutingAlgorithm {
                     next = v;
                 }
             }
+            if(listErrorSwitch != null && listErrorSwitch.contains(next)) {
+                return -1;
+            }
             return next;
         }
     }
@@ -42,12 +52,14 @@ public class SpaceShuffleRouting extends RoutingAlgorithm {
         } else {
             RoutingPath rp = new RoutingPath();
             int current = source;
+            rp.path.add(source);
             while (current != destination) {
                 if (current != source) {
                     rp.path.add(current);
                 }
                 current = next(source, current, destination);
             }
+            rp.path.add(destination);
 //            rp.path.add(destination);
             precomputedPaths.put(new Pair<>(source, destination), rp);
             return rp;
