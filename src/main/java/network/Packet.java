@@ -7,7 +7,7 @@ import routing.RoutingPath;
  */
 public class Packet {
 
-    public int size;
+    public long size;
     public int startNode;
     public int endNode;
     public long startTime;

@@ -13,6 +13,4 @@ public abstract class Node {
         this.id = id;
     }
     public abstract void process(Packet packet, EventSim e);
-
-
 }

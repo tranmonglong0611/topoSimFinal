@@ -22,7 +22,7 @@ public class JellyFishTopology extends Topology {
     private List<Integer> switches;
     Logger logger = LogManager.getLogger(JellyFishTopology.class.getName());
 
-    public JellyFishTopology(int nSwitch, int nPort, int r) {
+    public  JellyFishTopology(int nSwitch, int nPort, int r) {
         this.type = "JellyFish";
         this.nSwitch = nSwitch;
         this.nPort = nPort;

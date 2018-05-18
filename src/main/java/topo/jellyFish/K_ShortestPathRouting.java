@@ -165,7 +165,8 @@ public class K_ShortestPathRouting extends RoutingAlgorithm {
     @Override
     public RoutingPath path(int source, int destination) {
         //return the shortest path
-        return routingTable.get(source).get(destination).get(0);
+        int random = (int)(Math.random() * routingTable.get(source).get(destination).size());
+        return routingTable.get(source).get(destination).get(random);
     }
 
     public static void main(String[] args) {

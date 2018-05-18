@@ -1,4 +1,4 @@
-package application.cell;
+package visualize.cell;
 
 public enum CellType {
     SWITCH,

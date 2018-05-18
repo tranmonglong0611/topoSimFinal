@@ -6,10 +6,10 @@ package event;
 public abstract class Event {
 
     public long timeStart;
-    int id;
+    long id;
 
 
-    public Event(int id, long timeStart) {
+    public Event(long id, long timeStart) {
         this.timeStart = timeStart;
         this.id = id;
     }

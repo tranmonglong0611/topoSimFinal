@@ -24,25 +24,28 @@ public class SpaceShuffleRouting extends RoutingAlgorithm {
 
     @Override
     public int next(int source, int current, int destination) {
+        int next;
         if (graph.isHostVertex(current)) {
-            return graph.adj(current).get(0);
-        } if (graph.adj(current).contains(destination)) {
-            return destination;
+            next =  graph.adj(current).get(0);
+        }
+        else if (graph.adj(current).contains(destination)) {
+            next = destination;
         } else {
             // get next hop that minimize the distance to the destination
             double minDistance = Double.MAX_VALUE;
-            int next = -1;
+            next = -1;
             for (int v : graph.adj(current)) {
                 if (graph.distance(v, destination) < minDistance) {
                     minDistance = graph.distance(v, destination);
                     next = v;
                 }
             }
-            if(listErrorSwitch != null && listErrorSwitch.contains(next)) {
-                return -1;
-            }
-            return next;
+
         }
+        if(listErrorSwitch != null && listErrorSwitch.contains(next)) {
+            return -1;
+        }
+        return next;
     }
 
     @Override

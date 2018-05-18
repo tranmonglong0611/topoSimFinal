@@ -31,11 +31,13 @@ public class Experiment {
     }
 
     public long averagePacketTravel() {
-
         OutFile.getFile().append("Total Time Travel " + sim.totalTimePacketTravel);
         OutFile.getFile().append("Total Packet Sent: " + sim.numSent);
 
         long averageTime = sim.totalTimePacketTravel / sim.numSent;
         return averageTime;
     }
+
+
+
 }

@@ -59,13 +59,14 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
 
     public void handleCoreAvailEachPod() {
         int k = graph.getK();
+
+        ArrayList<Integer> tempArray = new ArrayList<>();
+        int startCoreSwitchIndex = graph.numSwitchEachPod * k;
+        for(int ii = startCoreSwitchIndex; ii < startCoreSwitchIndex + k * k / 4; ii++ ){
+            tempArray.add(ii);
+        }
         for(int i = 0; i < graph.getK(); i++) {
-            coreAvailEachPod.put(i, new ArrayList<>());
-            int startCoreSwitchIndex = graph.numSwitchEachPod * k;
-            for(int ii = startCoreSwitchIndex; ii < startCoreSwitchIndex + k * k / 4; ii++ ){
-                coreAvailEachPod.get(i).add(ii);
-//                System.out.println(ii);
-            }
+            coreAvailEachPod.put(i, new ArrayList<>(tempArray));
         }
         if(listErrorSwitch.size() == 0) {
             return;
@@ -74,15 +75,26 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
 
         for(int errorSwitch : listErrorSwitch) {
             int type = graph.switchType(errorSwitch);
-            if(type == FatTreeTopology.CORE)
-                for(int i = 0; i < graph.getK(); i++)
-                    coreAvailEachPod.get(i).remove(coreAvailEachPod.get(i).indexOf(errorSwitch));
+            if(type == FatTreeTopology.CORE) {
+                for (int i = 0; i < graph.getK(); i++) {
+                    int index = coreAvailEachPod.get(i).indexOf(errorSwitch);
+                    if(index != -1)
+                        coreAvailEachPod.get(i).remove(index);
+                }
+            }
             else if(type == FatTreeTopology.EDGE ) {
 
             }else if(type == FatTreeTopology.AGG) {
                 int pod = graph.podBelongTo(errorSwitch);
                 int indexAgg = getIndexAggSwitch(errorSwitch);
-                coreAvailEachPod.get(pod).removeAll(getAllCoreSwitch(indexAgg));
+
+                List<Integer> allCoreSwitch = getAllCoreSwitch(indexAgg);
+                for(int s : allCoreSwitch) {
+                    if(coreAvailEachPod.get(pod).contains(s)) {
+                        coreAvailEachPod.get(pod).remove(coreAvailEachPod.get(pod).indexOf(s));
+                    }
+                }
+//                coreAvailEachPod.get(pod).removeAll(getAllCoreSwitch(indexAgg));
             }
         }
     }
@@ -200,7 +212,7 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
                             return core;
                         }
                     }
-                    LogManager.getLogger(FatTreeRoutingFaultTolerance.class.getName()).error("NO core Switch avail");
+//                    LogManager.getLogger(FatTreeRoutingFaultTolerance.class.getName()).error("NO core Switch avail");
                     return -1;
                 }
             }else if(type == FatTreeTopology.EDGE) {
@@ -208,6 +220,8 @@ public class FatTreeRoutingFaultTolerance extends RoutingAlgorithm{
                 //chi can gui random cho 1 thang agg la xong
                 int podCur = graph.podBelongTo(current);
                 List<Integer> listAvailAgg = getAggAvailPerPod(podCur);
+
+                if(listAvailAgg.size() == 0) return -1;
                 return listAvailAgg.get((int)(Math.random() * listAvailAgg.size()));
             }else {
 

@@ -1,8 +1,7 @@
-package application.layout;
+package visualize.layout;
 
-import application.GraphVisualize;
-import application.cell.Cell;
-import application.GraphVisualize;
+import visualize.GraphVisualize;
+import visualize.cell.Cell;
 
 import java.util.List;
 import java.util.Random;

@@ -1,7 +1,7 @@
-package application;
+package visualize;
 
-import application.cell.CellLayer;
-import application.cell.CellType;
+import visualize.cell.CellLayer;
+import visualize.cell.CellType;
 import javafx.scene.Group;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;

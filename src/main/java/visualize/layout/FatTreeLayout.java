@@ -1,7 +1,7 @@
-package application.layout;
+package visualize.layout;
 
-import application.GraphVisualize;
-import application.cell.Cell;
+import visualize.GraphVisualize;
+import visualize.cell.Cell;
 import topo.fatTree.FatTreeTopology;
 
 import java.util.List;

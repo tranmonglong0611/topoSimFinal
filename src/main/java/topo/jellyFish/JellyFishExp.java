@@ -3,17 +3,20 @@ package topo.jellyFish;
 import common.Format;
 import event.Event;
 import event.EventSim;
+import javafx.util.Pair;
 import network.Network;
 import network.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import output.OutFile;
 import routing.RoutingPath;
+import sun.tools.tree.ThisExpression;
 import topo.Experiment;
 import topo.TheoryParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JellyFishExp {
@@ -23,32 +26,51 @@ public class JellyFishExp {
 
         Logger logger = LogManager.getLogger(JellyFishTopology.class.getName());
 
-        JellyFishTopology jlGraph = new JellyFishTopology(20, 6, 3);
-        AllShortestPathRouting jlRouting = new AllShortestPathRouting(jlGraph);
+        JellyFishTopology jlGraph = new JellyFishTopology(256, 8, 4);
+
+        ArrayList<Integer> errorSwitch = new ArrayList<>();
+//        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
+        int numSwitch = jlGraph.switches().size();
+
+        for(int i = 0; i < 55 * numSwitch / 100; i++) {
+            int random = (int)(Math.random() * numSwitch);
+            int eSwitch = jlGraph.switches().get(random);
+
+            if(errorSwitch.contains(eSwitch)) {
+                i--;
+            }else {
+                errorSwitch.add(eSwitch);
+
+            }
+        }
+        AllShortestPathRouting jlRouting = new AllShortestPathRouting(jlGraph, errorSwitch);
 
         logger.info("Done making graph");
-//        OutFile.getFile().append(jlGraph.toString());
         logger.info("Done write class to file");
 
-        TheoryParam theoryParam = new TheoryParam(jlGraph, jlRouting);
 
         Network net = new Network(jlGraph, jlRouting);
-        EventSim sim = new EventSim(9999999);
+        EventSim sim = new EventSim(999999999999999L, false);
 
 
-        Map<Integer, Integer> traffic = new HashMap<>();
-        for (int i = 0; i < 100; i++) {
+        List<Pair<Integer, Integer>> traffic = new ArrayList<>();
+//        traffic.put(0, 3);
+//        traffic.add(new Pair<>(1, 3));
+
+        int numSent = 0;
+        while(numSent < 10000) {
             ArrayList<Integer> hosts = (ArrayList<Integer>) jlGraph.hosts();
-            int temp1 = (int) (Math.random() * hosts.size());
-            int temp2 = (int) (Math.random() * hosts.size());
+            int temp1 = (int) (Math.random() * hosts.size() / 2);
+            int temp2 = hosts.size() / 2  + (int) (Math.random() * hosts.size() / 2);
 
             if (temp1 == temp2) continue;
-            traffic.put(hosts.get(temp1), hosts.get(temp2));
+            traffic.add(new Pair(hosts.get(temp1), hosts.get(temp2)));
+            numSent++;
         }
 
-
-        for (Integer source : traffic.keySet()) {
-            Integer destination = traffic.get(source);
+        for (Pair<Integer, Integer> pair : traffic) {
+            int destination = pair.getValue();
+            int source = pair.getKey();
             RoutingPath routingPath = jlRouting.getRandomPath(source, destination);
 //            logger.info("Choosing: " + routingPath.toString());
 //
@@ -78,8 +100,15 @@ public class JellyFishExp {
 
         logger.info("Start doing simulation");
         sim.process();
-        Experiment e = new Experiment(sim);
 
+        OutFile.getFile().append("\nTotal packet sent: " + sim.numSent);
+        OutFile.getFile().append("\nTotal packet received: " + sim.numReceived);
+        System.out.println("numsent: " + sim.numSent);
+        System.out.println("Num received: " + sim.numReceived);
+        System.out.println("Average Packet Travel: " + sim.averagePacketTravel());
+        System.out.println("Bandwidth: " + sim.throughput());
+
+//        TheoryParam theoryParam = new TheoryParam(jlGraph, jlRouting);
         OutFile.getFile().close();
 
 //        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());

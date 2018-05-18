@@ -20,8 +20,15 @@ public class TheoryParam {
         this.graph = graph;
         this.routing = routing;
 
-        logger.info("Graph diameter: " + this.diameter());
-        logger.info("Average length path: " + this.averageLengthPath());
+        if(graph.type == "SmallWorld") {
+            System.out.println("hehe");
+            logger.info("Graph diameter: " + (this.diameter() - 2));
+            logger.info("Average length path: " + (this.averageLengthPath() - 2));
+        }
+        else {
+            logger.info("Graph diameter: " + this.diameter());
+            logger.info("Average length path: " + this.averageLengthPath());
+        }
     }
 
 

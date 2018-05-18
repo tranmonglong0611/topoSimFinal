@@ -10,7 +10,7 @@ import event.EventSim;
 public class Link {
     public Node u;
     public Node v;
-    public int bandwidth;
+    public long bandwidth;
     public long availTime;
     public long cableLength;
 
@@ -48,7 +48,6 @@ public class Link {
                 public String info() {
 //                    return p.toString() + "\tDelay at link: " + u.id + " --- " +v.id;
                     return String.format(Format.LeftAlignFormat, p.startNode, p.endNode, "Delay at link: " + u.id + " --- " +v.id, this.timeStart);
-
                 }
             });
         }else {

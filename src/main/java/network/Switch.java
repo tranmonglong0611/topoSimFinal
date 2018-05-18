@@ -51,7 +51,8 @@ public class Switch extends Node {
                 if(nextId != -1) {
                     links.get(nextId).handle(packet, sim, Switch.this);
                 } else {
-                    OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode + "\n");
+                    if(sim.isTracing)
+                        OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode + "\n");
                 }
             }
 

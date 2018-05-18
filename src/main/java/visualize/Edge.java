@@ -1,6 +1,6 @@
-package application;
+package visualize;
 
-import application.cell.Cell;
+import visualize.cell.Cell;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 

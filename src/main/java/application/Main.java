@@ -1,9 +1,11 @@
 package application;
 
 
-import application.cell.CellType;
-import application.layout.Layout;
-import application.layout.RandomLayout;
+import visualize.GraphVisualize;
+import visualize.Model;
+import visualize.cell.CellType;
+import visualize.layout.Layout;
+import visualize.layout.RandomLayout;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

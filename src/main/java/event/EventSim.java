@@ -1,5 +1,6 @@
 package event;
 
+import network.Config;
 import network.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,10 +17,11 @@ public class EventSim {
 
     private long systemTime = 0;
     public long timeLimit;
-    public int numReceived;
-    public int numSent;
-    public int numEvent;
-    public int totalTimePacketTravel;
+    public long numReceived;
+    public long numSent;
+    public long numEvent;
+    public long totalTimePacketTravel;
+    public boolean isTracing;
 
 
 
@@ -27,8 +29,9 @@ public class EventSim {
     PriorityQueue<Event> que;
 
 
-    public EventSim(long timeLimit) {
+    public EventSim(long timeLimit, boolean isTracing) {
         this.timeLimit = timeLimit;
+        this.isTracing = isTracing;
         que = new PriorityQueue<>((e1, e2) -> {
            if(e1.timeStart < e2.timeStart) return -1;
            else if(e1.timeStart > e2.timeStart) return 1;
@@ -41,24 +44,23 @@ public class EventSim {
         while(que.size() > 0) {
             Iterator ite = que.iterator();
 
-            OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
-            OutFile.getFile().format("| Start Node      | End Node        | Info                                          | EventTime      |%n");
-            OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
-
+            if(this.isTracing) {
+                OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+                OutFile.getFile().format("| Start Node      | End Node        | Info                                          | EventTime      |%n");
+                OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+            }
 
             while(ite.hasNext()) {
                 Event event = (Event)ite.next();
-//                OutFile.getFile().append(event.info() + "\tEventTime " +  pk.timeStart);
-//                OutFile.getFile().format(leftAlignFormat, Integer.toString(event.startNode), Integer.toString(event.endNode),
-//                        event.infoEvent, Long.toString(event.timeStart));
-                OutFile.getFile().append(event.info());
-//                System.out.println(pk.info() + "\tEventTime " +  pk.timeStart);
+                if(this.isTracing)
+                    OutFile.getFile().append(event.info());
             }
 
 
-            OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
-            OutFile.getFile().append("\n\n\n");
-            // /            System.out.printf("=================");
+            if(this.isTracing) {
+                OutFile.getFile().format("+-----------------+-----------------+-----------------------------------------------+----------------+%n");
+                OutFile.getFile().append("\n\n\n");
+            }
             if(timeLimit < systemTime ){
                 break;
             }
@@ -80,5 +82,16 @@ public class EventSim {
     }
 
 
+    public long averagePacketTravel() {
+        System.out.println(totalTimePacketTravel);
+        System.out.println(numReceived);
+        long averageTime = totalTimePacketTravel / numReceived;
+        return averageTime;
+    }
 
+//    Throughput (bits/sec)= sum (number of successful packets)*(average packet_size))/Total Time sent in delivering that amount of data.
+    public double throughput() {
+        long receivedByte = numReceived * Config.PACKET_SIZE;
+        return (receivedByte * 1.0 / systemTime) * 1e9;
+    }
 }

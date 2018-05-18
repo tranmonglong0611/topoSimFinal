@@ -1,4 +1,4 @@
-package application.layout;
+package visualize.layout;
 
 public abstract class Layout {
 

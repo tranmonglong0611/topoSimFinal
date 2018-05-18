@@ -25,15 +25,26 @@ public class Host extends Node{
             packet.endTime = sTime;
             s.numReceived++;
             s.totalTimePacketTravel += packet.getTravelTime();
-            OutFile.getFile().append("\nDone Send From " + packet.startNode + " to " + packet.endNode);
-            OutFile.getFile().append("\nTotal Time Travel " + s.totalTimePacketTravel + "\n");
+
+            if(s.isTracing) {
+                OutFile.getFile().append("\nDone Send From " + packet.startNode + " to " + packet.endNode);
+                OutFile.getFile().append("\nTime Travel " + packet.getTravelTime() + "\n");
+            }
             return;
         }
 
         s.numSent++;
         s.numEvent++;
 
-        int nextId = ra.next(packet.startNode, id, packet.endNode);
+        int nextId;
+
+        if(packet.routingPath == null) {
+            nextId = ra.next(packet.startNode, id, packet.endNode);
+        }else {
+        //for just jellyfish experiment
+            nextId = packet.routingPath.path.get(packet.routingPath.path.indexOf(this.id) + 1);
+        }
+
         s.addEvent(new Event(s.numEvent, sTime + Config.DELAY_AT_HOST) {
 
             @Override
@@ -41,7 +52,8 @@ public class Host extends Node{
                 if(nextId != -1) {
                     link.handle(packet, s, Host.this);
                 }else {
-                    OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode +"\n");
+                    if(s.isTracing)
+                        OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode +"\n");
                 }
             }
 

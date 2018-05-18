@@ -22,26 +22,39 @@ public class FatTreeExp {
 //
 //        SpaceShuffleGraph ftGraph = new SpaceShuffleGraph(9, 6, 2);
 //        SpaceShuffleRouting ftRouting = new SpaceShuffleRouting(ftGraph);
-        FatTreeTopology ftGraph = new FatTreeTopology(4);
+        FatTreeTopology ftGraph = new FatTreeTopology(16);
         ArrayList<Integer> errorSwitch = new ArrayList<>();
-        errorSwitch.add(4);
-        errorSwitch.add(5);
+//        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
+        int numSwitch = ftGraph.switches().size();
+
+        for(int i = 0; i < 55 * numSwitch / 100; i++) {
+            int random = (int)(Math.random() * numSwitch);
+            int eSwitch = ftGraph.switches().get(random);
+
+            if(errorSwitch.contains(eSwitch)) {
+                i--;
+            }else {
+                errorSwitch.add(eSwitch);
+            }
+        }
+
         FatTreeRoutingFaultTolerance ftRouting = new FatTreeRoutingFaultTolerance(ftGraph, errorSwitch);
 //        TheoryParam theoryParam = new TheoryParam(ftGraph, ftRouting);
 
+//        FatTreeRoutingFaultTolerance ftRouting = new FatTreeRoutingFaultTolerance(ftGraph, errorSwitch);
         ArrayList<Integer> listHost = (ArrayList<Integer>) ftGraph.hosts();
 
         Network net = new Network(ftGraph, ftRouting);
-        EventSim sim = new EventSim(99999999);
+        EventSim sim = new EventSim(9999999999999999L, false);
 
         List<Pair<Integer, Integer>> traffic = new ArrayList<>();
 //        traffic.put(0, 3);
-//        traffic.put(1, 3);
+//        traffic.add(new Pair<>(1, 3));
         int numSent = 0;
-        while(numSent < 100) {
+        while(numSent < 10000) {
             ArrayList<Integer> hosts = (ArrayList<Integer>) ftGraph.hosts();
-            int temp1 = (int) (Math.random() * hosts.size());
-            int temp2 = (int) (Math.random() * hosts.size());
+            int temp1 = (int) (Math.random() * hosts.size() / 2);
+            int temp2 = hosts.size() / 2 + (int) (Math.random() * hosts.size() / 2);
 
             if (temp1 == temp2) continue;
             traffic.add(new Pair(hosts.get(temp1), hosts.get(temp2)));
@@ -64,17 +77,19 @@ public class FatTreeExp {
                 @Override
                 public String info() {
                     return String.format(Format.LeftAlignFormat, packet.startNode, packet.endNode, "Delay At Node " + source, this.timeStart);
-
                 }
             });
         }
 
         sim.process();
-        Experiment e = new Experiment(sim);
+//        sim.averagePacketTravel();
 
         OutFile.getFile().append("\nTotal packet sent: " + sim.numSent);
         OutFile.getFile().append("\nTotal packet received: " + sim.numReceived);
-
+        System.out.println("numsent: " + sim.numSent);
+        System.out.println("Num received: " + sim.numReceived);
+        System.out.println("Average Packet Travel: " + sim.averagePacketTravel());
+        System.out.println("Bandwidth: " + sim.throughput());
 
         OutFile.getFile().close();
 //        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());

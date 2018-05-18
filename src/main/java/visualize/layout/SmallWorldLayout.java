@@ -1,7 +1,7 @@
-package application.layout;
+package visualize.layout;
 
-import application.cell.Cell;
-import application.GraphVisualize;
+import visualize.cell.Cell;
+import visualize.GraphVisualize;
 import topo.smallWorld.SmallWorldTopology;
 
 import java.util.List;

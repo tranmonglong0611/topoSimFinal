@@ -1,4 +1,4 @@
-package application.cell;
+package visualize.cell;
 
 import javafx.scene.layout.Pane;
 

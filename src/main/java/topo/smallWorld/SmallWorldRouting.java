@@ -1,5 +1,6 @@
 package topo.smallWorld;
 
+import javafx.util.Pair;
 import routing.RoutingAlgorithm;
 import routing.RoutingPath;
 import routing.RoutingTable;
@@ -16,11 +17,13 @@ import java.util.Map;
 /**
  * greedy routing
  */
-public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
+public class SmallWorldRouting extends RoutingAlgorithm {
     private SmallWorldTopology G;
+    protected Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
+
     public Map<Integer, RoutingTable> tables;
 
-     public SmallWorldRoutingAlgorithm(SmallWorldTopology G) {
+     public SmallWorldRouting(SmallWorldTopology G) {
         this.G = G;
 
         buildTables();
@@ -32,7 +35,7 @@ public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
         for (int sid : G.switches()) {
             RoutingTable table = new RoutingTable();
 
-            List<List<Integer>> neighbors = G.kHopNeighbor(sid, 2);
+            List<List<Integer>> neighbors = G.kHopNeighbor(sid, 3);
 
             for (int j : G.switches()) {
                 if (sid != j) {
@@ -74,8 +77,23 @@ public class SmallWorldRoutingAlgorithm extends RoutingAlgorithm {
     @Override
     public RoutingPath path(int source, int destination) {
          //same as fatTree
-        
-        return null;
+        if (precomputedPaths.containsKey(new Pair<>(source, destination))) {
+            return precomputedPaths.get(new Pair<>(source, destination));
+        } else {
+            RoutingPath rp = new RoutingPath();
+            int current = source;
+            rp.path.add(current);
+            while (current != destination) {
+                if (current != source) {
+                    rp.path.add(current);
+                }
+                current = next(source, current, destination);
+            }
+
+            rp.path.add(destination);
+            precomputedPaths.put(new Pair<>(source, destination), rp);
+            return rp;
+        }
     }
 }
 

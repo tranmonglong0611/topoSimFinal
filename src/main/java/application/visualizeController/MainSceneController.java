@@ -1,11 +1,11 @@
 package application.visualizeController;
 
 import application.CustomOutputStream;
-import application.GraphVisualize;
-import application.layout.FatTreeLayout;
-import application.layout.Layout;
-import application.layout.RandomLayout;
-import application.layout.SmallWorldLayout;
+import visualize.GraphVisualize;
+import visualize.layout.FatTreeLayout;
+import visualize.layout.Layout;
+import visualize.layout.RandomLayout;
+import visualize.layout.SmallWorldLayout;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

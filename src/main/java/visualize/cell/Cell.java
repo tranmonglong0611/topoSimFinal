@@ -1,4 +1,4 @@
-package application.cell;
+package visualize.cell;
 import java.util.ArrayList;
 import java.util.List;
 

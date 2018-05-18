@@ -13,11 +13,18 @@ public class ShortestRoutingAlgorithm extends RoutingAlgorithm {
     //example <1, <5, 3>> de di tu 1 ->5 thi tiep theo phai di den 3
     private Map<Integer, Map<Integer, Integer>> paths;
 
+//    private Map<Integer, Map<Integer, List<Integer>>> shortestPath;
     public ShortestRoutingAlgorithm(Topology graph) {
+        this.graph = graph;
         paths = new HashMap<>();
-        for (int sw : graph.switches()) {
-            paths.put(sw, new HashMap<>());
+//        for (int sw : graph.switches()) {
+//            paths.put(sw, new HashMap<>());
+//        }
+
+        for(int i = 0; i < graph.getNumV();i++) {
+            paths.put(i, new HashMap<>());
         }
+
     }
 
 
@@ -31,7 +38,7 @@ public class ShortestRoutingAlgorithm extends RoutingAlgorithm {
         List<Integer> shortestPath = graph.shortestPath(current, destination);
 
         //precompute some paths
-        for (int i = 0; i < shortestPath.size(); i++) {
+        for (int i = 0; i < shortestPath.size() - 1; i++) {
             paths.get(shortestPath.get(i)).put(destination, shortestPath.get(i + 1));
         }
 

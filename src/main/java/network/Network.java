@@ -84,9 +84,6 @@ public class Network {
         return hostById.get(id);
     }
 
-
-
-
     public void reset() {
         for (Host host : hosts) {
             host.reset();

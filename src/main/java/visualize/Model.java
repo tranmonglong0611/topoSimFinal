@@ -1,9 +1,9 @@
-package application;
+package visualize;
 
-import application.cell.Cell;
-import application.cell.CellType;
-import application.cell.HostCell;
-import application.cell.SwitchCell;
+import visualize.cell.Cell;
+import visualize.cell.CellType;
+import visualize.cell.HostCell;
+import visualize.cell.SwitchCell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
