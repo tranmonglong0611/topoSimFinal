@@ -2,8 +2,8 @@ package topo.fatTree;
 
 import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
-import routing.RoutingAlgorithm;
-import routing.RoutingPath;
+import topo.routing.RoutingAlgorithm;
+import topo.routing.RoutingPath;
 
 import java.util.ArrayList;
 import java.util.HashMap;

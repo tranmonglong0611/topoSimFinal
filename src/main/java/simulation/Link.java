@@ -1,8 +1,8 @@
-package network;
+package simulation;
 
 import common.Format;
-import event.Event;
-import event.EventSim;
+import simulation.event.Event;
+import simulation.event.EventSim;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.

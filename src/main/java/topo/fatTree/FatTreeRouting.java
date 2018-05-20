@@ -1,8 +1,8 @@
 package topo.fatTree;
 
 import javafx.util.Pair;
-import routing.RoutingAlgorithm;
-import routing.RoutingPath;
+import topo.routing.RoutingAlgorithm;
+import topo.routing.RoutingPath;
 import topo.Triplet;
 
 import java.util.HashMap;

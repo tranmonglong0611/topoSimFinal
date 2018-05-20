@@ -1,4 +1,4 @@
-package event;
+package simulation.event;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.

@@ -1,8 +1,6 @@
-import routing.RoutingAlgorithm;
+import topo.routing.RoutingAlgorithm;
 import topo.TheoryParam;
 import topo.Topology;
-import topo.fatTree.FatTreeRouting;
-import topo.fatTree.FatTreeTopology;
 import topo.jellyFish.AllShortestPathRouting;
 import topo.jellyFish.JellyFishTopology;
 

@@ -1,13 +1,7 @@
 package topo;
 
-import event.Event;
-import event.EventSim;
-import network.Network;
-import network.Packet;
-import output.OutFile;
-import routing.RoutingAlgorithm;
-
-import java.util.Map;
+import simulation.event.EventSim;
+import report.Report;
 
 public class Experiment {
 
@@ -31,8 +25,8 @@ public class Experiment {
     }
 
     public long averagePacketTravel() {
-        OutFile.getFile().append("Total Time Travel " + sim.totalTimePacketTravel);
-        OutFile.getFile().append("Total Packet Sent: " + sim.numSent);
+        Report.getTraceFile().append("Total Time Travel " + sim.totalTimePacketTravel);
+        Report.getTraceFile().append("Total Packet Sent: " + sim.numSent);
 
         long averageTime = sim.totalTimePacketTravel / sim.numSent;
         return averageTime;

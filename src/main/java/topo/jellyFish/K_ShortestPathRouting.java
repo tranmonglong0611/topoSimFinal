@@ -1,9 +1,9 @@
 package topo.jellyFish;
 
 import javafx.util.Pair;
-import routing.RoutingAlgorithm;
+import topo.routing.RoutingAlgorithm;
 import topo.Topology;
-import routing.RoutingPath;
+import topo.routing.RoutingPath;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.*;

@@ -1,11 +1,10 @@
-package network;
+package simulation;
 
 import common.Format;
-import event.Event;
-import event.EventSim;
-import output.OutFile;
-import routing.RoutingAlgorithm;
-import routing.RoutingPath;
+import simulation.event.Event;
+import simulation.event.EventSim;
+import report.Report;
+import topo.routing.RoutingAlgorithm;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,14 +20,6 @@ public class Switch extends Node {
         super(id);
         this.ra = ra;
     }
-
-
-//    @Override
-//    public void clear() {
-//        for (Map.Entry<Integer, Link> link: this.links.entrySet()) {
-//            link.getValue().clear();
-//        }
-//    }
 
     @Override
     public void process(Packet packet, EventSim sim) {
@@ -52,7 +43,7 @@ public class Switch extends Node {
                     links.get(nextId).handle(packet, sim, Switch.this);
                 } else {
                     if(sim.isTracing)
-                        OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode + "\n");
+                        Report.getTraceFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode + "\n");
                 }
             }
 
@@ -72,7 +63,6 @@ public class Switch extends Node {
         });
 
     }
-
 
     public void reset() {
         for(Map.Entry<Integer, Link> link : links.entrySet()) {

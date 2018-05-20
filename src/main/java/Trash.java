@@ -1,6 +1,6 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import routing.RoutingPath;
+import topo.routing.RoutingPath;
 import topo.fatTree.FatTreeTopology;
 import topo.fatTree.FatTreeRoutingFaultTolerance;
 

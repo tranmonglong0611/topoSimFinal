@@ -1,9 +1,9 @@
 package topo.smallWorld;
 
 import javafx.util.Pair;
-import routing.RoutingAlgorithm;
-import routing.RoutingPath;
-import routing.RoutingTable;
+import topo.routing.RoutingAlgorithm;
+import topo.routing.RoutingPath;
+import topo.routing.RoutingTable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.Map;
  */
 public class SmallWorldRouting extends RoutingAlgorithm {
     private SmallWorldTopology G;
+    List<Integer> listErrorSwitch;
     protected Map<Pair<Integer, Integer>, RoutingPath> precomputedPaths = new HashMap<>();
 
     public Map<Integer, RoutingTable> tables;
@@ -27,6 +28,11 @@ public class SmallWorldRouting extends RoutingAlgorithm {
         this.G = G;
 
         buildTables();
+    }
+
+    public SmallWorldRouting(SmallWorldTopology G, List<Integer> listErrorSwitch) {
+         this(G);
+         this.listErrorSwitch = listErrorSwitch;
     }
 
     private void buildTables() {
@@ -62,16 +68,21 @@ public class SmallWorldRouting extends RoutingAlgorithm {
 
     @Override
     public int next(int source, int current, int destination) {
+
+         int next;
         if (G.isHostVertex(current)) {
-            return G.adj(current).get(0);
+            next = G.adj(current).get(0);
         }
-        if (G.adj(current).contains(destination)) {
-            return destination;
+        else if (G.adj(current).contains(destination)) {
+            next =  destination;
         } else {
             //get the destination switch
             int desSwitch = G.isHostVertex(destination) ? G.adj(destination).get(0) : destination;
-            return tables.get(current).getNextNode(desSwitch);
+            next = tables.get(current).getNextNode(desSwitch);
         }
+        if(listErrorSwitch.contains(next)) {
+            return -1;
+        }else return next;
     }
 
     @Override

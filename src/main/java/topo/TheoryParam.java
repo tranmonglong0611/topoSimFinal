@@ -2,7 +2,8 @@ package topo;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import routing.RoutingAlgorithm;
+import report.Report;
+import topo.routing.RoutingAlgorithm;
 
 import java.util.List;
 
@@ -20,15 +21,31 @@ public class TheoryParam {
         this.graph = graph;
         this.routing = routing;
 
-        if(graph.type == "SmallWorld") {
+        if (graph.type == "SmallWorld") {
             System.out.println("hehe");
             logger.info("Graph diameter: " + (this.diameter() - 2));
             logger.info("Average length path: " + (this.averageLengthPath() - 2));
-        }
-        else {
+        } else {
             logger.info("Graph diameter: " + this.diameter());
             logger.info("Average length path: " + this.averageLengthPath());
         }
+    }
+
+    public TheoryParam(Topology graph, RoutingAlgorithm routing, boolean saveFile) {
+
+        this.graph = graph;
+        this.routing = routing;
+        if (saveFile == true) {
+            if (graph.type == "SmallWorld") {
+                Report.getTopoTheoryParam().append("\nGraph diameter: " + (this.diameter() - 2));
+                Report.getTopoTheoryParam().append("\nAverage length path: " + (this.averageLengthPath() - 2));
+            } else {
+
+                Report.getTopoTheoryParam().append("\nGraph diameter: " + this.diameter());
+                Report.getTopoTheoryParam().append("\nAverage length path: " + this.averageLengthPath());
+            }
+        }
+
     }
 
 
@@ -36,11 +53,11 @@ public class TheoryParam {
     public int diameter() {
         int max = -1;
         List<Integer> listHost = graph.hosts();
-        for(int i = 0; i < listHost.size(); i++) {
-            for(int j = i + 1; j < listHost.size(); j++) {
+        for (int i = 0; i < listHost.size(); i++) {
+            for (int j = i + 1; j < listHost.size(); j++) {
                 //plus 1 cause path do not consist source and destination
                 int diameter = routing.path(listHost.get(i), listHost.get(j)).size() - 1;
-                if(max < diameter) max = diameter;
+                if (max < diameter) max = diameter;
             }
         }
         return max;
@@ -50,8 +67,8 @@ public class TheoryParam {
         double sum = 0;
         int numOfPath = 0;
         List<Integer> listHost = graph.hosts();
-        for(int i = 0; i < listHost.size(); i++) {
-            for(int j = i + 1; j < listHost.size(); j++) {
+        for (int i = 0; i < listHost.size(); i++) {
+            for (int j = i + 1; j < listHost.size(); j++) {
                 numOfPath++;
                 sum += routing.path(listHost.get(i), listHost.get(j)).size() - 1;
             }

@@ -1,6 +1,6 @@
-package network;
+package simulation;
 
-import routing.RoutingPath;
+import topo.routing.RoutingPath;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.

@@ -1,23 +1,18 @@
 package topo.jellyFish;
 
 import common.Format;
-import event.Event;
-import event.EventSim;
+import simulation.event.Event;
+import simulation.event.EventSim;
 import javafx.util.Pair;
-import network.Network;
-import network.Packet;
+import simulation.Network;
+import simulation.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import output.OutFile;
-import routing.RoutingPath;
-import sun.tools.tree.ThisExpression;
-import topo.Experiment;
-import topo.TheoryParam;
+import report.Report;
+import topo.routing.RoutingPath;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class JellyFishExp {
 
@@ -101,15 +96,15 @@ public class JellyFishExp {
         logger.info("Start doing simulation");
         sim.process();
 
-        OutFile.getFile().append("\nTotal packet sent: " + sim.numSent);
-        OutFile.getFile().append("\nTotal packet received: " + sim.numReceived);
+        Report.getTraceFile().append("\nTotal packet sent: " + sim.numSent);
+        Report.getTraceFile().append("\nTotal packet received: " + sim.numReceived);
         System.out.println("numsent: " + sim.numSent);
         System.out.println("Num received: " + sim.numReceived);
         System.out.println("Average Packet Travel: " + sim.averagePacketTravel());
         System.out.println("Bandwidth: " + sim.throughput());
 
 //        TheoryParam theoryParam = new TheoryParam(jlGraph, jlRouting);
-        OutFile.getFile().close();
+        Report.getTraceFile().close();
 
 //        sim.out.append("Average Packet Travel: " + e.averagePacketTravel());
 

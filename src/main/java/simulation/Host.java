@@ -1,10 +1,10 @@
-package network;
+package simulation;
 
 import common.Format;
-import event.Event;
-import event.EventSim;
-import output.OutFile;
-import routing.RoutingAlgorithm;
+import simulation.event.Event;
+import simulation.event.EventSim;
+import report.Report;
+import topo.routing.RoutingAlgorithm;
 
 /**
  * Created by tranmonglong0611 on 20/11/2017.
@@ -27,8 +27,8 @@ public class Host extends Node{
             s.totalTimePacketTravel += packet.getTravelTime();
 
             if(s.isTracing) {
-                OutFile.getFile().append("\nDone Send From " + packet.startNode + " to " + packet.endNode);
-                OutFile.getFile().append("\nTime Travel " + packet.getTravelTime() + "\n");
+                Report.getTraceFile().append("\nDone Send From " + packet.startNode + " to " + packet.endNode);
+                Report.getTraceFile().append("\nTime Travel " + packet.getTravelTime() + "\n");
             }
             return;
         }
@@ -53,7 +53,7 @@ public class Host extends Node{
                     link.handle(packet, s, Host.this);
                 }else {
                     if(s.isTracing)
-                        OutFile.getFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode +"\n");
+                        Report.getTraceFile().append("\nCan Not Send Packet From: " + packet.startNode + " to " + packet.endNode +"\n");
                 }
             }
 

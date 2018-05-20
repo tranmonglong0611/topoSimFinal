@@ -1,8 +1,8 @@
 package topo.spaceShuffle;
 
 import javafx.util.Pair;
-import routing.RoutingAlgorithm;
-import routing.RoutingPath;
+import topo.routing.RoutingAlgorithm;
+import topo.routing.RoutingPath;
 
 import java.util.HashMap;
 import java.util.List;

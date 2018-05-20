@@ -3,16 +3,14 @@ package topo.spaceShuffle;
 
 import common.Format;
 
-import event.Event;
-import event.EventSim;
+import simulation.event.Event;
+import simulation.event.EventSim;
 import javafx.util.Pair;
-import network.Network;
-import network.Packet;
+import simulation.Network;
+import simulation.Packet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import output.OutFile;
-import topo.Experiment;
-import topo.TheoryParam;
+import report.Report;
 
 import java.util.*;
 
@@ -97,7 +95,7 @@ public class SpaceShuffleExp {
         System.out.println("Bandwidth: " + sim.throughput());
 
 //        TheoryParam theoryParam = new TheoryParam(ssGraph, ssRouting);
-        OutFile.getFile().close();
+        Report.getTraceFile().close();
 
 
     }

@@ -1,4 +1,4 @@
-package network;
+package simulation;
 
 /**
  * Created by tranmonglong0611 on 26/11/2017.
@@ -17,7 +17,7 @@ public class Config {
     //packet delay at switch 100ns
     public static final long DELAY_AT_SWITCH = 100;
 
-    //packet size ~ 10mb
+    //packet size ~ 1mb
     public static final long PACKET_SIZE = (int) 1e6;
 
     // Velocity of link 0.2 m/ns

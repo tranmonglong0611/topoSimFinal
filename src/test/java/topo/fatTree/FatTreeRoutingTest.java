@@ -1,8 +1,8 @@
 package topo.fatTree;
 
 import org.junit.jupiter.api.Test;
-import routing.RoutingAlgorithm;
-import routing.RoutingPath;
+import topo.routing.RoutingAlgorithm;
+import topo.routing.RoutingPath;
 
 import java.util.ArrayList;
 import java.util.List;

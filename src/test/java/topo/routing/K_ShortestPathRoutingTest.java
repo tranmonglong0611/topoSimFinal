@@ -1,4 +1,4 @@
-package routing;
+package topo.routing;
 
 import org.junit.jupiter.api.Test;
 import topo.fatTree.FatTreeTopology;

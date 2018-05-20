@@ -1,4 +1,4 @@
-package routing;
+package topo.routing;
 
 import topo.Topology;
 
