@@ -98,6 +98,11 @@ public class GridTopology extends Topology {
     }
 
     @Override
+    public String generalInfo() {
+        return this.type + "(" + nRow + "," + nCol + "," + baseType + ")";
+    }
+
+    @Override
     public boolean isHostVertex(int v) {
         return v >= nSwitch;
     }

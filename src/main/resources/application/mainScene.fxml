@@ -31,28 +31,28 @@
                     <top>
                             <TabPane prefHeight="75.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                                 <tabs>
-                                    <Tab text="Graph Making">
+                                    <Tab text="Topology Making">
                                         <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                 <children>
                                                     <ToolBar prefHeight="39.0" prefWidth="1280">
                                                         <items>
-                                                            <Button fx:id="btnFt" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnFt" text="FatTreeGraph">
+                                                            <Button fx:id="btnFt" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnFt" text="FatTreeTopology">
                                                                 <tooltip>
-                                                                    <Tooltip text="Make a new FatTree Graph" />
+                                                                    <Tooltip text="Make a new FatTree Topology" />
                                                                 </tooltip>
                                                             </Button>
-                                                            <Button fx:id="btnJf" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnJf" text="JellyFishGraph">
+                                                            <Button fx:id="btnJf" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnJf" text="JellyFishTopology">
                                                                 <tooltip>
                                                                     <Tooltip text="Make a new JellyFish Graph" />
                                                                 </tooltip>
                                                             </Button>
-                                                            <Button fx:id="btnS2" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnS2" text="SpaceShuffleGraph">
+                                                            <Button fx:id="btnS2" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnS2" text="SpaceShuffleTopology">
                                                                 <tooltip>
                                                                     <Tooltip text="Make a new SpaceShuffle Graph" />
                                                                 </tooltip>
                                                             </Button>
-                                                            <Button fx:id="btnSw" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnSw" text="SmallWorldGraph">
+                                                            <Button fx:id="btnSw" mnemonicParsing="false" onAction="#graphMaking" styleClass="btnSw" text="SmallWorldTopology">
                                                                 <tooltip>
                                                                     <Tooltip text="Make a new SmallWorld Graph" />
                                                                 </tooltip>
@@ -61,12 +61,12 @@
                                                             <Separator orientation="VERTICAL" />
                                                             <Separator orientation="VERTICAL" />
 
-                                                            <Button fx:id="btnImport" mnemonicParsing="false" text="Import Graph From File" onAction = "#importGraph"/>
-                                                            <Button fx:id="btnExport" mnemonicParsing="false" text="Export Graph To File" onAction = "#exportGraph" />
+                                                            <Button fx:id="btnImport" mnemonicParsing="false" text="Import Topology From File" onAction = "#importGraph"/>
+                                                            <Button fx:id="btnExport" mnemonicParsing="false" text="Export Topology To File" onAction = "#exportGraph" />
 
-                                                            <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                                            <Region prefWidth="20.0" HBox.hgrow="ALWAYS" />
 
-                                                            <Button fx:id="btnGraphInfo" disable = "false" mnemonicParsing="false" text="Show Graph Info" onAction = "#toggleGraphInfo"/>
+                                                            <Button fx:id="btnGraphInfo" disable = "false" mnemonicParsing="false" text="Show Topology Info" onAction = "#toggleGraphInfo"/>
 
                                                         </items>
                                                     </ToolBar>
@@ -78,7 +78,7 @@
                                         <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                 <children>
-                                                    <ToolBar prefHeight="39.0">
+                                                    <ToolBar prefHeight="39.0" prefWidth="1280">
                                                        <items>
                                                           <!--<Label text="Number of Pakage"/>-->
                                                           <TextField promptText="Enter number of pakage" />

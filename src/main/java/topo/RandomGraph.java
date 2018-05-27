@@ -49,6 +49,11 @@ public class RandomGraph extends Topology {
     }
 
     @Override
+    public String generalInfo() {
+        return null;
+    }
+
+    @Override
     public boolean isHostVertex(int v) {
         return false;
     }

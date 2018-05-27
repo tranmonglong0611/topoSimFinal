@@ -66,8 +66,8 @@ public class EventSim {
 
         Report.getResultFile().append("\nTotal packet sent: " + numSent);
         Report.getResultFile().append("\nTotal packet received: " + numReceived);
-        Report.getResultFile().append("\nAverage packet travel time: " + averagePacketTravel());
-        Report.getResultFile().append("\nThroughput: " + throughput());
+        Report.getResultFile().append("\nAverage packet travel time: " + averagePacketTravel() + " ns");
+        Report.getResultFile().append("\nThroughput: " + throughput() + "B");
     }
 
     public void addEvent(Event e) {

@@ -17,35 +17,32 @@ public class TheoryParam {
     RoutingAlgorithm routing;
     Logger logger = LogManager.getLogger(TheoryParam.class.getName());
 
+//    public TheoryParam(Topology graph, RoutingAlgorithm routing) {
+//        this.graph = graph;
+//        this.routing = routing;
+//
+//        if (graph.type == "SmallWorld") {
+//            System.out.println("hehe");
+//            logger.info("Graph diameter: " + (this.diameter() - 2));
+//            logger.info("Average length path: " + (this.averageLengthPath() - 2));
+//        } else {
+//            logger.info("Graph diameter: " + this.diameter());
+//            logger.info("Average length path: " + this.averageLengthPath());
+//        }
+//    }
+
     public TheoryParam(Topology graph, RoutingAlgorithm routing) {
+
         this.graph = graph;
         this.routing = routing;
-
         if (graph.type == "SmallWorld") {
-            System.out.println("hehe");
-            logger.info("Graph diameter: " + (this.diameter() - 2));
-            logger.info("Average length path: " + (this.averageLengthPath() - 2));
+            Report.getTopoTheoryParam().append("\nGraph diameter: " + (this.diameter() - 2));
+            Report.getTopoTheoryParam().append("\nAverage length path: " + (this.averageLengthPath() - 2));
         } else {
-            logger.info("Graph diameter: " + this.diameter());
-            logger.info("Average length path: " + this.averageLengthPath());
+
+            Report.getTopoTheoryParam().append("\nGraph diameter: " + this.diameter());
+            Report.getTopoTheoryParam().append("\nAverage length path: " + this.averageLengthPath());
         }
-    }
-
-    public TheoryParam(Topology graph, RoutingAlgorithm routing, boolean saveFile) {
-
-        this.graph = graph;
-        this.routing = routing;
-        if (saveFile == true) {
-            if (graph.type == "SmallWorld") {
-                Report.getTopoTheoryParam().append("\nGraph diameter: " + (this.diameter() - 2));
-                Report.getTopoTheoryParam().append("\nAverage length path: " + (this.averageLengthPath() - 2));
-            } else {
-
-                Report.getTopoTheoryParam().append("\nGraph diameter: " + this.diameter());
-                Report.getTopoTheoryParam().append("\nAverage length path: " + this.averageLengthPath());
-            }
-        }
-
     }
 
 

@@ -1,6 +1,11 @@
 package application.visualizeController;
 
 import application.CustomOutputStream;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import topo.fatTree.FatTreeRouting;
+import topo.fatTree.FatTreeRoutingFaultTolerance;
+import topo.routing.RoutingAlgorithm;
 import visualize.GraphVisualize;
 import visualize.layout.FatTreeLayout;
 import visualize.layout.Layout;
@@ -42,7 +47,8 @@ import topo.spaceShuffle.SpaceShuffleTopology;
 */
 public class MainSceneController {
     private Topology graph = null;
-
+    private RoutingAlgorithm routing = null;
+    boolean isTolerance = false;
     @FXML
     private Button btnFt;
     @FXML
@@ -106,18 +112,43 @@ public class MainSceneController {
             grid.setHgap(10);
             grid.setVgap(10);
             grid.setPadding(new Insets(25, 25, 25, 25));
-            Text scenetitle = new Text("FatTree Graph Config");
+            Text scenetitle = new Text("FatTree Topology Config");
             scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             grid.add(scenetitle, 0, 0, 2, 1);
 
-            Label kLabel = new Label("k:");
+            Label kLabel = new Label("K:");
             grid.add(kLabel, 0, 1);
-
             TextField kInput= new TextField();
             grid.add(kInput, 1, 1);
 
-            Scene scene = new Scene(grid, 350, 150);
 
+            Label optionLabel = new Label("RoutingAlgorithm: ");
+            grid.add(optionLabel, 0, 2);
+
+            Label errSwLabel = new Label("Percent of ErrorSwitch: " );
+            grid.add(errSwLabel, 0, 3);
+            ObservableList<String> options =
+                    FXCollections.observableArrayList(
+                            "FatTreeRouting",
+                            "FatTreeRoutingFaultTolerance"
+                    );
+            final ComboBox comboBox = new ComboBox(options);
+            //set default value
+            comboBox.getSelectionModel().selectFirst();
+            comboBox.setOnAction(e -> {
+                    String routingInput = (String)comboBox.getValue();
+                }
+            );
+
+
+
+            grid.add(comboBox, 1, 2);
+
+
+
+
+
+            Scene scene = new Scene(grid, 350, 150);
             Button btn = new Button("OK");
             btn.setDefaultButton(true);
             HBox hbBtn = new HBox(10);
@@ -141,13 +172,20 @@ public class MainSceneController {
                             mainBorderPane.setLeft(graphVisualize.getShowingGraphField());
                             FatTreeLayout layout = new FatTreeLayout(graphVisualize);
                             areaGraphInfo.setText(graph.graphInfo());
-                            LogManager.getLogger(MainSceneController.class.getName()).info("Done make new FatTree Graph with k = " + k);
+                            LogManager.getLogger(MainSceneController.class.getName()).info("Done make new FatTree Topology with K = " + k);
+                            if(comboBox.getValue() == "FatTreeRouting") {
+                                routing = new FatTreeRouting((FatTreeTopology)graph);
+                            }else {
+//                                routing = new FatTreeRoutingFaultTolerance((FatTreeTopology)graph, );
+                                isTolerance = true;
+                            }
+
                             layout.execute();
                         }
                         stage.close();
 
                     }catch (NumberFormatException e) {
-                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when making FatTree Graph");
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when making FatTree Topology");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
                         alert.setHeaderText("Wrong Input Format");
@@ -169,7 +207,7 @@ public class MainSceneController {
             grid.setHgap(10);
             grid.setVgap(10);
             grid.setPadding(new Insets(25, 25, 25, 25));
-            Text scenetitle = new Text("JellyFish Graph Config");
+            Text scenetitle = new Text("JellyFish Topology Config");
             scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
             grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -209,12 +247,12 @@ public class MainSceneController {
                         areaGraphInfo.setText(graph.graphInfo());
                         Layout layout = new RandomLayout(graphVisualize);
                         layout.execute();
-                        LogManager.getLogger(MainSceneController.class.getName()).info("Done make JellyFish Graph");
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Done make JellyFish Topology");
 
                         stage.close();
 
                     }catch (NumberFormatException e) {
-                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when making JellyFish Graph");
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when making JellyFish Topology");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
                         alert.setHeaderText("Wrong Input Format");
@@ -276,11 +314,11 @@ public class MainSceneController {
 
                         Layout layout = new RandomLayout(graphVisualize);
                         layout.execute();
-                        LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SpaceShuffle Graph");
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SpaceShuffle Topology");
                         stage.close();
 
                     }catch (NumberFormatException e) {
-                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when new SpaceShuffle Graph");
+                        LogManager.getLogger(MainSceneController.class.getName()).info("Error when new SpaceShuffle Topology");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
                         alert.setHeaderText("Wrong Input Format");
@@ -301,7 +339,7 @@ public class MainSceneController {
                 grid.setHgap(10);
                 grid.setVgap(10);
                 grid.setPadding(new Insets(25, 25, 25, 25));
-                Text scenetitle = new Text("SmallWorld Graph Config");
+                Text scenetitle = new Text("SmallWorld Topology Config");
                 scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -343,10 +381,10 @@ public class MainSceneController {
                             areaGraphInfo.setText(graph.graphInfo());
                             Layout layout = new SmallWorldLayout(graphVisualize);
                             layout.execute();
-                            LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SmallWorld Graph");
+                            LogManager.getLogger(MainSceneController.class.getName()).info("Done make new SmallWorld Topology");
                             stage.close();
                         }catch (NumberFormatException e) {
-                            LogManager.getLogger(MainSceneController.class.getName()).info("Error when make SmallWorld Graph");
+                            LogManager.getLogger(MainSceneController.class.getName()).info("Error when make SmallWorld Topology");
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error Dialog");
                             alert.setHeaderText("Wrong Input Format");
@@ -365,11 +403,11 @@ public class MainSceneController {
 
     @FXML
     public void toggleGraphInfo() {
-        if(btnGraphInfo.getText().equals("Show Graph Info")){
-            btnGraphInfo.setText("Hide Graph Info");
+        if(btnGraphInfo.getText().equals("Show Topology Info")){
+            btnGraphInfo.setText("Hide Topology Info");
             areaGraphInfo.setVisible(true);
         }else {
-            btnGraphInfo.setText("Show Graph Info");
+            btnGraphInfo.setText("Show Topology Info");
             areaGraphInfo.setVisible(false);
         }
     }
@@ -377,13 +415,13 @@ public class MainSceneController {
     @FXML
     public void exportGraph() {
         if(graph == null) {
-            LogManager.getLogger(MainSceneController.class.getName()).info("There is no graph to import");
+            LogManager.getLogger(MainSceneController.class.getName()).info("There is no topology to import");
         }else {
             Date date = new Date() ;
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd_HH-mm-ss") ;
             String path = graph.type + "_" + dateFormat.format(date) + ".bat";
             graph.writeToFile(path);
-            LogManager.getLogger(MainSceneController.class.getName()).info("Done export graph to file: " + path);
+            LogManager.getLogger(MainSceneController.class.getName()).info("Done export topology to file: " + path);
         }
     }
 
@@ -432,7 +470,7 @@ public class MainSceneController {
                     }
                     areaGraphInfo.setText(graph.graphInfo());
                     layout.execute();
-                    LogManager.getLogger(MainSceneController.class.getName()).info("Done import graph from file: " + path);
+                    LogManager.getLogger(MainSceneController.class.getName()).info("Done import topology from file: " + path);
                     stage.close();
 
                 }catch (Exception e) {

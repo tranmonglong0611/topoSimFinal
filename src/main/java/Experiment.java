@@ -21,32 +21,38 @@ import java.util.List;
 public class Experiment {
 
     public static void main(String[] args) {
-        Experiment experiment = new Experiment();
-        experiment.something();
-    }
-    public void something() {
-
-        //tao graph moi
-        //
         FatTreeTopology topo = new FatTreeTopology(4);
         FatTreeRouting routing = new FatTreeRouting(topo);
+        Experiment.doSim(topo, routing, 100, true, true, true);
+    }
+    public static void topoStatisTic(Topology topo, RoutingAlgorithm routing) {
         Report.getTopoInfoFile().append(topo.toString());
+        TheoryParam theoryParam = new TheoryParam(topo, routing);
+        Report.endSim();
+    }
 
+    public static void doSim(Topology topo, RoutingAlgorithm routing, int numPacket, boolean topoInfoExport, boolean isTracing, boolean theoryParamCal) {
 
-        doExperiment(topo, routing, 10, true);
-        TheoryParam theoryParam = new TheoryParam(topo, routing, true);
+        if(topoInfoExport) {
+            Report.getTopoInfoFile().append(topo.toString());
+        }
+        doExperiment(topo, routing, numPacket, isTracing);
+        if(theoryParamCal) {
+            TheoryParam theoryParam = new TheoryParam(topo, routing);
+        }
+
         Report.endSim();
 
 
     }
-    public void doExperiment(Topology topo, RoutingAlgorithm routing, int numPacket, boolean isTracing) {
+    private static void doExperiment(Topology topo, RoutingAlgorithm routing, int numPacket, boolean isTracing) {
         EventSim sim = new EventSim(99999999999999L, isTracing);
         List<Pair<Integer, Integer>> traffic = makeRandomTraffic(topo, routing, numPacket);
         Network net = new Network(topo, routing);
         runSim(sim, net, traffic);
     }
 
-    public static List<Pair<Integer, Integer>> makeRandomTraffic(Topology topo, RoutingAlgorithm routing, int numPacket) {
+    private static List<Pair<Integer, Integer>> makeRandomTraffic(Topology topo, RoutingAlgorithm routing, int numPacket) {
         List<Pair<Integer, Integer>> traffic = new ArrayList<>();
         int numSent = 0;
         while(numSent < numPacket) {
@@ -61,7 +67,7 @@ public class Experiment {
         return traffic;
     }
 
-    public void runSim(EventSim sim, Network net, List<Pair<Integer, Integer>> traffic) {
+    private static void runSim(EventSim sim, Network net, List<Pair<Integer, Integer>> traffic) {
         for (Pair<Integer, Integer> pair : traffic) {
             int destination = pair.getValue();
             int source = pair.getKey();
@@ -83,7 +89,7 @@ public class Experiment {
         sim.process();
     }
 
-    public List<Integer> randomErrorSwitch(Topology topo, int percent) {
+    public static List<Integer> randomErrorSwitch(Topology topo, int percent) {
         ArrayList<Integer> errorSwitch = new ArrayList<>();
 //        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
         int numSwitch = topo.switches().size();

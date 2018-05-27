@@ -95,19 +95,15 @@ public class Report {
         LogManager.getLogger(Report.class.getName()).info("All info of the simulation was saved to " + folderName);
 
         if(traceFile != null) {
-            System.out.println("trace");
             traceFile.close();
         }
         if(resultFile != null) {
-            System.out.println("reuslt");
             resultFile.close();
         }
         if(graphFile != null) {
-            System.out.println("graph");
             graphFile.close();
         }
         if(topoTheoryParamFile != null) {
-            System.out.println("topo");
             topoTheoryParamFile.close();
         }
     }

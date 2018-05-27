@@ -165,6 +165,11 @@ public class SpaceShuffleTopology extends Topology {
     }
 
     @Override
+    public String generalInfo() {
+        return this.type + "(" + nSwitch + "," + nPort + "," + nDimension + ")";
+    }
+
+    @Override
     public boolean isHostVertex(int v) {
         return hosts.contains(v);
     }

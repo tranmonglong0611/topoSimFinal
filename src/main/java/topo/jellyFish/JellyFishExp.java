@@ -21,13 +21,13 @@ public class JellyFishExp {
 
         Logger logger = LogManager.getLogger(JellyFishTopology.class.getName());
 
-        JellyFishTopology jlGraph = new JellyFishTopology(256, 8, 4);
+        JellyFishTopology jlGraph = new JellyFishTopology(320, 8, 4);
 
         ArrayList<Integer> errorSwitch = new ArrayList<>();
-//        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
+////        FatTreeRouting ftRouting = new FatTreeRouting(ftGraph);
         int numSwitch = jlGraph.switches().size();
-
-        for(int i = 0; i < 55 * numSwitch / 100; i++) {
+//
+        for(int i = 0; i < 5 * numSwitch / 100; i++) {
             int random = (int)(Math.random() * numSwitch);
             int eSwitch = jlGraph.switches().get(random);
 

@@ -39,6 +39,8 @@ public abstract class Topology implements Serializable, Cloneable {
 
     public abstract List<Integer> switches();
 
+    public abstract String generalInfo();
+
     public List<Integer> adj(int v) {
         return adj[v];
     }
@@ -216,11 +218,14 @@ public abstract class Topology implements Serializable, Cloneable {
 
     public String toString() {
         String result = "";
-        result += String.format("+--------------------------------------------------------------------------+%n");
-        result += String.format("|                          Graph Info                                      |%n");
-        result += String.format("+--------------------------------------------------------------------------+%n");
-        result += String.format("| Vertex               | Adjacency Vertex                                  |%n");
-        result += String.format("+--------------------------------------------------------------------------+%n");
+        result += String.format("+-------------------------------------------------------------------------------------------------+%n");
+        result += String.format("|                          Topology Info                                                          |%n");
+        result += String.format("+-------------------------------------------------------------------------------------------------+%n");
+        result += String.format("|                                 %-63s |%n", this.generalInfo());
+        result += String.format("+-------------------------------------------------------------------------------------------------+%n");
+
+        result += String.format("| Vertex               | Type                 |                 Adjacency Vertex                  |%n");
+        result += String.format("+-------------------------------------------------------------------------------------------------+%n");
 
 
         for (int i = 0; i < numV; i++) {
@@ -232,8 +237,10 @@ public abstract class Topology implements Serializable, Cloneable {
             }
             adjacency += adj[i].get(adj[i].size() - 1);
 
-            result += String.format(Format.GraphFormat, vertex, adjacency);
-            result += String.format("+--------------------------------------------------------------------------+%n");
+            String type = isHostVertex(i) ? "Host" : "Switch";
+
+            result += String.format(Format.GraphFormat, vertex, type, adjacency);
+            result += String.format("+-------------------------------------------------------------------------------------------------+%n");
         }
         return result;
     }
@@ -252,4 +259,5 @@ public abstract class Topology implements Serializable, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
+
 }

@@ -158,6 +158,11 @@ public class FatTreeTopology extends Topology {
         return switches;
     }
 
+    @Override
+    public String generalInfo() {
+        return this.type + "(" + this.k + ")";
+    }
+
     public boolean isHostVertex(int u) {
         return hosts.contains(u);
     }

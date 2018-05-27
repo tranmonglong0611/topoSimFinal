@@ -173,6 +173,11 @@ public class JellyFishTopology extends Topology {
     }
 
     @Override
+    public String generalInfo() {
+        return this.type + "(" + nSwitch + "," + nPort + "," + r + ")";
+    }
+
+    @Override
     public boolean isHostVertex(int v) {
         if (this.hosts.contains(v)) return true;
         return false;
