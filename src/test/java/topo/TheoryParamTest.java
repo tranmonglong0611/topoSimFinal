@@ -1,13 +1,14 @@
 package topo;
 
 import org.junit.jupiter.api.Test;
-import topo.fatTree.FatTreeTopology;
-import topo.fatTree.FatTreeRouting;
-import topo.jellyFish.JellyFishTopology;
-import topo.jellyFish.K_ShortestPathRouting;
-import topo.smallWorld.SmallWorldTopology;
-import topo.spaceShuffle.SpaceShuffleTopology;
-import topo.spaceShuffle.SpaceShuffleRouting;
+import tamolo.topo.TheoryParam;
+import tamolo.topo.fatTree.FatTreeTopology;
+import tamolo.topo.fatTree.FatTreeRouting;
+import tamolo.topo.jellyFish.JellyFishTopology;
+import tamolo.topo.jellyFish.K_ShortestPathRouting;
+import tamolo.topo.smallWorld.SmallWorldTopology;
+import tamolo.topo.spaceShuffle.SpaceShuffleTopology;
+import tamolo.topo.spaceShuffle.SpaceShuffleRouting;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,5 +1,5 @@
-import topo.fatTree.FatTreeRouting;
-import topo.fatTree.FatTreeTopology;
+import tamolo.topo.fatTree.FatTreeRouting;
+import tamolo.topo.fatTree.FatTreeTopology;
 /*
     author tamolo
     date 5/1/18
